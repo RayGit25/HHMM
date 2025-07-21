@@ -1,0 +1,46 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Asignación de Opciones de Perfil";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div class="form-grupo">
+			<p><span id="spnMensaje" class="Mensaje"></span></p>
+		</div>
+		<div style="text-align: center; padding-top: 20px;" class="form-grupo fila">
+			<div class="tam-6">
+				<span>Seleccione un perfil</span>
+			</div>
+			<div class="tam-18">
+				<select id="cboPerfil"></select>
+				<span class="boton" onclick="abrirPopup('PopupPrivilegio');" id="btnprivilegios" style="display: none">Privilegios</span>
+				<input id="btnGrabar" type="button" style="display: none" value="Grabar" class="boton" />
+			</div>
+		</div>
+		<div id="divMenu" class="form-grupo">
+			<div id="divPrivilegio"></div>
+
+			@*<ul id="ulPrincipal" style="list-style: none">
+					<li data-id='-1'>
+						<i>°</i><input type='checkbox' id="chkPrincipal" /><span>Honorarios Médicos</span>
+						<ul id="ulMenu"></ul>
+					</li>
+				</ul>*@
+		</div>
+	</div>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<script src="~/Scripts/AsignacionPerfil.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HistorialCambio</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cuerpo">
+        <div id="divHistorial" >
+			<table class='tabla-general'>
+				<thead class='tabla-FilaCab'>
+					<tr class='cabecera'>
+						<th style="width:10%">
+							<span id="spn0" class="Enlace" data-orden="0">Acción</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+						<th style="width:15%">
+							<span id="spn1" class="Enlace" data-orden="0">Campo</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+						<th style="width:20%">
+							<span id="spn2" class="Enlace" data-orden="0">Valor Inicial</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+						<th style="width:20%">
+							<span id="spn3" class="Enlace" data-orden="0">Valor Final</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+						<th style="width:20%">
+							<span id="spn4" class="Enlace" data-orden="0">Nombre Completo</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+						<th style="width:15%">
+							<span id="spn5" class="Enlace" data-orden="0">Fecha de Creación</span><br />
+							<input type='text' class='Texto' name='cabecera' style='width:90%'>
+						</th>
+					</tr>
+				</thead>
+				<tbody id='tbHistorial' class='tabla-FilaCuerpo'></tbody>
+				<tfoot>
+					<tr><td id='tdPaginas' colspan="6"></td></tr>
+				</tfoot>
+			</table>
+        </div>
+		<input type="hidden" id="hdfT" value="@ViewBag.Tabla"/>
+		<input type="hidden" id="hdfI" value="@ViewBag.Id"/>
+    </div>
+	<script src="~/Scripts/HistorialCambio.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

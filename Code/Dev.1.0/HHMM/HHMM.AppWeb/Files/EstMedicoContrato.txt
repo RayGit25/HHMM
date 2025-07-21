@@ -1,0 +1,7 @@
+﻿SucursalId
+MedicoContratoId
+FechaInicio
+FechaFin
+Medico
+Observacion
+EstadoRegistro

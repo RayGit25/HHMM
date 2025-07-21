@@ -1,0 +1,111 @@
+﻿.jtse-tags {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	display: inline-block;
+	padding: 4px 6px;
+	margin-bottom: 10px;
+	color: #555;
+	vertical-align: middle;
+	border-radius: 4px;
+	max-width: 100%;
+	line-height: 22px;
+	cursor: text;
+	position: relative;
+}
+
+	.jtse-tags div:first-child {
+		overflow-y: auto;
+	}
+
+	.jtse-tags div:last-child {
+		width: 100%;
+		left: 0px;
+		display: block;
+		position: absolute;
+		max-height: 150px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		overflow-y: auto;
+		padding: 6px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+		margin-top: 2px;
+		z-index: 10;
+	}
+
+	.jtse-tags input {
+		line-height: normal;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		margin: 0;
+		font: inherit;
+		color: inherit;
+		border: none;
+		box-shadow: none;
+		outline: none;
+		background-color: transparent;
+		padding: .3em .6em .3em;
+		margin: 0;
+		width: auto !important;
+		max-width: inherit;
+	}
+
+	.jtse-tags i {
+		color: #fff;
+		background-color: #46be8a;
+		padding: 5px;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+
+	.jtse-tags ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.jtse-tags li {
+		cursor: pointer;
+		padding: 5px;
+	}
+
+		.jtse-tags li:hover {
+			background-color: rgba(98, 168, 234, 0.8);
+			color: #fff;
+			border-radius: 4px;
+		}
+
+	.jtse-tags .tag {
+		margin: 0px 2px 3px 0px;
+		color: white;
+	}
+
+		.jtse-tags .tag [data-role="remove"] {
+			margin-left: 8px;
+			cursor: pointer;
+		}
+
+			.jtse-tags .tag [data-role="remove"]:after {
+				content: "x";
+				padding-left: 2px;
+			}
+
+	.jtse-tags .label-info {
+		background-color: #62a8ea;
+	}
+
+	.jtse-tags .label {
+		display: inline-block;
+		padding: .3em .6em .3em;
+		font-size: 100%;
+		font-weight: 700;
+		line-height: 1;
+		color: #fff;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}

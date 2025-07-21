@@ -1,0 +1,65 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Detalle de Conceptos OA";
+}
+
+<!DOCTYPE html>
+
+<html style="height: 100%">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow: hidden; height: 100%">
+	<div>
+		<div class="frm-cuerpo;height:100%">
+			<div class="form-grupo fila centrado">
+				<div class="form-grupo fila">
+					<div class="tam-7" style="float: right; padding: 3px 0">
+						<a class="boton" id="btnExcelDetalleError" style="margin: 2px 0">Exportar a Excel</a>
+					</div>
+					<div class="tam-15" style="float: right; padding: 3px 0">
+						<span style="font-weight: bold">Total: </span><span id="spnTotal">0</span>
+					</div>
+
+				</div>
+			</div>
+			<br />
+			<div class="fila" style="height: 100%">
+				<ul id="ulTabs" class="tabs">
+					<li class="tab-link current" data-tab="tab-1" onclick="mostrarTabs(this,'ulTabs');" id="ctab1">Producción</li>
+					<li class="tab-link" data-tab="tab-2" onclick="mostrarTabs(this,'ulTabs');" id="ctab2">Horario</li>
+					<li class="tab-link" data-tab="tab-3" onclick="mostrarTabs(this,'ulTabs');" id="ctab3">Monto Fijo</li>
+				</ul>
+				<div id="tab-1" class="tab-content current" style="height: 400px;">
+					<div class="form-grupo fila" style="overflow: auto">
+						<div id="divPrincipal" class="tabla" style="width: 4800px"></div>
+					</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionPrincipal"></div>
+					</div>
+				</div>
+				<div id="tab-2" class="tab-content" style="height: 400px">
+					<div class="form-grupo fila" style="overflow: auto">
+					<div id="divDetalle" class="tabla" style="width: 1250px; margin: 0 auto;"></div>
+						</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionDetalle"></div>
+					</div>
+				</div>
+				<div id="tab-3" class="tab-content" style="height: 400px;">
+					<div class="form-grupo fila" style="overflow: auto">
+					<div id="divMonto" class="tabla" style="width: 1250px; margin: 0 auto;"></div>
+						</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionMonto"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfDatos" value="@ViewBag.Datos" />
+	<script src="~/Scripts/PlanillaDetalleConceptoOA.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

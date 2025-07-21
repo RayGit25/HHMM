@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Configuración de Correos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/ResponsableCorreoListar.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+        <div id="divResponsableCorreo" class="tabla tabla-fix"></div>
+    </div>
+    @*Ventana Popup*@
+    <div id="PopupResponsableCorreo" class="PopUp">
+        <div style="width: 940px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 940px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupResponsableCorreo');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupResponsableCorreo"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Sucursal :</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtSucursal" class="form-texto lectura" style="width: 100%" maxlength="10" readonly>
+                            </div>
+							  <div class="tam-6">
+                                <span>Responsable <span class="Mensaje">(*)</span>:</span>
+                            </div>
+                            <div class="tam-13">
+                                <select id="cboResponsable" class="validar" data-secuencia="1" data-validacion="validarCombo|Responsable" style="width: 104%"></select>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                          <div class="tam-6">
+                                <span>Usuario :</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtUsuario" class="form-texto lectura" value="" style="width: 100%" maxlength="80" readonly>
+                            </div>
+							<div class="tam-6">
+                                <span>Correo :</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtCorreo" class="form-texto lectura" value="" style="width: 100%" maxlength="80" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Asunto</span>
+                            </div>
+                            <div class="tam-60" style="width:688px">
+                                <input type="text" id="txtAsunto" class="form-texto CopiarValores" value="" style="width: 100%;resize:none" maxlength="80">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila" style="display:table">
+                            <div class="tam-6" style="vertical-align:top;padding-right:14px">
+                                <span>Cuerpo</span>
+                            </div>
+                            <div class="tam-21">
+                                <textarea rows="10" cols="80" id="txtCuerpo" class="form-texto CopiarValores" value="" style="width: 100%;resize:none;overflow-y:auto" maxlength="2000"> </textarea>
+                            </div>
+							<div class="tam-10" style="vertical-align:top">
+                                <span>Variables :</span><br /><br />
+								<div id="txtVariables" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtEstado" class="form-texto lectura" value="ACTIVO" style="width: 100%" maxlength="5" readonly>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupResponsableCorreo')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Esta seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe id="txtExportar" style="display:none"></iframe>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <input type="hidden" id="hdfResponsableCorreoId" value="-1" />
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <script src="~/Scripts/ResponsableCorreoListar.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

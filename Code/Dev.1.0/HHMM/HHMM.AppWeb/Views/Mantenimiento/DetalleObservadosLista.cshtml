@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cuerpo">
+		<span style="color:#8B91A0">Especialidad: <span id="spnEspecialidad"></span></span><br /><br />
+		<div id="divObservado" class="tabla" style="width: 2500px"></div>
+	</div>
+	<input type="hidden" id="hdfDatos" value="@ViewBag.Datos"/>
+	<script src="~/Scripts/DetalleObservadosLista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

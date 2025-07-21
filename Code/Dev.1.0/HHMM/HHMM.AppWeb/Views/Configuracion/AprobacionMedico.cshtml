@@ -1,0 +1,161 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AprobacionMedico</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+<div class="frm-cabecera">Aprobación de rol médico</div>
+	<div class="frm-cuerpo">
+		<div>
+			<p><span id="spnMensaje" class="Mensaje" /></p>
+		</div>
+		<div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div class="tam-4" style="text-align: left;">
+					<span>Médico</span>
+				</div>
+				<div class="tam-10" style="text-align: left;">
+					<input id="txtMedico" type="text" class="form-texto limpiar lectura" placeholder="Médico" readonly style="width: 100%" />
+				</div>
+				<div class="tam-1" style="text-align: left;">
+					<span class="Icons fa-search" id="spnDoctor"></span>
+				</div>
+
+				<div class="tam-4" style="text-align: left">
+					<span>Periodo</span>
+				</div>
+				<div class="tam-5" style="text-align: left">
+					<select id="cboPeriodo" style="width: 100px" class="limpiar">
+						<option value="1" selected>Enero</option>
+						<option value="2">Febrero</option>
+						<option value="3">Marzo</option>
+						<option value="4">Abril</option>
+						<option value="5">Mayo</option>
+						<option value="6">Junio</option>
+						<option value="7">Julio</option>
+						<option value="8">Agosto</option>
+						<option value="9">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="tam-4">
+					<input id="txtAnio" type="text" style="width: 80px" class="form-texto" placeholder="Año" />
+				</div>	
+				
+				<div class="tam-4" style="text-align: left">
+					<span id="btnBuscar"  class="boton">Buscar</span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span id="btnLimpiar" class="boton">Limpiar</span>
+				</div>
+				<div class="tam-3" id="divultimo" style="padding-left:0px;">
+				</div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-4" style="text-align: left">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-10" style="text-align: left">
+					<input id="txtEmpresa" type="text" class="form-texto lectura limpiar" placeholder="Empresa" readonly style="width: 100%" />
+				</div>
+				<div class="tam-1" style="text-align: left">
+					<span class="Icons fa-search" id="spnEmpresaBusqueda"></span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span>Turno</span>
+				</div>
+				<div class="tam-10" style="text-align: left">
+					<select id="cboTurno" style="width: 106%" class="limpiar"></select>
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<span>Unidad Médica</span>
+				</div>
+				<div class="tam-6">
+					<select id="cboUnidadMedica" style="width: 105%"></select>
+				</div>
+			</div>
+		</div>
+		<div id="tab-1" class="tab-content current" style="padding:0px;">
+			<ul id="ulTabsX" class="tabs">
+				<li id="tab1" class="tab-link current" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsX');">Médicos&nbsp;<span id="numReg1"></span></li>
+				<li id="tab2" class="tab-link" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsX');">Calendario&nbsp;<span id="numReg2"></span></li>
+			</ul>
+			<div id="tabx-1" class="tab-content current">
+				<div class="form-grupo fila">
+				<div style="padding-right:10px;padding-bottom:10px;text-align:center">
+				<span id="btnGrabarTabla"  class="boton" >Aprobar</span>
+				</div>
+					<div id="divTabla" class="tabla"></div>
+				</div>
+			</div>
+			<div id="tabx-2" class="tab-content">
+				<div class="form-grupo fila">
+				<div style="padding-right:10px;padding-bottom:10px;text-align:center">
+				<span id="btnGrabar"  class="boton">Aprobar</span>
+				<a class="Icons fa-file-excel-o" id="btnExportar" style="font-size:15px;cursor:pointer;float:right;padding:0px 4px"></a>&nbsp;	
+				<a class="Icons fa-file-pdf-o" id="btnExportarPDF" style="font-size:15px;cursor:pointer;float:right;"></a>
+
+				</div>
+					<div style="clear:both"></div>
+					<div id="divResultado"></div>
+					<br />
+					<div style="float:right">
+						<span>Total de horas asignadas <span id="spnSumatoriaTotal"></span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');recargarIframe('ifrMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MÉDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+	<input type="hidden" id="hdfFecha" value="@ViewBag.fecha" />
+	<input type="hidden" id="hdfMedico" value="@ViewBag.medicoId" />
+	<input type="hidden" id="hdfSucursal" value="@ViewBag.Sucursal" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<input type="hidden" id="hdfSeg" value="@ViewBag.idSeg" />
+	<input type="hidden" id="url" value="@Url.Content("~")"/>
+	<script src="~/Scripts/AprobacionMedico.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

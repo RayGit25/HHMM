@@ -1,0 +1,644 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Configuración de Proceso - Provisión";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/ProcesoProvisionLista.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<style>
+		.bloquear {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			z-index: 100;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div>
+			<p><span id="spnMensaje" class="Mensaje" /></p>
+		</div>
+		<div id="divPrincipal">
+			<div class="form-grupo fila centrado">
+				<br />
+				<div class="form-grupo fila">
+					<div class="tam-5" style="text-align: left">
+						<span>Sucursal</span>
+					</div>
+					<div class="tam-12">
+						<input id="txtSucursal" type="text" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|Sucursal" maxlength="20" style="width: 100%;" readonly />
+					</div>
+					<div class="tam-1">
+					</div>
+					<div class="tam-6" style="text-align: left">
+						<span>Médico</span>
+					</div>
+					<div class="tam-12">
+						<input id="txtMedico" type="text" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+					</div>
+					<div class="tam-1">
+						<span class="Icons fa-search puntero" id="spnDoctor"></span>
+					</div>
+					<div class="tam-5">
+					</div>
+				</div>
+				<div class="form-grupo fila">
+					<div class="tam-5" style="text-align: left">
+						<span>Período</span>
+					</div>
+					<div class="tam-8">
+						<select id="cboMes" class="validar" data-secuencia="1" data-validacion="validarCombo|Período" style="width: 100%;">
+							<option value="0">Seleccione</option>
+							<option value="1">Enero</option>
+							<option value="2">Febrero</option>
+							<option value="3">Marzo</option>
+							<option value="4">Abril</option>
+							<option value="5">Mayo</option>
+							<option value="6">Junio</option>
+							<option value="7">Julio</option>
+							<option value="8">Agosto</option>
+							<option value="9">Setiembre</option>
+							<option value="10">Octubre</option>
+							<option value="11">Noviembre</option>
+							<option value="12">Diciembre</option>
+						</select>
+					</div>
+					<div class="tam-3">
+						<input id="txtAnio" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Anio" maxlength="4" placeholder="" style="width: 90%;" onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+					</div>
+					<div class="tam-1">
+					</div>
+					<div class="tam-6" style="text-align: left">
+						<span>Fechas</span>
+					</div>
+					<div class="tam-4" style="padding-left: 5px;">
+						<input id="txtFechaInicio" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Fecha Inicio" maxlength="10" placeholder="" style="width: 100%;" />
+					</div>
+					<div class="tam-1">
+						<span class="Icons fa-calendar"></span>
+					</div>
+					<div class="tam-4" style="padding-left: 20px;">
+						<input id="txtFechaFin" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Fecha Fin" maxlength="10" placeholder="" style="width: 100%;" />
+					</div>
+					<div class="tam-1">
+						<span class="Icons fa-calendar"></span>
+					</div>
+					<div class="tam-5">
+						<span style="width: 100%; display: block" id="btnBuscar" class="boton btn-centrado">Buscar</span>
+					</div>
+
+				</div>
+
+				<div class="form-grupo fila">
+					<div class="tam-5" style="text-align: left">
+						<span>Código OA</span>
+					</div>
+					<div class="tam-12">
+						<input id="txtOrden" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Orden de Admisión" maxlength="15" placeholder="" style="width: 100%;" onkeypress="validarSoloNumero(event)" />
+					</div>
+					<div class="tam-1">
+					</div>
+					<div class="tam-6" style="text-align: left">
+						<span>Paciente</span>
+					</div>
+					<div class="tam-12">
+						<input id="txtPaciente" type="text" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|Paciente" maxlength="4" placeholder="" style="width: 100%;" readonly />
+					</div>
+					<div class="tam-1">
+						<span class="Icons fa-search puntero" id="spnIcoPaciente"></span>
+					</div>
+					<div class="tam-5">
+					</div>
+				</div>
+			</div>
+			<br />
+			<div id="divProceso" class="tabla tabla-fix"></div>
+			<br />
+			<span style="float: right">Monto Total: <span id="spnTotal"></span></span>
+		</div>
+		<div id="divDetalleDoctor" style="display: none">
+			<div style="text-align: center" class="form-grupo fila">
+				<div class="form-grupo fila">
+					<div class="tam-5 izquierda">
+						<span>Periodo</span>
+					</div>
+					<div class="tam-5">
+						<input type="text" class="lectura" style="width: 100%" id="txtDetalleDoctorPeriodo" readonly />
+					</div>
+					<div class="tam-5 izquierda">
+						<span>Fecha</span>
+					</div>
+					<div class="tam-6">
+						<input type="text" class="lectura" style="width: 100%" id="txtDetalleDoctorFechaInicio" readonly />
+					</div>
+					<div class="tam-6">
+						<input type="text" class="lectura" style="width: 100%" id="txtDetalleDoctorFechaFin" readonly />
+					</div>
+					<div class="tam-5 izquierda">
+						<span>Tipo Admisión</span>
+					</div>
+					<div class="tam-6">
+						<input type="text" class="lectura" style="width: 100%" id="txtDetalleDoctorTipoAdmision" readonly />
+					</div>
+				</div>
+				<ul class="ribbon" id="divOpcionesProvision">
+					<li class="active" data-estado="P">Pendiente<span id="spnOpcProv1"></span></li>
+					<li data-estado="C">Calculado<span id="spnOpcProv2"></span></li>
+					<li data-estado="A">Autorizado<span id="spnOpcProv3"></span></li>
+					<li data-estado="F">Provisionado<span id="spnOpcProv4"></span></li>
+					<li data-estado="G">Pagado<span id="spnOpcProv5"></span></li>
+				</ul>
+				<br />
+				<ul id="ulTabs" class="tabs">
+					<li class="tab-link current" onclick="mostrarTabs(0);" data-id="0" style="height: 15px">Sin Configuración&nbsp;<span class="tab-conteo" id="spnTabConfiguracion0">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(1);" data-id="1" style="height: 15px">Producción&nbsp;<span class="tab-conteo" id="spnTabConfiguracion1">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(2);" data-id="2" style="height: 15px">Escalonada&nbsp;<span class="tab-conteo" id="spnTabConfiguracion2">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(3);" data-id="3" style="height: 15px">Monto Fijo&nbsp;<span class="tab-conteo" id="spnTabConfiguracion3">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(4);" data-id="4" style="height: 15px">Por Horarios&nbsp;<span class="tab-conteo" id="spnTabConfiguracion4">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(5);" data-id="5" style="height: 15px">Por Turnos&nbsp;<span class="tab-conteo" id="spnTabConfiguracion5">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(6);" data-id="6" style="height: 15px">C. Compartido&nbsp;<span class="tab-conteo" id="spnTabConfiguracion6">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(7);" data-id="7" style="height: 15px">Vacunas&nbsp;<span class="tab-conteo" id="spnTabConfiguracion7">0</span></li>
+					<li class="tab-link" onclick="mostrarTabs(8);" data-id="8" style="height: 15px">Descuentos&nbsp;<span class="tab-conteo" id="spnTabConfiguracion8">0</span></li>
+				</ul>
+				<br />
+				<div id="divDetalle" class="tabla"></div>
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<div id="divDetalleBotonera" class="totop" style="text-align: center">
+					<div class="tam-25">
+
+						<span class="boton" id="btnDetalleRevertirProvisionado" style="margin: 0px 4px 0px">Revertir Provisión</span>
+						<span class="boton" id="btnDetalleCalcular" style="margin: 0px 4px 0px">Calcular</span>
+						<span class="boton" id="btnDetalleAnular" style="margin: 0px 4px 0px">Anular</span>
+						<span class="boton" id="btnDetalleAutorizar" style="margin: 0px 4px 0px">Autorizar</span>
+						<span class="boton" id="btnDetalleProvisionar" style="margin: 0px 4px 0px">Provisionar</span>
+						<span class="boton" id="btnDetalleRevertir" style="margin: 0px 4px 0px">Revertir</span>
+						<span class="boton" id="btnDetalleDescargar" style="margin: 0px 4px 0px">Descargar</span>
+						<span class="boton" id="btnDetalleCancelar" style="margin: 0px 4px 0px">Regresar</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	@*Ventana Popup*@
+	<div id="PopupProceso" class="PopUp">
+		<div style="width: 820px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 650px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupProceso');mensajeValidacion=[]"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupProceso"></h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det" style="display: inline-block;">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Sucursal :</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtSucursalMant" class="form-texto lectura" style="width: 100%" readonly>
+                            </div>
+                            <div class="tam-4">
+                                <span>Periodo :</span>
+                            </div>
+                            <div class="tam-8">
+                                <select id="cboPeriodoMant" class="validar" data-secuencia="0" data-validacion="validarCombo|Período" style="width: 100%;"></select>
+                            </div>
+                            <div class="tam-4" style="text-align: center;">
+                                <label><input type="checkbox" id="chkPorDias">Por Días</label>
+                            </div>
+                        </div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Tipo Admisión :</span>
+							</div>
+							<div class="tam-10">
+								<select id="cboTipoAdmisionMant" class="validar" data-secuencia="1" data-validacion="validarCombo|Tipo de Admisión" style="width: 100%;"></select>
+							</div>
+							<div class="tam-4">
+								<span>Fecha :</span>
+							</div>
+							<div class="tam-5">
+								<input type="text" id="txtFechaInicioMant" class="form-texto validar" data-secuencia="3" data-validacion="validarFecha|fecha inicio" style="width: 100%" readonly>
+							</div>
+							<div class="tam-5">
+								<input type="text" id="txtFechaFinMant" class="form-texto validar" data-secuencia="4" data-validacion="validarFecha|fecha fin" style="width: 100%" readonly>
+							</div>
+						</div>
+						<div class="form-grupo fila centrado" id="divConfiguraciones" style="display: none">
+						</div>
+						<div class="form-grupo fila">
+							<div>
+								<textarea rows="7" cols="80" id="txtObservacionMant" class="form-texto validar" value="" data-secuencia="2" data-validacion="validarTexto|Observación" style="width: 100%; font-family: Tahoma;" maxlength="80"> </textarea>
+							</div>
+						</div>
+						<div class="form-grupo fila" id="divespecificarOA" style="display: none">
+							<div class="tam-8">
+								<span>Especificar detalle OA :</span>
+							</div>
+							<div class="tam-10">
+								<input type="checkbox" id="chkEspecificarOAMant" />
+							</div>
+						</div>
+						<div class="form-grupo fila" id="divespecificarMedicos" style="display: none">
+							<div class="tam-8">
+								<span>Seleccionar Medicos :</span>
+							</div>
+							<div class="tam-10">
+								<input type="checkbox" id="chkEspecificarMedicosMant" />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Estado :</span>
+							</div>
+							<div class="tam-10">
+								<input type="text" id="txtEstadoMant" class="form-texto lectura" value="ACTIVO" style="width: 100%" readonly>
+							</div>
+							<div class="tam-15">
+								<span class="historial puntero" style="display: none; text-decoration: underline; color: #00a850" id="spnHistorial" onclick="verHistorial('Proceso')">Historial de Cambios</span>
+							</div>
+
+						</div>
+						<div class="form-grupo fila centrado">
+							<div class="tam-13">
+								<span class="boton" id="btngrabar">Grabar</span>
+							</div>
+							<div class="tam-12">
+								<span class="boton" onclick="abrirPopup('PopupProceso');mensajeValidacion=[]">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="hdfSk" value="@ViewBag.socket" />
+	</div>
+	<div id="PopupEstado" class="PopUp">
+		<div style="width: 400px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 230px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-10">
+								¿Esta seguro de cambiar el estado?
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5">
+								<span class="boton" id="btngrabarEstado">Grabar</span>
+							</div>
+							<div class="tam-5">
+								<span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupProvisionDetalleConceptos" class="PopUp">
+		<div style="width: 850px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 690px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupProvisionDetalleConceptos');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloProvisionDetalleConceptos">DETALLE DE FORMA DE PAGO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrProvisionDetalleConceptos"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupProvisionDetalleConceptosOA" class="PopUp">
+		<div style="width: 98%; height: 88%; margin: 2% auto; overflow: hidden" id="ppcabecera">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="position: fixed; display: block" id="CerrarProvisionDetalleConceptosOA"><span class="cerrarPopUp" onclick="abrirPopup('PopupProvisionDetalleConceptosOA');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloProvisionDetalleConceptosOA">DETALLE DE FORMA DE PAGO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrProvisionDetalleConceptosOA"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupActualizarProvision" class="PopUp">
+		<div style="width: 600px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 450px; position: fixed; display: block"><span class="cerrarPopUp" id="spnCancelarProvisionx" onclick="abrirPopup('PopupActualizarProvision');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloActualizarProvision">INTEGRACIÓN CON SPRING</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-25">
+								<span id="spnActualizarProvision"></span>
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5">
+								<span class="boton" id="btngrabarActualizarProvision" data-datos="">Confirmar</span>
+							</div>
+							<div class="tam-5">
+								<span class="boton" id="spnCancelarProvision" onclick="abrirPopup('PopupActualizarProvision')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupPaciente" class="PopUp">
+		<div style="width: 850px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 680px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupPaciente');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupPaciente">BUSCADOR DE PACIENTE</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrPaciente"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 830px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupDetalleOA" class="PopUp">
+		<div style="width: 1200px; margin: 3% auto; overflow: hidden;">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1030px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupDetalleOA');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupDetalleOA">DETALLE DE OA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="form-grupo fila">
+						<div class="tam-5" style="text-align: left">
+							<span>Código OA</span>
+						</div>
+						<div class="tam-12">
+							<input id="txtOADetalle" type="text" class="form-texto" maxlength="15" placeholder="" style="width: 100%;" onkeypress="validarSoloNumero(event)" />
+						</div>
+						<div class="tam-8">
+							<input style="width: 100%;" id="btnBuscarDetalleOA" type="button" value="Buscar" class="boton btn-centrado" />
+						</div>
+
+						<div class="tam-8" style="float: right">
+							<input style="width: 100%;" id="btnExportarExcelDetalleOA" type="button" value="Exportar" class="boton btn-centrado" />
+						</div>
+					</div>
+					<div class="frm-cuerpo-det">
+						<div id="ifrDetalleOA"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupError" class="PopUp">
+		<div style="width: 98%; height: 88%; margin: 2% auto; overflow: hidden">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 730px; position: fixed; display: block" id="CerrarProvisionError"><span class="cerrarPopUp" onclick="abrirPopup('PopupError');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupError">INDICADOR DE ERROR</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila">
+							<div class="tam-4">
+								Observación
+							</div>
+							<div class="tam-25">
+								<span id="spnErrorDescripcion"></span>
+							</div>
+							<div class="tam-5" style="float: right">
+								<a class="boton" id="btnExcelDetalleError">Exportar a Excel</a>
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila">
+							<div id="ifrDetalleError"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupObservado" class="PopUp">
+		<div style="width: 98%; height: 88%; margin: 2% auto; overflow: hidden">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 730px; position: fixed; display: block" id="CerrarProvisionObservado"><span class="cerrarPopUp" onclick="abrirPopup('PopupObservado');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupObservado">INDICADOR DE OBSERVADOS</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila">
+							<div class="tam-4">
+								Observación
+							</div>
+							<div class="tam-25">
+								<span id="spnObservadoDescripcion"></span>
+							</div>
+							<div class="tam-5" style="float: right">
+								<a class="boton" id="btnExcelDetalleObservado">Exportar a Excel</a>
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila">
+							<div id="ifrDetalleObservado"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupErrorConcepto" class="PopUp">
+		<div style="width: 600px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 420px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupErrorConcepto');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupErrorConcepto">OBSERVACIÓN</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-10">
+								<span id="spnErrorConcepto"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupErrorAutorizacion" class="PopUp">
+		<div style="width: 600px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 420px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupErrorAutorizacion');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">OBSERVACIÓN</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-15">
+								<span>Existen médicos pendientes por calcular</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="PopupHistorial" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto;">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 830px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">Historial de Cambio</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrHistorial"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="hdfCd" />
+	</div>
+
+	<div id="PopupDetalle" class="PopUp">
+		<div style="width: 90%; margin-top: 1%;">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 90%; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupDetalle');" style="top: 0px; right: 4px; padding: 6px; font-size: 18px; width: 20px;"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupFeriado">REGISTROS SIN CUENTA CONTABLE ASIGNADA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px; overflow: auto;">
+					<div class="frm-cuerpo-det" style="margin: 0px;">
+						<div id="tab-1" class="tab-content current" style="padding: 0px;">
+							<ul id="ulTabsD" class="tabs">
+								<li class="tab-link current" data-tab="tabx-1" onclick="mostrarTabsDetalle(this);">Producción</li>
+								<li class="tab-link" data-tab="tabx-2" onclick="mostrarTabsDetalle(this);">Monto Fijo</li>
+								<li class="tab-link" data-tab="tabx-3" onclick="mostrarTabsDetalle(this);">Horario</li>
+								<li class="tab-link" data-tab="tabx-4" onclick="mostrarTabsDetalle(this);">Turno</li>
+							</ul>
+							<div id="tabx-1" class="tab-content current">
+								<div class="form-grupo fila">
+									<div id="divProduccion" class="tabla" style="width: 3000px"></div>
+								</div>
+							</div>
+							<div id="tabx-2" class="tab-content">
+								<div class="form-grupo fila">
+									<div id="divMontoFijo" class="tabla" style="width: 3000px"></div>
+								</div>
+							</div>
+							<div id="tabx-3" class="tab-content">
+								<div class="form-grupo fila">
+									<div id="divHorario" class="tabla" style="width: 3000px"></div>
+								</div>
+							</div>
+							<div id="tabx-4" class="tab-content">
+								<div class="form-grupo fila">
+									<div id="divTurno" class="tabla" style="width: 3000px"></div>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupSeleccionMedicos" class="PopUp">
+		<div style="width: 1200px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1030px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupSeleccionMedicos');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">SELECCIONAR MEDICOS</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-6">
+								<span>Nro. Proceso</span>
+							</div>
+							<div class="tam-4">
+								<input type="text" class="lectura" id="txtselpro" readonly style="width:100%" />
+							</div>
+							<div class="tam-6">
+								<span>Descripción</span>
+							</div>
+							<div class="tam-16">
+								<input type="text" class="lectura" id="txtseldes" readonly style="width:100%" />
+							</div>
+						</div>
+						<div class="form-grupo fila centrado">
+							<div id="ifrMedicoSeleccion"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<iframe id="txtExportar" style="display: none"></iframe>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<div id="divBloqueo"></div>
+	<div id="divBloqueoEspecifico"></div>
+	<input type="hidden" id="hdfOpc" value="-1" />
+	<input type="hidden" id="hdfProcesoId" value="-1" />
+	<input type="hidden" id="hdfIdPaciente" value="0" />
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfSeguridad" value="@ViewBag.seguridad" />
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/ProcesoProvisionLista.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+FechaInicio
+FechaFin
+TipoAtencionId
+TipoAdmisionId
+TipoPacienteId
+AseguradoraId
+EspecialidadId
+TurnoId
+TipoValor
+Valor1
+Valor2
+AlcanceArticulo
+TiempoPagoId
+EstadoRegistro

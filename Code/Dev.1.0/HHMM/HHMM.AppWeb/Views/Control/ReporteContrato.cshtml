@@ -1,0 +1,287 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Reporte de Contrato";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+
+	<div id="divMedicoReporte" class="frm-cuerpo" style="margin-top: 10px">
+		<div style='display: inline-block; float: left; cursor: pointer'><a class='Icons fa-file-excel-o' id='btnExportarMedico'></a></div>
+		</br></br>
+		<div style="width: 100%; overflow-x: auto">
+			<ul id="ulTabsX" class="tabs">
+				<li class="tab-link current" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsX');">Médico</li>
+				<li class="tab-link" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsX');">Componente</li>
+			</ul>
+			<div id="tabx-1" class="tab-content current" style="overflow:auto;padding-bottom:0">
+                <div class="form-grupo fila" style="overflow: auto">
+				<div id="divPrincipal" class="tabla" style="width: 3500px; overflow: hidden"></div>
+                    </div>
+                <div class="form-grupo fila" style="text-align: center">
+                    <div id="divPaginacionPrincipal"></div>
+                </div>
+				@*<div id="divMedicoContrato" class="tabla" style="width: 3500px; overflow: hidden"></div>
+				*@
+			</div>
+			<div id="tabx-2" class="tab-content">
+                <div class="form-grupo fila" style="overflow:auto">
+				<div id="divComponente" class="tabla" style="overflow: hidden;width:1200px;margin:0 auto"></div>
+                    </div>
+                <div class="form-grupo fila" style="text-align: center">
+                    <div id="divPaginacionComponente"></div>
+                </div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div id="divContratoReporte" class="frm-cuerpo" style="display: none">
+		<div id="reporteSelecion" style="border-bottom: 2px solid #8B91A0; border-top: 2px solid #8B91A0; margin-top: 25px; padding-bottom: 15px; padding-top: 15px; text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div style="width:460px;display:inline-block">
+					<div class="tam-4">
+					<span>Sucursal</span>
+				</div>
+				<div class="tam-9" style="width: 280px">
+					<input type="text" id="txtSucursal" class="lectura" style="width: 100%" readonly />
+				</div>
+						<div class="tam-1"></div>
+				</div>
+				<div style="width: 370px;display:inline-block;">
+					<div class="tam-3" style="text-align: left">
+					<span>Médico</span>
+				</div>
+				<div class="tam-11">
+					<input id="txtMedico" type="text" class="form-texto validar lectura" data-secuencia="0" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+				</div>
+					<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnDoctor"></span>
+				</div>
+				</div>
+				<div style="width: 220px;display:inline-block;text-align: left;">
+							<div class="tam-3">
+					<span class="boton" id="btnLimpiar" style="padding-right: 8px;">Limpiar</span>
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnRegresar">Regresar</span>
+				</div>
+				</div>
+			</div>
+
+				<div class="form-grupo fila">
+				<div style="width:460px;display:inline-block">
+						<div class="tam-5" style="width:84px">
+					<span>Fecha Inicio</span>
+				</div>
+				<div class="tam-4">
+					<input type="text" class="validar" data-secuencia="1" data-obligatorio="true" data-validacion="validarFecha|fecha inicio" style="width: 100%" id="txtFechaInicio" />
+				</div>
+
+				<div class="tam-4" style="width:78px">
+					<span>Fecha Fin</span>
+				</div>
+				<div class="tam-4">
+					<input type="text" class="validar" data-secuencia="2" data-obligatorio="true" data-validacion="validarFecha|fecha fin" style="width: 90%" id="txtFechaFin" />
+				</div>
+						<div class="tam-1"></div>
+				</div>
+				<div style="width: 370px;display:inline-block;">
+<div class="tam-3" style="text-align: left">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-11">
+					<input id="txtEmpresa" type="text" class="form-texto validar lectura" data-obligatorio="true" data-secuencia="3" data-validacion="validarTexto|Empresa" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnEmpresa"></span>
+				</div>
+				</div>
+				<div style="width: 220px;display:inline-block;text-align: left;">
+	<div class="tam-3">
+					<span class="boton" id="btnBuscar">Buscar</span>
+				</div>
+				</div>
+			</div>
+
+						<div class="form-grupo fila">
+				<div style="width:460px;display:inline-block">
+				<div class="tam-4">
+					<span>Componente</span>
+				</div>
+				<div class="tam-9" style="width: 280px">
+					<input type="text" id="txtComponente" class="lectura" style="width: 100%" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnComponente"></span>
+				</div>
+				</div>
+				<div style="width: 370px;display:inline-block;text-align:left">
+			<div class="tam-4" style="text-align: left">
+					<span>Tipo Reporte</span>
+				</div>
+				<div class="tam-10">
+					<span>
+						<input type="radio" name="rdnTipo" value="R" checked />&nbsp;Resumido</span>&nbsp;&nbsp;
+					<span>
+						<input type="radio" name="rdnTipo" value="D" />&nbsp;Detallado</span>
+				</div>
+				</div>
+				<div style="width: 220px;display:inline-block;text-align: left;">
+				</div>
+			</div>
+			
+@*			
+			<div class="form-grupo fila">
+				<div class="tam-4">
+					<span>Sucursal</span>
+				</div>
+				<div class="tam-9" style="width: 280px">
+					<input type="text" id="txtSucursal" class="lectura" style="width: 100%" readonly />
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-3" style="text-align: left">
+					<span>Médico</span>
+				</div>
+				<div class="tam-11">
+					<input id="txtMedico" type="text" class="form-texto validar lectura" data-secuencia="0" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnDoctor"></span>
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnLimpiar" style="padding-right: 8px;">Limpiar</span>
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnRegresar">Regresar</span>
+				</div>
+
+			</div>*@
+	@*		<div class="form-grupo fila">
+				<div class="tam-5">
+					<span>Fecha Inicio</span>
+				</div>
+				<div class="tam-4">
+					<input type="text" class="validar" data-secuencia="1" data-obligatorio="true" data-validacion="validarFecha|fecha inicio" style="width: 100%" id="txtFechaInicio" />
+				</div>
+
+				<div class="tam-4">
+					<span>Fecha Fin</span>
+				</div>
+				<div class="tam-4">
+					<input type="text" class="validar" data-secuencia="2" data-obligatorio="true" data-validacion="validarFecha|fecha fin" style="width: 100%" id="txtFechaFin" />
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-3" style="text-align: left">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-11">
+					<input id="txtEmpresa" type="text" class="form-texto validar lectura" data-obligatorio="true" data-secuencia="3" data-validacion="validarTexto|Empresa" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnEmpresa"></span>
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnBuscar">Buscar</span>
+				</div>
+				<div class="tam-5">
+				</div>
+			</div>*@
+@*			<div class="form-grupo fila">
+				<div class="tam-4">
+					<span>Componente</span>
+				</div>
+				<div class="tam-9" style="width: 280px">
+					<input type="text" id="txtComponente" class="lectura" style="width: 100%" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnComponente"></span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span>Tipo Reporte</span>
+				</div>
+				<div class="tam-10">
+					<span>
+						<input type="radio" name="rdnTipo" value="R" checked />&nbsp;Resumido</span>&nbsp;&nbsp;
+					<span>
+						<input type="radio" name="rdnTipo" value="D" />&nbsp;Detallado</span>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-4"></div>
+				<div class="tam-4"></div>
+			</div>*@
+		</div>
+
+		<div id="divReporte" class="tabla"></div>
+
+	</div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	    <div id="PopupComponente" class="PopUp">
+        <div style="width: 750px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 750px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupComponente');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupComponente">SELECCIONAR COMPONENTE</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrComponente"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<input type="hidden" id="hdfRuta" value="@ViewBag.rutaContrato" />
+	<input type="hidden" id="hdfCom" value="" />
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/ReporteContrato2.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>
+
+
+

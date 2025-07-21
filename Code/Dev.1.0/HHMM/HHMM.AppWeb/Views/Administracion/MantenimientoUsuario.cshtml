@@ -1,0 +1,270 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Mantenimiento de Usuarios";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+
+        <div id="divUsuario" class="tabla">
+        </div>
+    </div>
+
+    @*Ventana Popup Usuarios *@
+    <div id="PopupUsuarios" class="PopUp">
+        <div style="width: 1100px; margin: 2.5% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1100px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupUsuarios');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupUsuarios"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Nombres:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtNombre" class="form-texto validar" data-secuencia="0" data-validacion="validarTexto|nombre" style="width: 100%" maxlength="50">
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Apellido Paterno:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtApPaterno" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Apellido Paterno" style="width: 100%" maxlength="50">
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Apellido Materno:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtApMaterno" class="form-texto validar" data-secuencia="3" data-validacion="validarTexto|Apellido Materno" style="width: 100%" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Fec. Nacimiento:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtFecNacimiento" class="form-texto validar" data-secuencia="4" data-validacion="validarFecha|fecha" style="width: 100%" maxlength="50">
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Tipo Documento:</span>
+                            </div>
+                            <div class="tam-8">
+                                <select style="width: 170px;" id="cboTipoDocumento" class="validar" name="limpiar" data-secuencia="5" data-validacion="validarCombo|tipo de documento">
+                                </select>
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Nro. Documento:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtNroDocumento" class="form-texto validar lectura" data-secuencia="6" data-validacion="validarTexto|numero de documento" style="width: 100%" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Correo:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtCorreo" class="form-texto validar" data-secuencia="7" data-validacion="validarTexto|correo electrónico" style="width: 100%" maxlength="50">
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Perfil:</span>
+                            </div>
+                            <div class="tam-8">
+                                <select id="cboPerfil" style="width: 170px;" class="validar" name="limpiar" data-secuencia="8" data-validacion="validarCombo|perfil">
+                                </select>
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Usuario:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtUsuario" class="form-texto validar" data-secuencia="9" data-validacion="validarTexto|usuario" style="width: 100%" maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Tipo Usuario:</span>
+                            </div>
+                            <div class="tam-8">
+                                <select id="cboTipoUsuario" style="width: 170px;" class="validar" name="limpiar" data-secuencia="10" data-validacion="validarCombo|Tipo Usuario"></select>
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtEstado" class="form-texto lectura" value="ACTIVO" style="width: 100%" maxlength="5" readonly>
+                            </div>
+                            <span class="historial puntero" style="display: none; text-decoration: underline; color: #00a850" id="spnHistorial" onclick="verHistorial('Usuario')">Historial de Cambios</span>
+                        </div>
+
+                        <div class="form-grupo fila" style="width: 900px; margin: 25px 0 0 50px; border-bottom: 1px solid #8B91A0;">
+                            <div class="tam-6" style="margin-left: 20px;">
+                                <span>Compañía</span>
+                            </div>
+                            <div class="tam-6" style="margin-left: 310px;">
+                                <span>Asociar sedes</span>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila" style="margin: 25px;">
+                            <div id="divTablaCompania" class="tabla" style="width: 450px; height: 200px; display: inline-block; margin-left: 50px;">
+                            </div>
+                            <div id="divTablaSucursal" class="tabla" style="width: 450px; height: 200px; display: inline-block; margin-left: 50px;">
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupUsuarios')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @* Ventana Popup Sucursales *@
+    <div id="PopupSucursales" class="PopUp">
+        <div style="width: 800px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupSucursales');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Sucursal Asociada</h5>
+                </div>
+                <input type="hidden" id="txtUsuarioId" />
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Usuario:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtSucUsuario" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80" readonly>
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Nombres:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtSucNombres" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80" readonly>
+                            </div>
+
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Apellido Paterno:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtSucApPaterno" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80" readonly>
+                            </div>
+
+                            <div class="tam-6" style="margin-left: 25px;">
+                                <span>Apellido Materno:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtSucApMaterno" class="form-texto validar lectura" data-secuencia="1" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div id="divTablaSucCompania" class="tabla">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupSucursales')">Cerrar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Esta seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+		<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <script src="~/Scripts/md5.js"></script>
+    <script src="~/Scripts/UsuarioLista.js?v=@ViewBag.versionJS"></script>
+    <script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

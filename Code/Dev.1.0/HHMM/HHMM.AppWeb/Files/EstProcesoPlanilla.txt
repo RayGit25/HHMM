@@ -1,0 +1,11 @@
+﻿PeriodoId
+Sucursal
+ProcesoPlanillaId
+Descripcion
+TipoProceso
+Periodo
+PeriodoFechaInicio
+PeriodoFechaFin
+Cantidad
+Total
+Estado

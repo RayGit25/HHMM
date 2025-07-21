@@ -1,0 +1,143 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Reporte de Planilla con Obligación";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div id="reporteSelecion" style="border-bottom: none; border-top: none; margin-top: 15px; padding-bottom: 15px; padding-top: 5px; text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div class="tam-6">
+					<span>Sucursal</span>
+				</div>
+				<div class="tam-9" style="width: 397px">
+					<input type="text" id="txtSucursal" class="lectura" style="width: 100%" readonly />
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<select id="ddlBusMedEmp" style="width: 105%" name="limpiar">						
+						<option value="1">Médico</option>
+						<option value="2">Empresa</option>
+					</select>
+				</div>
+				<div class="tam-12">
+					<input id="txtMedico" type="text" class="form-texto validar lectura" name="limpiar" data-secuencia="0" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnDoctor"></span>
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnLimpiar" style="padding-right: 8px;">Limpiar</span>
+				</div>
+				<div class="tam-5" style="width:130px">
+				</div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-6">
+					<span>F.Inicio env. CxP</span>
+				</div>
+				<div class="tam-6">
+					<input type="text" class="validar" name="limpiar" data-secuencia="1" data-obligatorio="true" data-validacion="validarFecha|fecha inicio" style="width: 100%" id="txtFechaInicio" />
+				</div>
+
+				<div class="tam-5">
+					<span>F.Fin env. CxP</span>
+				</div>
+				<div class="tam-6">
+					<input type="text" class="validar" name="limpiar" data-secuencia="2" data-obligatorio="true" data-validacion="validarFecha|fecha fin" style="width: 100%" id="txtFechaFin" />
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<span>Usuario Envio CxP</span>
+				</div>
+				<div class="tam-12">
+					<select id="ddlBusUsuario" style="width: 105%" name="limpiar"></select>
+				</div>
+				<div class="tam-1">
+				</div>
+				<div class="tam-4">
+					<span class="boton" id="btnBuscar">Buscar</span>
+				</div>
+				<div class="tam-6">
+				</div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-6">
+					<span>Periodo</span>
+				</div>
+				<div class="tam-6">
+					<select id="ddlBusPeriodo" style="width: 105%" name="limpiar"></select>
+				</div>
+
+				<div class="tam-5">
+					<span>Tipo Admisión</span>
+				</div>
+				<div class="tam-6">
+					<select id="ddlBusTipoAdmision" style="width: 105%" name="limpiar"></select>
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<span>Estado</span>
+				</div>
+				<div class="tam-12">
+					<select id="ddlBusEstado" style="width: 105%" name="limpiar"></select>
+				</div>
+				<div class="tam-1">
+				</div>
+				<div class="tam-4">
+					<a id='aExportarExcel' href='#'><i class='Icons fa-file-excel-o'></i></a>&nbsp;&nbsp;&nbsp;<i class='Icons fa-file-pdf-o puntero' id='aExportarPDF'></i>
+				</div>
+				<div class="tam-6">
+				</div>
+			</div>
+		</div>
+		<div id="divPrincipal" class="tabla" style="display: none"></div>
+	</div>
+	<div id="PopupMedico" class="PopUp no-animacion" style="display:none">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp no-animacion" style="display:none">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfEmpresa" value="0" />
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<input type="hidden" id="hdfuId" value="@ViewBag.usuarioId" />
+	<script src="~/Scripts/ReportePlanillaObligacion.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+﻿PerfilId
+NombrePerfil
+EstadoRegistro

@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Mantenimiento de Tipo de Descuento";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+    <div class="frm-cuerpo">
+        <div id="divTipoDescuento" class="tabla"></div>
+    </div>
+    <div id="PopupTipoDescuento" class="PopUp">
+        <div style="width: 650px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 650px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupTipoDescuento');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupTipoDescuento">TRABAJA CON NOSOTROS</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Código:</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtCodigo" class="form-texto lectura" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Descripción:</span>
+                            </div>
+                            <div class="tam-15">
+                                <input type="text" id="txtDescripcion" class="form-texto validar" data-secuencia="0" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtEstado" class="form-texto lectura" value="ACTIVO" style="width: 100%" readonly>
+                            </div>
+							<span class="historial puntero" style="display:none;text-decoration:underline;color:#00a850" id="spnHistorial" onclick="verHistorial('TipoDescuento')">Historial de Cambios</span>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupTipoDescuento')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                            ¿Esta seguro de cambiar el estado?
+                                </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+		<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <script src="~/Scripts/TipoDescuentoLista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

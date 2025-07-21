@@ -1,0 +1,146 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Reportes de Control";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow-x: hidden">
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div style="text-align: center; padding-top: 20px;" class="form-grupo fila">
+
+			<div class="tam-1" style="text-align: left">
+				<span>Mes</span>
+			</div>
+			<div class="tam-6">
+				<select id="cboMes" class="validar" data-secuencia="1" data-validacion="validarCombo|Mes">
+					<option value="0">Seleccione</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Setiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>
+				</select>
+			</div>
+			<div class="tam-1" style="text-align: left">
+				<span>Año</span>
+			</div>
+			<div class="tam-4">
+				<input id="txtAnio" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Año" maxlength="4" placeholder="" style="width: 80px;" onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+			</div>
+			<div class="tam-6">
+				<span>Tipo de Reportes: </span>
+			</div>
+
+			<div class="tam-15">
+				<select id="ddlReporte" style="width: 100%">
+					<option value="1">Procedimientos y Consultas sin médico o especialidad</option>
+					<option value="2">Procedimientos y Consultas pendientes de cierre de emergencia</option>
+					<option value="3">Procedimientos y Consultas pendientes de atención</option>
+					<option value="4">Consultas sin anamnesis</option>
+					<option value="5">Procedimientos sin informe médico</option>
+					<option value="6">Pendientes de Provisión</option>
+				</select>
+			</div>
+			<div class="tam-3">
+				<span class="boton" id="btnBuscar">Buscar</span>
+			</div>
+			<div class="tam-6">
+				<a class="boton" id="btnExportar">Exportar a Excel</a>
+			</div>
+		</div>
+
+		<div id="reporteSelecion" style="border-bottom: 2px solid #8B91A0; border-top: 2px solid #8B91A0; margin-top: 25px; padding-bottom: 15px; padding-top: 15px; text-align: center; display: none" class="form-grupo fila">
+			<div class="tam-3">
+				<span>Sucursal</span>
+			</div>
+			<div class="tam-9">
+				<input type="text" id="txtSucursal" class="lectura" readonly />
+			</div>
+			<div class="tam-5">
+				<span>Fecha Inicio OA </span>
+			</div>
+			<div class="tam-6">
+				<input type="text" class="validar" data-secuencia="0" data-validacion="validarFecha|fecha inicio" style="width: 100%" id="txtFechaInicio" />
+			</div>
+
+			<div class="tam-5">
+				<span>Fecha Fin OA </span>
+			</div>
+			<div class="tam-6">
+				<input type="text" class="validar" data-secuencia="1" data-validacion="validarFecha|fecha fin" style="width: 100%" id="txtFechaFin" />
+			</div>
+			@*			<div class="tam-6">
+                <span class="boton" id="btnBuscar">Buscar</span>
+            </div>
+            <div class="tam-6">
+                <a class="boton" id="btnExportar">Exportar a Excel</a>
+            </div>*@
+		</div>
+
+		<div id="divPrincipal" style="display: none">
+			<div><span>Cantidad de registros: </span><span id="spnTotal"></span></div>
+			<br />
+			<div><span>Fecha Actualizacion: </span><span id="spnFecha"></span></div>
+			<br />
+			<div style="overflow-x: auto">
+				<div id="divReportePrincipal" class="tabla" style="width: 9000px; padding-right: 20px; overflow: hidden;"></div>
+			</div>
+			<div class="form-grupo fila" style="text-align: center;margin-top:10px">
+				<div id="divPaginacionReportePrincipal"></div>
+			</div>
+		</div>
+		<div id="divDetalle" style="display: none">
+			<br />
+			<ul id="ulTabsD" class="tabs">
+				<li class="tab-link current" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsD');">Producción</li>
+				<li class="tab-link" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsD');">Horario</li>
+				<li class="tab-link" data-tab="tabx-3" onclick="mostrarTabs(this,'ulTabsD');">Monto Fijo</li>
+				<div style="float: right"><span>Fecha Actualizacion: </span><span id="spnFecha2"></span>&nbsp;&nbsp;&nbsp;<span>Cantidad de registros: </span><span id="spnTotal2"></span></div>
+			</ul>
+			<div id="tabx-1" class="tab-content current" style="padding-bottom: 0">
+				<div class="form-grupo fila" style="overflow-x: auto">
+					<div id="divReporteDet1" class="tabla" style="width: 8000px; padding-right: 20px;"></div>					
+				</div>
+				<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionReporteDet1"></div>
+					</div>
+			</div>
+			<div id="tabx-2" class="tab-content" style="padding-bottom: 0">
+				<div class="form-grupo fila" style="overflow-x: auto">
+					<div id="divReporteDet2" class="tabla" style="width: 2100px; padding-right: 20px;"></div>					
+				</div>
+				<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionReporteDet2"></div>
+					</div>
+			</div>
+			<div id="tabx-3" class="tab-content" style="padding-bottom: 0">
+				<div class="form-grupo fila" style="overflow-x: auto">
+					<div id="divReporteDet3" class="tabla"></div>					
+				</div>
+				<div class="form-grupo fila" style="text-align: center">
+						<div id="divPaginacionReporteDet3"></div>
+					</div>
+			</div>
+		</div>
+	</div>
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/Reportes2.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

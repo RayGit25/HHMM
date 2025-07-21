@@ -1,0 +1,9 @@
+PersonaId
+ApellidoPaterno
+ApellidoMaterno
+Nombre
+CMP
+TipoPersona
+NumeroDocumento
+DocumentoFiscal
+Estado

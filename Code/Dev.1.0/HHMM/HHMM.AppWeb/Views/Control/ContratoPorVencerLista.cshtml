@@ -1,0 +1,154 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Contratos por Vencer";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/ContratoPorVencer.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+
+		<div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+            <div class="form-grupo fila">
+                <div class="tam-4" style="text-align:left">
+                    <span>Sucursal</span>
+                </div>
+                <div class="tam-9">
+					<input id="txtSucursal" type="text" class="form-texto lectura" maxlength="20" placeholder="" readonly />
+                </div>
+                <div class="tam-4" style="text-align:left">
+                    <span>Año</span>
+                </div>
+                <div class="tam-6">
+                 <input id="txtAnio" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Año" maxlength="4" placeholder="" style="width:80px;" onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+                </div>
+                <div class="tam-4" style="text-align:left">
+                    <span>Mes</span>
+                </div>
+                <div class="tam-6">
+                    	<select id="cboMes" class="validar" data-secuencia="1" data-validacion="validarCombo|Mes">
+                            <option value="0">Seleccione</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                </div>
+				 <div class="tam-4" style="text-align:left">
+                    <span class="boton" id="btnBuscar">Buscar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="der btn-float-fix" style="padding-right:20px;padding-bottom:10px">
+			<span class="Icons fa-file-excel-o" style="font-size:18px;cursor:pointer;visibility:hidden"  id="btnExportar"></span>
+        </div>
+		<div style="clear:both"></div>
+        <div id="divContrato" class="tabla tabla-fix"></div>
+    </div>
+    <iframe id="txtExportar" style="display:none"></iframe>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+		<div id="PopupAmpliar" class="PopUp">
+        <div style="width: 500px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 500px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupAmpliar');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupAdjuntar">Renovación/Ampliación de Vigencia</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+
+                            <div class="tam-1">
+                                <input type="radio" name="inpradio" class="form-texto" checked="checked" data-i="0"  style="width:100%">
+                            </div>
+							 <div class="tam-5">
+                                Ampliar Vigencia
+                            </div>
+							  <div class="tam-1">
+                                <input type="radio" name="inpradio" class="form-texto " data-i="1" style="width:100%">
+                            </div>
+							 <div class="tam-10">
+                               Renovar Contrato (Nuevo Contrato)
+                            </div>
+                        </div>
+						<div id="divMes">
+                        <div class="form-grupo fila" style="border-bottom:1px solid #00a850;border-top:1px solid #00a850;padding:2px 0px">
+                            <div class="tam-10">
+                                Cantidad de meses a ampliar
+                            </div>
+                            <div class="tam-2">
+                                <input type="text" id="txtMeses" class="form-texto validar" data-secuencia="2" data-validacion="validarTexto|Meses" maxlength="4" placeholder=""  onkeypress="return event.charCode >= 48 && event.charCode <= 57;" style="width:100%">
+                               </div>
+                        </div>
+						 <div class="form-grupo fila">
+                            <div class="tam-20">
+                                La ampliación de la vigencia aplica a la fecha fin del contrato cabecera y a todas la líneas de configuración cuya
+								fecha fin sea igual a la fecha fin el contrato.
+                            </div>
+                        </div>
+						</div>
+						<div id="divFecha" style="display:none">
+                        <div class="form-grupo fila" style="border-bottom:1px solid #00a850;border-top:1px solid #00a850;padding:2px 0px">
+                            <div class="tam-10">
+                                Fecha Fin
+                            </div>
+                            <div class="tam-4">
+                                <input type="text" id="txtFecha" class="form-texto validar" data-secuencia="3" data-validacion="validarFecha|Fecha" maxlength="10" placeholder=""  style="width:100%">
+                               </div>
+							<div class="tam-1">
+					</div>
+                        </div>
+						 <div class="form-grupo fila">
+                            <div class="tam-20">
+                                La renovación hará que se cree un nuevo contrato cuya fecha de inicio será el día siguiente de la fecha fin
+								del contrato actual y soló se consideran las líneas de configuración vigentes según fin de contrato cabecera.
+                            </div>
+                        </div>
+						</div>
+                        <br>
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btnConfirmar">Confirmar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" id="btnCancelar" onclick="abrirPopup('PopupAmpliar');">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	   <div style="position:fixed;right:30px;bottom:30px;">
+        <span class="boton" id="btnAmpliar">Renovación</span>
+    </div>
+    <script src="~/Scripts/ContratoPorVencerLista.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async=""></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Reportes de Provisión";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div id="reporteSelecion" style="border-bottom: 2px solid #8B91A0; border-top: 2px solid #8B91A0; margin-top: 25px; padding-bottom: 15px; padding-top: 15px; text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div class="tam-3" >
+					<span>Sucursal</span>
+				</div>
+				<div class="tam-10">
+					<input type="text" id="txtSucursal" class="lectura" style="width: 100%" readonly="readonly" />
+				</div>
+				<div class="tam-1" style="padding:0px;">
+				</div>
+				<div class="tam-3" >
+					<span>Periodo</span>
+				</div>
+				<div class="tam-5">
+					<select id="ddlPeriodo" style="width: 100%;" class="validar" data-validacion="validarTexto|Periodo">
+					</select>
+				</div>
+
+				<div class="tam-3">
+					<span>Proceso</span>
+				</div>
+				<div class="tam-15">
+                    <select id="ddlProceso" style="width: 100%;" class="validar" data-validacion="validarTexto|Proceso">
+                    </select>
+				</div>
+
+				<div class="tam-4" style="margin-top:10px;">
+					<span class="boton" id="btnLimpiar" style="padding:4px 12px">Limpiar</span>
+				</div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-3" style="text-align: left;">
+					<span>Médico</span>
+				</div>
+				<div class="tam-10">
+					<input id="txtMedico" type="text" class="form-texto validar lectura" data-secuencia="0" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1"  style="padding:0px;">
+					<span class="Icons fa-search puntero" id="spnDoctor" style="display:none"></span>
+				</div>
+				<div class="tam-3" style="text-align: left;">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-10">
+					<input id="txtEmpresa" type="text" class="form-texto validar lectura" data-obligatorio="true" data-secuencia="3" data-validacion="validarTexto|Empresa" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1" style="padding:0px;">
+					<span class="Icons fa-search puntero" id="spnEmpresa" style="display:none"></span>
+				</div>
+				<div class="tam-11" style="text-align:left">
+				<span>Resumen</span> <input type="radio" name="tipoVista" checked="checked"/> <span>Detallado</span> <input type="radio" name="tipoVista" />
+				</div>
+				<div class="tam-1" style="width: 15px;"></div>
+				<div class="tam-4" style="margin-top:10px;">
+					<span class="boton" id="btnBuscar" style="padding:4px 12px">Buscar</span>
+				</div>
+
+			</div>
+		</div>
+@*		<div id="divExportacion" style="padding-right:10px;padding-bottom:5px;display:none">
+			<a class="Icons fa-file-excel-o" id="btnExportar" style="font-size:15px;cursor:pointer;float:right;padding:0px 4px"></a>&nbsp
+			<a class="Icons fa-file-pdf-o" id="btnExportarPDF" style="font-size:15px;cursor:pointer;float:right;"></a>
+		</div>
+		<div style="clear:both"></div>*@
+		<div id="divReporte" class="tabla" ></div>
+
+	</div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupAlerta" class="PopUp">
+		<div style="width: 400px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupAlerta');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEstado">DESCARGA DE INFORMACIÓN</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-15">
+								Se tiene mucha información para mostrar en pantalla,¿Desea descargarlo a Excel?
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5">
+								<a class="boton" id="btnAceptarAlerta">Aceptar</a>
+							</div>
+							<div class="tam-5">
+								<span class="boton" onclick="abrirPopup('PopupAlerta')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/ReporteProvision.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

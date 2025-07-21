@@ -1,0 +1,6 @@
+ResponsableCorreoId
+Sucursal
+UsuarioNombre
+Responsable
+CorreoElectronico
+EstadoRegistro

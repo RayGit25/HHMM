@@ -1,0 +1,11 @@
+BandejaCorreoId
+Remitente
+Destinatarios
+PersonaId
+NombreCompleto
+TipoAdmisionId
+TipoAdmision
+Periodo
+CuerpoCorreo
+PlanillaId
+FechaHoraCreacion

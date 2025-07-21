@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Detalle de Conceptos";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow-y: auto">
+    <div>
+        <div class="frm-cuerpo" style="padding: 20px 0 10px">
+            <div class="form-grupo fila centrado">
+                <div class="form-grupo fila">
+                    <div class="tam-5" style="text-align: left">
+                        <span>Médico</span>
+                    </div>
+                    <div class="tam-23">
+                        <input type="text" class="lectura" style="width: 101%" id="txtMedico" readonly />
+                    </div>
+                </div>
+                <div class="form-grupo fila">
+                    <div class="tam-5" style="text-align: left">
+                        <span>Periodo</span>
+                    </div>
+                    <div class="tam-8">
+                        <input type="text" class="lectura" style="width: 100%" id="txtPeriodo" readonly />
+                    </div>
+
+                    <div class="tam-5" style="text-align: left">
+                        <span>Tipo Admisión</span>
+                    </div>
+                    <div class="tam-8">
+                        <input type="text" class="lectura" style="width: 100%" id="txtTipoAdmision" readonly />
+                    </div>
+                </div>
+				<div class="form-grupo fila">
+					<div class="tam-5" style="text-align: left">
+                        <span>Especialidad</span>
+                    </div>
+                    <div class="tam-23">
+                        <input type="text" class="lectura" style="width: 101%" id="txtEspecialidad" readonly />
+                    </div>
+					</div>
+            </div>
+            <br />
+            <div id="divDetalle" class="tabla"></div>
+            <br />
+            <div class="form-grupo fila centrado">
+                <div class="tam-5" id="divDetalleOcultar">
+                    <span class="boton" id="btnSeleccionarDetalleOA">Detalle</span>
+                </div>
+                <div class="tam-5">
+                    <span class="boton" id="btnCancelar">Regresar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hdfDatos"value="@ViewBag.Datos" />
+    <script src="~/Scripts/ProvisionDetalleConcepto.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

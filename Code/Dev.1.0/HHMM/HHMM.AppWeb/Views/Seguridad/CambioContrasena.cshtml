@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Cambio de Contraseña";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/LoginCambio.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body id="frmCambio" class="logueo">
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div class="frm-cuerpo">
+        <div class="js_mensaje" style="text-align: center;color: red;font-weight: bold;padding: 30px 30px 0px;display:none">Esta opción sólo está habilitada para usuarios propios de la web de honorarios. Ud. tiene configurado su acceso con su cuenta de red.</div>
+
+        <div class="contenido-logueo" style="background-color: #FBF8F8; width: 450px;">
+            <div class="PopupCabecera bg-amarillo center black" style="text-align: center">
+                <div class="divCerrarPopUp" style="width: 450px; position: fixed; display: block"><span class="cerrarPopUp" onclick="cerrarVentana();"><i class="Icons fa-close"></i></span></div>
+                <h5 style="margin: 10px">Cambio de Contraseña</h5>
+            </div>
+            <div class="panel-cuerpo">
+                <div>
+                    <span id="spnMensaje" class="Mensaje">@Html.Raw(ViewBag.Mensaje)</span>
+                </div>
+                <div class="form-grupo" style="width: 300px; padding-left: 50px; padding-top: 20px;">
+                    <input id="txtClaveAnterior" type="password" class="form-texto" maxlength="20" placeholder="Contraseña Anterior" />
+                    <span class="Icons1 icon-lock form-control-icono" style="padding-top: 30px;"></span>
+                </div>
+                <div class="form-grupo" style="width: 300px; padding-left: 50px;padding-top: 10px;">
+                    <input id="txtClaveNueva" type="password" class="form-texto" maxlength="20" placeholder="Nueva Contraseña" />
+                    <span class="Icons1 icon-lock form-control-icono" style="padding-top: 20px;"></span>
+                </div>
+                <div class="form-grupo" style="width: 300px; padding-left: 50px;padding-top: 10px;">
+                    <input id="txtClaveRepetida" type="password" class="form-texto" maxlength="20" placeholder="Confirmar Contraseña" />
+                    <span class="Icons1 icon-lock form-control-icono" style="padding-top: 20px;"></span>
+                </div>
+                <div class="form-group centrado" style="margin-top:40px">
+                    <input style="width:80px;" id="btnAceptar" type="button" value="Cambiar" class="boton btn-centrado" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input style="width:80px;" id="btnCerrar" type="button" value="Cerrar" class="boton btn-centrado" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+    <input id="hdfParametros" type="hidden" value="@ViewBag.Parametros" />
+    <input id="hdfCaduco" type="hidden" value="@ViewBag.Caduco" />
+    <input id="ss" type="hidden" value="@ViewBag.ss" />
+    <input id="hdfAd" type="hidden" value="@ViewBag.Ad" />
+    <script src="~/Scripts/md5.js?v=@ViewBag.versionJS" async="async"></script>
+    <script src="~/Scripts/CambioContrasena.js?v=@ViewBag.versionJS" async="async"></script>
+</body>
+</html>

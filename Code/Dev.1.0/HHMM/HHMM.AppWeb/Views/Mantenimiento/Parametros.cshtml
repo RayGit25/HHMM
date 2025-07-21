@@ -1,0 +1,238 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConceptoLista</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <style>
+        .switchBtn {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+            .switchBtn input {
+                display: none;
+            }
+
+        .slide {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            padding: 8px;
+            color: #fff;
+        }
+
+            .slide:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 25px;
+                bottom: 2px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slide {
+            background-color: #96d045;
+            padding-left: 40px;
+        }
+
+        input:focus + .slide {
+            box-shadow: 0 0 1px #01aeed;
+        }
+
+        input:checked + .slide:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+            left: -20px;
+        }
+
+        .slide.round {
+            border-radius: 34px;
+        }
+
+            .slide.round:before {
+                border-radius: 50%;
+            }
+    </style>
+</head>
+<body>
+    <div class="frm-cabecera">Mantenimiento de Parámetros</div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+        <div class="form-grupo fila" style="display:table">
+            <div class="tam-24" style="display: table-cell;">
+                &nbsp;
+                <div id="divTurno" class="tabla"></div>
+            </div>
+            <div class="tam-80" style="display: table-cell;vertical-align:top">
+                <div>
+                    Concepto: <span id="spnDetalleConcepto"></span>
+                </div>
+                <div id="divTurnoDetalle" class="tabla"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="PopupConcepto" class="PopUp">
+        <div style="width: 650px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 650px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupConcepto');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupTurno"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Descripción:</span>
+                            </div>
+                            <div class="tam-15">
+                                <input type="text" id="txtDescripcion" class="form-texto validar" data-secuencia="0" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Ind. Adm:</span>
+                            </div>
+                            <div class="tam-15">
+                                <input type="checkbox" id="txtIndAdm" class="form-texto" />
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtEstado" class="form-texto lectura" value="ACTIVO" style="width: 100%" maxlength="5" readonly>
+                            </div>
+                            <span class="historial puntero" style="display:none;text-decoration:underline;color:#00a850" id="spnHistorial" onclick="verHistorial('ConceptoMontoFijo')">Historial de Cambios</span>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupConcepto')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupConceptoDetalle" class="PopUp">
+        <div style="width: 600px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 600px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupConceptoDetalle');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupConceptoDetalle"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-5">
+                                <span>Descripción:</span>
+                            </div>
+                            <div class="tam-18">
+                                <input type="text" id="txtDescripcionDetalle" class="form-texto lectura" value="" style="width: 100%" maxlength="15" readonly>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-5">
+                                <span>valor</span>
+                            </div>
+                            <div class="tam-10">
+                                <label class="switchBtn">
+                                    <input id="chkValorDetalle" type="checkbox" checked>
+                                    <div class="slide round"></div>
+                                </label>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarDetalle">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupConceptoDetalle')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Esta seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+    <div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdfCd" />
+    </div>
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <script src="~/Scripts/Parametros.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

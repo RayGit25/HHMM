@@ -1,0 +1,267 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>GenerarArchivosDigitalesListar</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">Archivos Digitales</div>
+	<div class="frm-cuerpo">
+		<div>
+			<p><span id="spnMensaje" class="Mensaje" /></p>
+		</div>
+		<br />
+		<div id="tab-1" class="tab-content current" style="padding:0px;">
+			<ul id="ulTabsX" class="tabs">
+				<li id="tab1" class="tab-link current" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsX');">Generación&nbsp;<span id="numReg1"></span></li>
+				<li id="tab2" class="tab-link" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsX');">Envio Correo&nbsp;<span id="numReg2"></span></li>
+				<li id="tab3" class="tab-link" data-tab="tabx-3" onclick="mostrarTabs(this,'ulTabsX');">Reenvio de Correos&nbsp;<span id="numReg3"></span></li>
+			</ul>
+			<div id="tabx-1" class="tab-content current">
+				<div class="form-grupo fila">
+					<div style="text-align: center" class="form-grupo fila">
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Sucursal</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="lectura sucursal" style="width: 100%" readonly />
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Medico</span>
+							</div>
+							<div class="tam-16">
+								<input type="text" class="lectura" style="width: 101%" id="txtBusquedaMedico" readonly />
+							</div>
+							<div class="tam-1">
+								<span data-id="0" class="Icons fa-search spnDoctor puntero"></span>
+							</div>
+							<div class="tam-6">
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Tipo Admisión</span>
+							</div>
+							<div class="tam-9">
+								<select id="cboAdmision" style="width: 105%"></select>
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Periodo Inicio</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoInicio" class="validar" style="width: 105%" data-secuencia="1" data-validacion="validarCombo|Periodo Inicio"></select>
+							</div>
+							<div class="tam-4 izquierda">
+								<span>Periodo Fin</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoFin" class="validar" style="width: 105%" data-secuencia="2" data-validacion="validarCombo|Periodo Fin"></select>
+							</div>
+							<div class="tam-8">
+								<span class="boton" data-tipo="0" id="btnBusqueda">Buscar</span>&nbsp;<span class="boton" data-tipo="0" id="btnBusquedaLimpiar">Limpiar</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-grupo fila" style="height:1px;border-top:1px solid #00a850"></div><br />
+					<div class="form-grupo fila" style="display: table">
+						<div class="tam-10" style="display: table-cell;">
+							<div class="form-grupo fila">
+								<div id="divPeriodo" class="tabla"></div>
+							</div>
+						</div>
+						<div class="tam-60" style="display: table-cell; vertical-align: top">
+							<div class="form-grupo fila">
+								<div id="divMedico" class="tabla"></div>
+							</div>
+							<div class="centrado" style="padding-right: 10px;padding-left:10px;">
+								<span class="boton" id="btnProcesar">Procesar</span>&nbsp;&nbsp;
+								<span>Seleccionar Formato: <select id="ddlFormatoTipo"><option value="1">Formato Médicos</option><option value="2">Formato Proveedores</option></select></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<span id="spnProcesados" style="position:fixed;bottom:50px;left:20px;display:none">Médicos procesados:<span style="font-weight:bold" id="spnProcesado"></span></span>
+				<span style="position:fixed;bottom:20px;left:20px;">Ruta de descarga del archivo PDF: <span style="font-weight:bold" id="spnRutaArchivo">@ViewBag.rutaPDF</span></span>
+			</div>
+			<div id="tabx-2" class="tab-content">
+				<div class="form-grupo fila">
+					<div style="text-align: center" class="form-grupo fila">
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Sucursal</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="lectura sucursal" style="width: 100%" readonly />
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Medico</span>
+							</div>
+							<div class="tam-16">
+								<input type="text" class="lectura" style="width: 101%" id="txtBusquedaMedicoC" readonly />
+							</div>
+							<div class="tam-1">
+								<span data-id="1" class="Icons fa-search spnDoctor puntero"></span>
+							</div>
+							<div class="tam-6">
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Tipo Admisión</span>
+							</div>
+							<div class="tam-9">
+								<select id="cboAdmisionC" style="width: 105%"></select>
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Periodo Inicio</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoInicioC" class="validar" style="width: 105%" data-secuencia="4" data-validacion="validarCombo|Periodo Inicio"></select>
+							</div>
+							<div class="tam-4 izquierda">
+								<span>Periodo Fin</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoFinC" class="validar" style="width: 105%" data-secuencia="5" data-validacion="validarCombo|Periodo Fin"></select>
+							</div>
+							<div class="tam-8">
+								<span class="boton" data-tipo="1" id="btnBusquedaC">Buscar</span>&nbsp;<span class="boton" data-tipo="1" id="btnBusquedaLimpiarC">Limpiar</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-grupo fila" style="height:1px;border-top:1px solid #00a850"></div><br />
+					<div class="form-grupo fila" style="display: table">
+						<div class="tam-10" style="display: table-cell;">
+							<div class="form-grupo fila">
+								<div id="divPeriodoC" class="tabla"></div>
+							</div>
+						</div>
+						<div class="tam-60" style="display: table-cell; vertical-align: top">
+							<div class="form-grupo fila">
+								<div id="divMedicoC" class="tabla"></div>
+							</div>
+							<div class="centrado" style="padding-right: 10px;padding-left:10px;">
+								<span class="boton" id="btnEnviar">Enviar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="tabx-3" class="tab-content">
+				<div class="form-grupo fila">
+					<div style="text-align: center" class="form-grupo fila">
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Sucursal</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="lectura sucursal" style="width: 100%" readonly />
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Medico</span>
+							</div>
+							<div class="tam-16">
+								<input type="text" class="lectura" style="width: 101%" id="txtBusquedaMedicoR" readonly />
+							</div>
+							<div class="tam-1">
+								<span data-id="2" class="Icons fa-search spnDoctor puntero"></span>
+							</div>
+							<div class="tam-6">
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6 izquierda">
+								<span>Tipo Admisión</span>
+							</div>
+							<div class="tam-9">
+								<select id="cboAdmisionR" style="width: 105%"></select>
+							</div>
+							<div class="tam-6 izquierda">
+								<span>Periodo Inicio</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoInicioR" style="width: 105%" class="validar" data-secuencia="7" data-validacion="validarCombo|Periodo Inicio"></select>
+							</div>
+							<div class="tam-4 izquierda">
+								<span>Periodo Fin</span>
+							</div>
+							<div class="tam-5">
+								<select id="cboPeriodoFinR" style="width: 105%" class="validar" data-secuencia="8" data-validacion="validarCombo|Periodo Fin"></select>
+							</div>
+							<div class="tam-8">
+								<span class="boton" data-tipo="2" id="btnBusquedaR">Buscar</span>&nbsp;<span class="boton" data-tipo="2" id="btnBusquedaLimpiarR">Limpiar</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-grupo fila" style="height:1px;border-top:1px solid #00a850"></div><br />
+					<div id="divMedicoR" class="tabla"></div>
+					<div class="centrado" style="padding-right: 10px;padding-left:10px;">
+						<span class="boton" id="btnReenviar">Reenviar</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	    <div id="PopupReenvio" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupReenvio');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupReenvio"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-15">
+								<span id="spnMedReeLen"></span>                                
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarReenvio">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupReenvio')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px;margin:3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');recargarIframe('ifrMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MÉDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<input type="hidden" data-tipo="0" id="hdfMedico" value="" />
+	<input type="hidden" data-tipo="1" id="hdfMedicoC" value="" />
+	<input type="hidden" data-tipo="2" id="hdfMedicoR" value="" />
+	<input type="hidden" value="@ViewBag.socket" id="hdfWS" />
+
+	<script src="~/Scripts/GenerarArchivosDigitalesListar.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

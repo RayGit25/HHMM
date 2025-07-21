@@ -1,0 +1,310 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Reporte de Cuenta Corriente";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<div id="reporteSelecion" style="border-bottom: none; border-top: none; margin-top: 25px; padding-bottom: 15px; padding-top: 15px; text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div class="tam-6" style="text-align: left">
+					<span>Médico</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<input id="txtMedico" type="text" class="form-texto validar lectura" data-secuencia="0" data-validacion="validarTexto|Médico" maxlength="20" placeholder="" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnDoctor"></span>
+				</div>
+				<div class="tam-7" style="text-align: left">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<input id="txtEmpresa" type="text" class="form-texto validar lectura" data-obligatorio="true" data-secuencia="3" data-validacion="validarTexto|Empresa" style="width: 100%;" readonly />
+				</div>
+				<div class="tam-1">
+					<span class="Icons fa-search puntero" id="spnEmpresa"></span>
+				</div>
+                <div class="tam-1" style="width: 180px">
+                    <div class="tam-3">
+                        <span class="boton" id="btnBuscar" style="padding-right: 8px;">Buscar</span>
+                    </div>
+                    <div class="tam-3">
+                        <span class="boton" id="btnLimpiar">Limpiar</span>
+                    </div>
+                </div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-6" style="text-align: left">
+					<span>Especialidad</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<select style="width: 104%" id="ddlEspecialidad"></select>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-7" style="text-align: left">
+					<span>Estado</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<select style="width: 104%" id="ddlEstado"></select>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-1" style="width: 180px"></div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-6" style="text-align: left">
+					<span>Periodo Provisión</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<select style="width: 49%;" id="ddlPeriodoProvisionInicio"></select>
+					<select style="width: 49%;" id="ddlPeriodoProvisionFin"></select>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-7" style="text-align: left">
+					<span>Periodo Producción</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<select style="width: 49%;" id="ddlPeriodoProduccionInicio"></select>
+					<select style="width: 49%;" id="ddlPeriodoProduccionFin"></select>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-1" style="width: 180px"></div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-6" style="text-align: left">
+					<span>Fechas</span>
+				</div>
+				<div class="tam-8" style="width: 220px">
+					<input type="text" style="width: 44%; display: inline-block" id="txtfecini" />
+					<input type="text" style="width: 44%; display: inline-block" id="txtfecfin" />
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-7" style="text-align: left; width: 380px">
+					<span>Incluir OA's con indicador de NO visible: </span>
+					<select id="ddlIndicadorOAVisible" style="width: 80px; margin-left: 43px;">
+						<option value="">Todos</option>
+						<option value="True">SI</option>
+						<option value="False" selected>NO</option>
+					</select>
+				</div>
+				<div class="tam-1"></div>
+				<div class="tam-1" style="width: 180px"></div>
+			</div>
+
+		</div>
+		<ul id="ulTabsD" class="tabs">
+			<li class="tab-link current" id="DTab1" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsD');">Principal</li>
+			<li class="tab-link bloqueado" id="DTab2" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsD');">Detalle</li>
+			<li class="tab-link bloqueado" id="DTab3" data-tab="tabx-3" onclick="mostrarTabs(this,'ulTabsD');">Produccion</li>
+			<li class="tab-link bloqueado" id="DTab4" data-tab="tabx-4" onclick="mostrarTabs(this,'ulTabsD');">Horario</li>
+			<li class="tab-link bloqueado" id="DTab5" data-tab="tabx-5" onclick="mostrarTabs(this,'ulTabsD');">Monto Fijo</li>
+		</ul>
+		<div id="tabx-1" class="tab-content current">
+			<div class="form-grupo fila">
+				<div id="divReporte1" class="tabla"></div>
+			</div>
+		</div>
+		<div id="tabx-2" class="tab-content">
+			<div class="form-grupo fila">
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold">Sucusal: </span><span class="tam-20 clssucursal"></span>
+				</div>
+				<br />
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold; vertical-align: top">Empresa: </span><span class="tam-20 clsempresa"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Medico: </span><span class="clsmedico"></span>
+				</div>
+				<br />
+			</div>
+			<br />
+			<div class="form-grupo fila">
+				<div id="divReporte2" class="tabla"></div>
+			</div>
+		</div>
+		<div id="tabx-3" class="tab-content">
+
+			<div class="form-grupo fila">
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold">Sucusal: </span><span class="tam-20 clssucursal"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Tipo Admisión: </span><span id="tadm1"></span>
+				</div>
+				<br />
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold; vertical-align: top">Empresa: </span><span class="tam-20 clsempresa"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Medico: </span><span class="clsmedico"></span>
+				</div>
+			</div>
+			<br />
+			<div class="form-grupo fila">
+				<div id="divReporte3" class="tabla"></div>
+			</div>
+		</div>
+		<div id="tabx-4" class="tab-content">
+			<div class="form-grupo fila">
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold">Sucusal: </span><span class="tam-20 clssucursal"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Tipo Admisión: </span><span id="tadm2"></span>
+				</div>
+				<br />
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold; vertical-align: top">Empresa: </span><span class="tam-20 clsempresa"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Medico: </span><span class="clsmedico"></span>
+				</div>
+			</div>
+			<br />
+			<div class="form-grupo fila">
+				<div id="divReporte4" class="tabla"></div>
+			</div>
+		</div>
+		<div id="tabx-5" class="tab-content">
+			<div class="form-grupo fila">
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold">Sucusal: </span><span class="tam-20 clssucursal"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Tipo Admisión: </span><span id="tadm3"></span>
+				</div>
+				<br />
+				<div class="tam-80" style="width: 100%">
+					<span class="tam-4" style="font-weight: bold; vertical-align: top">Empresa: </span><span class="tam-20 clsempresa"></span>
+					<span class="tam-8"></span>
+					<span class="tam-6" style="font-weight: bold">Medico: </span><span class="clsmedico"></span>
+				</div>
+			</div>
+			<br />
+			<div class="form-grupo fila">
+				<div id="divReporte5" class="tabla"></div>
+			</div>
+		</div>
+
+
+	</div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupLeyenda" class="PopUp">
+		<div style="width: 900px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 900px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupLeyenda');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">LEYENDA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila">
+							<div class="tam-80">
+								<table id="tblLeyenda1" class="tabla-general">
+									<thead class="tabla-FilaCab">
+										<tr class="cabecera">
+											<th style="width: 30%"><span>Titulo</span></th>
+											<th style="width: 70%"><span>Descripción</span></th>
+										</tr>
+									</thead>
+									<tbody class="tabla-FilaCuerpo">
+										<tr class="FilaDatos">
+											<td>Total Provisión</td>
+											<td>Total Provisión con o sin planilla</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Saldo Provisión</td>
+											<td>Total Provisión - Liquidado - En proceso de Pago Obligación</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Total Liquidado</td>
+											<td>Con planilla en estados: Pendiente, Difundir, Confirmar y Enviar Obligación</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Total Proceso Pago</td>
+											<td>Con planilla en estados: Pendiente de Pago y Pagado</td>
+										</tr>
+									</tbody>
+								</table>
+								<table id="tblLeyenda2" class="tabla-general">
+									<thead class="tabla-FilaCab">
+										<tr class="cabecera">
+											<th style="width: 30%"><span>Titulo</span></th>
+											<th style="width: 70%"><span>Descripción</span></th>
+										</tr>
+									</thead>
+									<tbody class="tabla-FilaCuerpo">
+										<tr class="FilaDatos">
+											<td>Total</td>
+											<td>Total Provisión con o sin planilla</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Liquidado</td>
+											<td>Con planilla en estados: Pendiente, Difundir, Confirmar, Enviar Obligación, Pendiente de Pago y Pagado</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Pagado</td>
+											<td>Con planilla en estado Pagado</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Por Liquidar</td>
+											<td>Total - Liquidado</td>
+										</tr>
+										<tr class="FilaDatos">
+											<td>Por Pagar</td>
+											<td>Liquidado - Pagado</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<input type="hidden" id="hdfOpcion" value="-1" />
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/ReportecuentaCorriente.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

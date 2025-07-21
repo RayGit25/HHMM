@@ -1,0 +1,10 @@
+﻿Periodo
+Medico
+TipoAdmisionId
+EstadoDifundir
+PersonaId
+PlanillaId
+FechaUltimoEnvio
+Total
+PeriodoProvision
+TipoPlanilla

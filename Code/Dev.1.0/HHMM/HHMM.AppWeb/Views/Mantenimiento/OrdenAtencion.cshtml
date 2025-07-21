@@ -1,0 +1,318 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrdenAtencion</title>
+	    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	 <link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div id="divCabecera" class="frm-cabecera"></div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+        <div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+            <div class="form-grupo fila">
+                <div class="tam-5" style="text-align:left">
+                    <span>Entidad</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlEntidad" style="width: 105%"><option value="O">Orden Atención</option><option value="E">Liquidación de Expediente</option></select>
+                </div>
+
+				<div class="tam-5" style="text-align: left">
+					<span>Periodo</span>
+				</div>
+				<div class="tam-5" style="text-align: left">
+					<select id="cboMes" style="width: 100px" class="validar" data-secuencia="0" data-validacion="validarCombo|Año">
+						<option value="1" selected>Enero</option>
+						<option value="2">Febrero</option>
+						<option value="3">Marzo</option>
+						<option value="4">Abril</option>
+						<option value="5">Mayo</option>
+						<option value="6">Junio</option>
+						<option value="7">Julio</option>
+						<option value="8">Agosto</option>
+						<option value="9">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="tam-3">
+					<input id="txtAnio" type="text" class="form-texto validar" data-secuencia="1" data-validacion="validarTexto|Año" maxlength="4" placeholder="" style="width:60px;" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57;">
+				</div>	
+				<div class="tam-4" style="text-align: left">
+					<span id="btnBuscar"  class="boton">Buscar</span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span id="btnLimpiar"  class="boton">Limpiar</span>
+				</div>
+				<div class="tam-4" style="width:95px;"></div>
+            </div>
+            <div class="form-grupo fila">
+                <div class="tam-5" style="text-align:left">
+                    <span>Especialidad</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlEspecialidad" style="width: 105%"></select>
+                </div>
+                <div class="tam-5" style="text-align:left">
+                    <span>Tipo Atención</span>
+                </div>
+                <div class="tam-9">
+                   <select id="ddlTipoAtencion" style="width: 105%"></select>
+                </div>
+				 <div class="tam-5" style="text-align:left">
+                    <span>Servicio</span>
+                </div>
+                <div class="tam-9">
+                   <select id="ddlServicio" style="width: 105%"></select>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="divOrdenAtencion" style="display:none;width:4200px;">
+			<ul id="ulTabs" class="tabs">
+					<li class="tab-link current" onclick="mostrarTabs(1);" data-id="1" style="height:15px" id="tabOA1">Artículo</li>
+					<li class="tab-link" onclick="mostrarTabs(2);" data-id="2" style="height:15px" id="tabOA2">Hospitalario</li>
+					<li class="tab-link" onclick="mostrarTabs(3);" data-id="3" style="height:15px" id="tabOA3">Otros Componentes</li>
+				</ul>
+				<br />
+			<div id="divOrdenAtencionTabla" class="tabla" style="width:99%"></div>
+			<br /><br /><br />
+			<div id="divDetalleBotonera" class="totop" style="text-align: center;width:200px;">
+			<div style="width:100%;text-align:center">
+				<span class="boton" id="btnEditar">Editar</span>				
+			</div>
+				</div>
+			<br />
+        </div>
+    </div>
+	<div id="PopupEdicionMasiva" class="PopUp">
+        <div style="width: 620px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 620px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEdicionMasiva');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEdicionMasiva">EDICIÓN MASIVA</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+						<div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="txtMasFechaPrestacion¦txtMasHoraPrestacion" />
+							</div>
+                            <div class="tam-8">
+                                <span>Fecha Hora Prestación:</span>
+                            </div>
+                            <div class="tam-8">
+                                <input type="text" id="txtMasFechaPrestacion" class="form-texto validar" placeholder="DD/MM/YYYY" maxlength="10" data-secuencia="0" data-validacion="validarFecha|fecha" style="width: 100%" name="limpiar">
+                            </div>
+							 <div class="tam-4">
+                                <input type="text" id="txtMasHoraPrestacion"class="form-texto validar" placeholder="HH:MM" data-secuencia="1" data-validacion="validarHora|hora" style="width: 100%" name="limpiar" maxlength="5">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="spnMasDoctor" />
+							</div>
+                            <div class="tam-8">
+                                <span id="spnMedicoTitulo">Médico</span><span>:</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtMasMedico" class="form-texto lectura" readonly style="width: 100%" name="limpiar">
+                            </div>
+							<div class="tam-1">
+								<span class="Icons fa-search puntero" id="spnMasDoctor"></span>
+								</div>
+                        </div>
+						<div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="spnMasDoctorSec" />
+							</div>
+                            <div class="tam-8">
+                                <span id="spnMedicoSecTitulo">Médico Secundario</span><span>:</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtMasMedicoSec" class="form-texto lectura" readonly style="width: 100%" name="limpiar">
+                            </div>
+							<div class="tam-1">
+								<span class="Icons fa-search puntero" id="spnMasDoctorSec"></span>
+								</div>
+                        </div>
+                        <div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="ddlMasEspecialidad" />
+							</div>
+                            <div class="tam-8">
+                                <span>Especialidad:</span>
+                            </div>
+                            <div class="tam-13">
+                                <select id="ddlMasEspecialidad" style="width: 106%" name="limpiar"></select>
+                            </div>
+                        </div>
+						<div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="txtMasCosto" />
+							</div>
+                            <div class="tam-8">
+                                <span>Costo:</span>
+                            </div>
+                            <div class="tam-13">
+                                <input type="text" id="txtMasCosto" class="form-texto" style="width: 100%" name="limpiar">
+                            </div>
+                        </div>
+						<div class="form-grupo fila ocultar" id="divconex">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="ddlMasEstadoConsulExterna" />
+							</div>
+                            <div class="tam-8">
+                                <span>Estado Consulta Externa:</span>
+                            </div>
+                            <div class="tam-13">
+                                <select id="ddlMasEstadoConsulExterna" style="width: 106%" name="limpiar"></select>
+                            </div>
+                        </div>
+						<div class="form-grupo fila ocultar" id="divconpro">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="ddlMasEstadoProcedimiento" />
+							</div>
+                            <div class="tam-8">
+                                <span>Estado Procedimiento:</span>
+                            </div>
+                            <div class="tam-13">
+								<select id="ddlMasEstadoProcedimiento" style="width: 106%" name="limpiar"></select>
+                            </div>
+                        </div>
+						<div class="form-grupo fila ocultar">
+							<div class="tam-1" style="text-align:center">
+								<input type="checkbox" class="chkHabilitar" data-id="ddlMasIndicadorHorario" />
+							</div>
+                            <div class="tam-8">
+                                <span>Indicador Honorario:</span>
+                            </div>
+                            <div class="tam-13">
+								<select id="ddlMasIndicadorHorario" style="width: 106%" name="limpiar">
+									<option value="">Seleccione</option>
+									<option value="1">INACTIVO</option>
+									<option value="2">ACTIVO</option>
+								</select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btnMasgrabar" data-opcion="0">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEdicionMasiva')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="PopupEdicion" class="PopUp">
+        <div style="width: 570px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 570px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEdicion');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEdicion">EDICIÓN DE MÉDICO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Médico:</span>
+                            </div>
+                            <div class="tam-15">
+                                <input type="text" id="txtMedico" class="form-texto lectura" readonly style="width: 100%">
+                            </div>
+							<div class="tam-1">
+								<span class="Icons fa-search puntero" id="spnDoctor"></span>
+								</div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Especialidad:</span>
+                            </div>
+                            <div class="tam-15">
+                                <select id="ddlDocEspecialidad" style="width: 103%"></select>
+                            </div>
+                        </div>
+						<div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Especialidad:</span>
+                            </div>
+                            <div class="tam-5">
+                                <input type="text" id="txtCosto" class="form-texto" style="width: 100%">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEdicion')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+		<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MÉDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+	<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+	<input type="hidden" id="hdfSeguridad" value="@ViewBag.seguridad" />
+	    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<input type="hidden" id="hdfMedico" value="0" />
+	<input type="hidden" id="hdfMedico2" value="0" />
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+	<script src="~/Scripts/OrdenAtencion.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

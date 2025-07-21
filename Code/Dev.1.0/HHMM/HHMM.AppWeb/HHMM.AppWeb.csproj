@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0EDCF039-67C1-4685-BD1F-AB61422C1598}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HHMM.AppWeb</RootNamespace>
+    <AssemblyName>HHMM.AppWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fleck, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\Fleck.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NReco.PdfGenerator, Version=1.1.12.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\NEGASAC\NEGASAC.AppWeb\Libreria\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdministracionController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
+    <Compile Include="Controllers\DifundirController.cs" />
+    <Compile Include="Controllers\MantenimientoController.cs" />
+    <Compile Include="Controllers\PrincipalController.cs" />
+    <Compile Include="Controllers\ProcesoController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Filter\frSeguridad.cs" />
+    <Compile Include="Controllers\ControlController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Files\EstArchivoDigital.txt" />
+    <Content Include="Files\EstaProduccionEscalonadaPorId.txt" />
+    <Content Include="Files\EstaProduccionFijaBPorId.txt" />
+    <Content Include="Files\EstaProduccionFijaCPorId.txt" />
+    <Content Include="Files\EstBandejaCorreo.txt" />
+    <Content Include="Files\EstBandejaCorreoAdjunto.txt" />
+    <Content Include="Files\EstBandejaCorreoPorId.txt" />
+    <Content Include="Files\EstCompartidoPorId.txt" />
+    <Content Include="Files\EstDescuento.txt" />
+    <Content Include="Files\EstDetalleOAListasDetalle.txt" />
+    <Content Include="Files\EstDetalleOAListasDetalle2.txt" />
+    <Content Include="Files\EstHistorialCambio.txt" />
+    <Content Include="Files\EstHorarioBPorId.txt" />
+    <Content Include="Files\EstHorarioCPorId.txt" />
+    <Content Include="Files\EstMedico.txt" />
+    <Content Include="Files\EstMedicoContrato.txt" />
+    <Content Include="Files\EstMedicoContratoProveedor.txt" />
+    <Content Include="Files\EstMedicoContratoVencer.txt" />
+    <Content Include="Files\EstMenu.txt" />
+    <Content Include="Files\EstMenuPerfil.txt" />
+    <Content Include="Files\EstMontoPorId.txt" />
+    <Content Include="Files\EstPerfil.txt" />
+    <Content Include="Files\EstPeriodo.txt" />
+    <Content Include="Files\EstProceso.txt" />
+    <Content Include="Files\EstProcesoPlanilla.txt" />
+    <Content Include="Files\EstResponsableCorreo.txt" />
+    <Content Include="Files\EstTipoAdmision.txt" />
+    <Content Include="Files\EstTipoDescuento.txt" />
+    <Content Include="Files\EstTurnoBPorId.txt" />
+    <Content Include="Files\EstTurnoCPorId.txt" />
+    <Content Include="Files\EstUnidadMedica.txt" />
+    <Content Include="Files\EstUsuario.txt" />
+    <Content Include="Files\EstVacunaPorId.txt" />
+    <Content Include="Files\EstVariableCorreo.txt" />
+    <Content Include="Global.asax" />
+    <Content Include="Imagenes\doctor_fondo.jpg" />
+    <Content Include="Imagenes\favicon_sanna.png" />
+    <Content Include="Imagenes\loader.gif" />
+    <Content Include="Imagenes\logo-blanco.png" />
+    <Content Include="Imagenes\logo.png" />
+    <Content Include="Imagenes\Principal.jpg" />
+    <Content Include="Imagenes\principal1.jpg" />
+    <Content Include="Librerias\Fleck.dll" />
+    <Content Include="Librerias\NReco.PdfGenerator.dll" />
+    <Content Include="Scripts\AprobacionMedico.js" />
+    <Content Include="Scripts\AprobacionPago.js" />
+    <Content Include="Scripts\ArticuloLista.js" />
+    <Content Include="Scripts\AsignacionDescuentoLista.js" />
+    <Content Include="Scripts\AsignacionPerfil.js" />
+    <Content Include="Scripts\BandejaCorreoListar.js" />
+    <Content Include="Scripts\CentroCostoLista.js" />
+    <Content Include="Scripts\ClasificadorMovimiento.js" />
+    <Content Include="Scripts\ComponenteLista.js" />
+    <Content Include="Scripts\ComponentePopupLista.js" />
+    <Content Include="Scripts\ConceptoListar.js" />
+    <Content Include="Scripts\ConciliacionOA.js" />
+    <Content Include="Scripts\ConsultaHorariosMedico.js" />
+    <Content Include="Scripts\ConsultaOALista.js" />
+    <Content Include="Scripts\ContratoLista.js" />
+    <Content Include="Scripts\ContratoLista2.js" />
+    <Content Include="Scripts\ContratoPorVencerLista.js" />
+    <Content Include="Scripts\CopiarAgregar.js" />
+    <Content Include="Scripts\CreacionPlanilla.js" />
+    <Content Include="Scripts\CreacionPlanilla2.js" />
+    <Content Include="Scripts\CuentaCorrienteMedicoContable.js" />
+    <Content Include="Scripts\CuentaProvisionPagoLista.js" />
+    <Content Include="Scripts\DetalleErroresLista.js" />
+    <Content Include="Scripts\DetalleObservadosLista.js" />
+    <Content Include="Scripts\EmpresaLista.js" />
+    <Content Include="Scripts\excel-builder.dist.js" />
+    <Content Include="Scripts\GenerarArchivosDigitalesListar.js" />
+    <Content Include="Scripts\HistorialCambio.js" />
+    <Content Include="Scripts\HorarioMedicoLista.js" />
+    <Content Include="Scripts\InterfaseMaestrosSpringListar.js" />
+    <Content Include="Scripts\jszip.js" />
+    <Content Include="Scripts\loadash.js" />
+    <Content Include="Scripts\MantenimientoMedicoEmpresa.js" />
+    <Content Include="Scripts\MedicoLista.js" />
+    <Content Include="Scripts\MultiSelect.js" />
+    <Content Include="Scripts\OrdenAtencion.js" />
+    <Content Include="Scripts\PacienteLista.js" />
+    <Content Include="Scripts\Parametros.js" />
+    <Content Include="Scripts\PeriodoLista.js" />
+    <Content Include="Scripts\PlanCuentaContableLista.js" />
+    <Content Include="Scripts\datepicker.js" />
+    <Content Include="Scripts\CambioContrasena.js" />
+    <Content Include="Scripts\DatePickerX.js" />
+    <Content Include="Scripts\DescuentoLista.js" />
+    <Content Include="Scripts\FeriadosLista.js" />
+    <Content Include="Scripts\flatpickr.min.js" />
+    <Content Include="Scripts\Foopicker.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\md5.js" />
+    <Content Include="Scripts\OlvidoContrasena.js" />
+    <Content Include="Scripts\PerfilLista.js" />
+    <Content Include="Scripts\PlanillaDetalleConceptoOA.js" />
+    <Content Include="Scripts\PrestacionesLista.js" />
+    <Content Include="Scripts\Principal.js" />
+    <Content Include="Scripts\ProcesoAjusteContrato.js" />
+    <Content Include="Scripts\ProcesoDescuento.js" />
+    <Content Include="Scripts\ProcesoPlanillaLista.js" />
+    <Content Include="Scripts\ProcesoPlanillaLista20180807.js" />
+    <Content Include="Scripts\ProcesoProvisionLista.js" />
+    <Content Include="Scripts\ComprobanteElectronico.js" />
+    <Content Include="Scripts\ProcesoUnificacionPlanilla.js" />
+    <Content Include="Scripts\ProvisionDetalleConcepto.js" />
+    <Content Include="Scripts\ProvisionDetalleConceptoOA.js" />
+    <Content Include="Scripts\ProvisionLista.js" />
+    <Content Include="Scripts\ReplicaProcesoListar.js" />
+    <Content Include="Scripts\ReporteContrato.js" />
+    <Content Include="Scripts\ReporteContrato2.js" />
+    <Content Include="Scripts\ReporteControlConsolidado.js" />
+    <Content Include="Scripts\ReportecuentaCorriente.js" />
+    <Content Include="Scripts\ReporteDetalladoProvision.js" />
+    <Content Include="Scripts\ReportePlanillaObligacion.js" />
+    <Content Include="Scripts\ReporteProvision.js" />
+    <Content Include="Scripts\Reportes.js" />
+    <Content Include="Scripts\Reportes2.js" />
+    <Content Include="Scripts\ResponsableCorreoListar.js" />
+    <Content Include="Scripts\SeleccionMedicoProvision.js" />
+    <Content Include="Scripts\TipoDescuentoLista.js" />
+    <Content Include="Scripts\TurnoListar.js" />
+    <Content Include="Scripts\UnidadMedica.js" />
+    <Content Include="Scripts\UsuarioLista.js" />
+    <Content Include="Scripts\ValidacionCuentasContables.js" />
+    <Content Include="Scripts\xlscreateworker.js" />
+    <Content Include="Scripts\xlsx.full.min.js" />
+    <Content Include="Scripts\xlsx.js" />
+    <Content Include="Scripts\xlsxworker.js" />
+    <Content Include="Styles\BandejaCorreoListar.css" />
+    <Content Include="Styles\ContratoPorVencer.css" />
+    <Content Include="Styles\DatePickerX.css" />
+    <Content Include="Styles\HHMM.css" />
+    <Content Include="Styles\fonts\fontawesome-webfont.svg" />
+    <Content Include="Styles\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Styles\hte.ico" />
+    <Content Include="Styles\Loading.css" />
+    <Content Include="Styles\Login.css" />
+    <Content Include="Styles\LoginCambio.css" />
+    <Content Include="Styles\Opcional.css" />
+    <Content Include="Styles\PeriodoLista.css" />
+    <Content Include="Styles\Principal.css" />
+    <Content Include="Styles\ProcesoProvisionLista.css" />
+    <Content Include="Styles\ReporteCuentaCorrienteMedico.css" />
+    <Content Include="Styles\ResponsableCorreoListar.css" />
+    <Content Include="Styles\Tags.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="ArchivoPDF\" />
+    <Folder Include="Controllers\Core\" />
+    <Folder Include="Files\HHMM.AppWeb\ArchivoPDF\" />
+    <Folder Include="Files\HHMM.AppWeb\Imagenes\" />
+    <Folder Include="Logs\" />
+    <Folder Include="Models\" />
+    <Folder Include="obj\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Seguridad\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\fonts\fontawesome-webfont.eot" />
+    <Content Include="Styles\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Styles\fonts\fontawesome-webfont.woff" />
+    <Content Include="Styles\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Styles\fonts\FontAwesome.otf" />
+    <Content Include="Styles\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Styles\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Styles\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Styles\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Styles\less\animated.less" />
+    <Content Include="Styles\less\bordered-pulled.less" />
+    <Content Include="Styles\less\core.less" />
+    <Content Include="Styles\less\fixed-width.less" />
+    <Content Include="Styles\less\font-awesome.less" />
+    <Content Include="Styles\less\icons.less" />
+    <Content Include="Styles\less\larger.less" />
+    <Content Include="Styles\less\list.less" />
+    <Content Include="Styles\less\mixins.less" />
+    <Content Include="Styles\less\path.less" />
+    <Content Include="Styles\less\rotated-flipped.less" />
+    <Content Include="Styles\less\stacked.less" />
+    <Content Include="Styles\less\variables.less" />
+    <Content Include="Styles\scss\font-awesome.scss" />
+    <Content Include="Styles\scss\_animated.scss" />
+    <Content Include="Styles\scss\_bordered-pulled.scss" />
+    <Content Include="Styles\scss\_core.scss" />
+    <Content Include="Styles\scss\_fixed-width.scss" />
+    <Content Include="Styles\scss\_icons.scss" />
+    <Content Include="Styles\scss\_larger.scss" />
+    <Content Include="Styles\scss\_list.scss" />
+    <Content Include="Styles\scss\_mixins.scss" />
+    <Content Include="Styles\scss\_path.scss" />
+    <Content Include="Styles\scss\_rotated-flipped.scss" />
+    <Content Include="Styles\scss\_stacked.scss" />
+    <Content Include="Styles\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Principal\Inicio.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Seguridad\OlvidoContrasena.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Seguridad\CambioContrasena.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Principal\PaginaVacia.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\Formato de Contratos.xlsx" />
+    <Content Include="Files\Formato de Horarios.xlsx" />
+    <Content Include="Files\Formato de Prestaciones.xlsx" />
+    <Content Include="Files\Formato de Planillas.xlsx" />
+    <Content Include="Files\DetalleOAs.xlsx" />
+    <Content Include="Files\Formato_Ajuste_Cambio_Contrato.xlsx" />
+    <Content Include="Files\Formato de Conciliación.xlsx" />
+    <Content Include="Files\Formato de Horarios_BK_ORIGINAL.xlsx" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Contrato_LH21FKXGUL.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Contrato_LKCME8XGN5.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Pendiente_LH21FKXGUL.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Pendiente_LKCME8XGN5.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_1MK4G63H2Q.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_4WQ39089I5.xls" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_FBRP9MGVKP.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_GNNV9QKMQE.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_LH21FKXGUL.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_LKCME8XGN5.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_NC6FJNTYX2.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_U6G31TC2PF.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Provision_U7YN6ZKPZN.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Seguimiento_Operativo_LH21FKXGUL.xls.zip" />
+    <Content Include="Files\ExcelConsolidados\0_Reporte_Seguimiento_Operativo_LKCME8XGN5.xls.zip" />
+    <Content Include="Files\Adjuntos\1_3CONTRATO.PDF" />
+    <Content Include="Files\Adjuntos\Formato carga RX.pdf" />
+    <Content Include="Files\Adjuntos\ReporteContrato.pdf" />
+    <Content Include="Files\ReporteDetalladoPrueba.xlsx" />
+    <Content Include="Files\Formato de Horarios CSB.xlsx" />
+    <None Include="Properties\PublishProfiles\Marco.pubxml" />
+    <Content Include="Views\Mantenimiento\FeriadosLista.cshtml" />
+    <Content Include="Views\Administracion\MantenimientoPerfilesLista.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Administracion\AsignacionPerfil.cshtml" />
+    <Content Include="Views\Mantenimiento\TipoDescuentoLista.cshtml" />
+    <Content Include="Views\Mantenimiento\DescuentosLista.cshtml" />
+    <Content Include="Views\Mantenimiento\ComponenteLista.cshtml" />
+    <Content Include="Views\Control\Reportes.cshtml" />
+    <Content Include="Views\Mantenimiento\PlanCuentaContableLista.cshtml" />
+    <Content Include="Views\Mantenimiento\CuentaProvisionPagoLista.cshtml" />
+    <Content Include="Views\Mantenimiento\ArticuloLista.cshtml" />
+    <Content Include="Views\Administracion\MantenimientoUsuario.cshtml" />
+    <Content Include="Views\Mantenimiento\HorarioMedicoLista.cshtml" />
+    <Content Include="Views\Mantenimiento\MedicoLista.cshtml" />
+    <Content Include="Views\Configuracion\AsignacionDescuentoLista.cshtml" />
+    <Content Include="Views\Configuracion\ContratoLista.cshtml" />
+    <Content Include="Views\Control\ContratoPorVencerLista.cshtml" />
+    <Content Include="Views\Mantenimiento\PrestacionesLista.cshtml" />
+    <Content Include="Views\Principal\HistorialCambio.cshtml" />
+    <Content Include="Views\Difundir\ConfiguracionCorreoListar.cshtml" />
+    <Content Include="Views\Proceso\PeriodoLista.cshtml" />
+    <Content Include="Views\Proceso\ProvisionLista.cshtml" />
+    <Content Include="Views\Difundir\BandejaCorreoListar.cshtml" />
+    <Content Include="Views\Proceso\CreacionPlanilla.cshtml" />
+    <Content Include="Views\Mantenimiento\ConceptosResumenLista.cshtml" />
+    <Content Include="Views\Mantenimiento\ConceptosResumenDetalleLista.cshtml" />
+    <Content Include="Views\Proceso\PacienteLista.cshtml" />
+    <Content Include="Views\Proceso\ProvisionDetalleConceptos.cshtml" />
+    <Content Include="Views\Proceso\ProcesoProvicionLista.cshtml" />
+    <Content Include="Views\Mantenimiento\EmpresaLista.cshtml" />
+    <Content Include="Views\Proceso\ProvisionDetalleConceptosOA.cshtml" />
+    <Content Include="Views\Mantenimiento\DetalleErroresLista.cshtml" />
+    <Content Include="Views\Control\ConsultaHorariosMedico.cshtml" />
+    <Content Include="Views\Mantenimiento\DetalleObservadosLista.cshtml" />
+    <Content Include="Views\Control\ReporteContrato.cshtml" />
+    <Content Include="Styles\fonts\roboto.ttf" />
+    <Content Include="Styles\fonts\roboto.woff2" />
+    <Content Include="Views\Control\ReporteProvision.cshtml" />
+    <Content Include="Views\Mantenimiento\UnidadMedicaLista.cshtml" />
+    <Content Include="Views\Proceso\ProcesoPlanillaLista.cshtml" />
+    <Content Include="Views\Difundir\GenerarArchivosDigitalesListar.cshtml" />
+    <Content Include="Views\Configuracion\AprobacionMedico.cshtml" />
+    <Content Include="Views\Mantenimiento\OrdenAtencion.cshtml" />
+    <Content Include="Views\Control\ReporteDetalladoProvision.cshtml" />
+    <Content Include="Views\Mantenimiento\TurnoLista.cshtml" />
+    <Content Include="Views\Mantenimiento\ConceptoLista.cshtml" />
+    <Content Include="Views\Proceso\PlanillaDetalleConceptosOA.cshtml" />
+    <Content Include="Views\Proceso\ProcesoDescuentos.cshtml" />
+    <Content Include="Views\Control\ReporteCuentaCorriente.cshtml" />
+    <Content Include="Views\Mantenimiento\OADetalleLista.cshtml" />
+    <Content Include="Views\Control\ReportePlanillaObligacion.cshtml" />
+    <Content Include="Views\Mantenimiento\MedicoEmpresaMantenimiento.cshtml" />
+    <Content Include="Views\Mantenimiento\ReplicaProcesoVista.cshtml" />
+    <Content Include="Views\Control\ReporteControlConsolidado.cshtml" />
+    <Content Include="Views\Proceso\ProcesoAjusteContrato.cshtml" />
+    <Content Include="Views\Mantenimiento\ComponentesLista.cshtml" />
+    <Content Include="Views\Control\ConciliacionOA.cshtml" />
+    <Content Include="Views\Mantenimiento\SeleccionMedicoProvision.cshtml" />
+    <Content Include="Views\Mantenimiento\InterfaseMaestrosSpringLista.cshtml" />
+    <Content Include="Views\Control\ValidacionCuentasContables.cshtml" />
+    <Content Include="Views\Control\CuentaCorrienteMedicoContable.cshtml" />
+    <Content Include="Views\Mantenimiento\Parametros.cshtml" />
+    <Content Include="Views\Mantenimiento\CentroCostoLista.cshtml" />
+    <Content Include="Views\Mantenimiento\ClasificadorMovimientoLista.cshtml" />
+    <Content Include="Views\Proceso\AprobacionPago.cshtml" />
+    <Content Include="Views\Proceso\ProcesoUnificacionPlanilla.cshtml" />
+    <Content Include="Views\Proceso\ComprobanteElectronico.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\General.Librerias.AccesoDatos\General.Librerias.AccesoDatos.csproj">
+      <Project>{501a6807-f944-498b-9f76-eb28d093135e}</Project>
+      <Name>General.Librerias.AccesoDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\General.Librerias.CodigoUsuario\General.Librerias.CodigoUsuario.csproj">
+      <Project>{8527e33d-ada7-440c-a10a-fa779acda5fc}</Project>
+      <Name>General.Librerias.CodigoUsuario</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\General.Librerias.EntidadesNegocio\General.Librerias.EntidadesNegocio.csproj">
+      <Project>{a2a482a5-c041-4a42-a075-97c3e7519809}</Project>
+      <Name>General.Librerias.EntidadesNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HHMM.Librerias.EntidadesNegocio\HHMM.Librerias.EntidadesNegocio.csproj">
+      <Project>{17710810-ced8-4f97-84f1-bca7ab971088}</Project>
+      <Name>HHMM.Librerias.EntidadesNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HHMM.Librerias.ReglasNegocio\HHMM.Librerias.ReglasNegocio.csproj">
+      <Project>{48943efa-b88f-4c2b-9816-600d28064cec}</Project>
+      <Name>HHMM.Librerias.ReglasNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Softvan.Core\Softvan.Core.csproj">
+      <Project>{f9f96ce5-083c-4678-9e13-e28347938823}</Project>
+      <Name>Softvan.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8903</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6939/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

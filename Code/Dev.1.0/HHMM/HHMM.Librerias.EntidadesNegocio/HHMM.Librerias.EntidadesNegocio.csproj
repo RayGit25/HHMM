@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17710810-CED8-4F97-84F1-BCA7AB971088}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HHMM.Librerias.EntidadesNegocio</RootNamespace>
+    <AssemblyName>HHMM.Librerias.EntidadesNegocio</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="beAprobacionMedico.cs" />
+    <Compile Include="beAprobacionMedicoListas.cs" />
+    <Compile Include="beAprobacionPagoListar.cs" />
+    <Compile Include="beAprobacionPagoListas.cs" />
+    <Compile Include="beArchivoDigitalListas.cs" />
+    <Compile Include="beArchivoDigitalListasPdf.cs" />
+    <Compile Include="beArchivoDigitalMedico.cs" />
+    <Compile Include="beArchivoDigitalMedicoCabeceraPdf.cs" />
+    <Compile Include="beArchivoDigitalMedicoCabeceraPrincipalPdf.cs" />
+    <Compile Include="beArchivoDigitalMedicoCSFRListas.cs" />
+    <Compile Include="beArchivoDigitalMedicoFacturacion.cs" />
+    <Compile Include="beArchivoDigitalMedicoListas.cs" />
+    <Compile Include="beArchivoDigitalPlantillaCorreo.cs" />
+    <Compile Include="beAsientoContable.cs" />
+    <Compile Include="beAsignacionDescuentoListas.cs" />
+    <Compile Include="beAsignacionDescuentoVista.cs" />
+    <Compile Include="beBandejaCorreo.cs" />
+    <Compile Include="beBandejaCorreoAdjunto.cs" />
+    <Compile Include="beBandejaCorreoListar.cs" />
+    <Compile Include="beConceptoMontoFijo.cs" />
+    <Compile Include="beConceptoMontoFijoListas.cs" />
+    <Compile Include="beConciliacionOAVista.cs" />
+    <Compile Include="beConsultaHorarioMedicoListas.cs" />
+    <Compile Include="beConsultaOA.cs" />
+    <Compile Include="beContratoCompartido.cs" />
+    <Compile Include="beContratoCompartidoPorId.cs" />
+    <Compile Include="beContratoDescuento.cs" />
+    <Compile Include="beContratoExcel.cs" />
+    <Compile Include="beContratoProduccionDescuentoVista.cs" />
+    <Compile Include="beContratoRenovacion.cs" />
+    <Compile Include="beCuentaCorrienteReporte1.cs" />
+    <Compile Include="beCuentaCorrienteReporte2.cs" />
+    <Compile Include="beCuentaCorrienteReporte3.cs" />
+    <Compile Include="beCuentaCorrienteReporteDetalle.cs" />
+    <Compile Include="beCuentaCorrienteReporteListas.cs" />
+    <Compile Include="beDetalleErrorHorarioLista.cs" />
+    <Compile Include="beDetalleErrorLista.cs" />
+    <Compile Include="beDetalleErrorListas.cs" />
+    <Compile Include="beDetalleOA.cs" />
+    <Compile Include="beDetalleOAHorario.cs" />
+    <Compile Include="beDetalleOAListas.cs" />
+    <Compile Include="beDetalleOAMontoFijo.cs" />
+    <Compile Include="beDetalleObservadoLista.cs" />
+    <Compile Include="beExtornoMontoFijo.cs" />
+    <Compile Include="beHistorial.cs" />
+    <Compile Include="beHistorialCambio.cs" />
+    <Compile Include="beHorarioMedicoConsulta.cs" />
+    <Compile Include="beHorarioMedicoConsultaVista.cs" />
+    <Compile Include="beHorarioMedicoExcel.cs" />
+    <Compile Include="beHorarioVista.cs" />
+    <Compile Include="beInterfaseMaestroVista.cs" />
+    <Compile Include="beMedicoAsientoProvisionListas.cs" />
+    <Compile Include="beMedicoContrato.cs" />
+    <Compile Include="beAsignacionDescuentoVistaLista.cs" />
+    <Compile Include="beCompania.cs" />
+    <Compile Include="beCompaniaSucursal.cs" />
+    <Compile Include="beCuentaProvisionPago.cs" />
+    <Compile Include="beCuentaProvisionPagoListas.cs" />
+    <Compile Include="beCuentaProvisionPagoVista.cs" />
+    <Compile Include="beCuentaProvisionPagoVistaLista.cs" />
+    <Compile Include="beDescuento.cs" />
+    <Compile Include="beDescuentoVista.cs" />
+    <Compile Include="beFeriado.cs" />
+    <Compile Include="beFeriadoVista.cs" />
+    <Compile Include="beFeriadoVistaLista.cs" />
+    <Compile Include="beHorarioMedicoHorario.cs" />
+    <Compile Include="beHorarioMedicoListas.cs" />
+    <Compile Include="beHorarioMedicoVista.cs" />
+    <Compile Include="beHorarioListas.cs" />
+    <Compile Include="beMedico.cs" />
+    <Compile Include="beMedicoContratoAdjuntar.cs" />
+    <Compile Include="beMedicoContratoCompartidoVista.cs" />
+    <Compile Include="beMedicoContratoComponenteReporte.cs" />
+    <Compile Include="beMedicoContratoDescuento.cs" />
+    <Compile Include="beMedicoContratoDescuentoPorId.cs" />
+    <Compile Include="beMedicoContratoEscalonadoVista.cs" />
+    <Compile Include="beMedicoContratoHorario.cs" />
+    <Compile Include="beMedicoContratoHorarioBonificacionVista.cs" />
+    <Compile Include="beMedicoContratoHorarioConfiguracionVista.cs" />
+    <Compile Include="beMedicoContratoHorarioPorId.cs" />
+    <Compile Include="beMedicoContratoListar.cs" />
+    <Compile Include="beMedicoContratoListas.cs" />
+    <Compile Include="beMedicoContratoMontoVista.cs" />
+    <Compile Include="beMedicoContratoProduccionB.cs" />
+    <Compile Include="beMedicoContratoProduccionBListas.cs" />
+    <Compile Include="beMedicoContratoProduccionC.cs" />
+    <Compile Include="beMedicoContratoProduccionCListas.cs" />
+    <Compile Include="beMedicoContratoProduccionVista.cs" />
+    <Compile Include="beMedicoContratoProveedor.cs" />
+    <Compile Include="beMedicoContratoReporte.cs" />
+    <Compile Include="beMedicoContratoReporteVista.cs" />
+    <Compile Include="beMedicoContratoTurno.cs" />
+    <Compile Include="beMedicoContratoTurnoBonificacionVista.cs" />
+    <Compile Include="beMedicoContratoTurnoConfiguracionVista.cs" />
+    <Compile Include="beMedicoContratoTurnoPorId.cs" />
+    <Compile Include="beMedicoContratoVacunaVista.cs" />
+    <Compile Include="beMedicoContratoVencer.cs" />
+    <Compile Include="beMedicoEmpresaMantenimientoVista.cs" />
+    <Compile Include="beMedicoEmpresaMantenimientoVistaListas.cs" />
+    <Compile Include="beMedicoSeleccionProvision.cs" />
+    <Compile Include="beMedicoVacuna.cs" />
+    <Compile Include="beMedicoVacunaPorId.cs" />
+    <Compile Include="beMenu.cs" />
+    <Compile Include="beMenuAccion.cs" />
+    <Compile Include="beMenuAccionPerfilVista.cs" />
+    <Compile Include="beMenuPerfil.cs" />
+    <Compile Include="beMenuPerfilListas.cs" />
+    <Compile Include="beMonto.cs" />
+    <Compile Include="beMontoFijoDetalleImportar.cs" />
+    <Compile Include="beMontoFijoVista.cs" />
+    <Compile Include="beMontoPorId.cs" />
+    <Compile Include="beOrdenAtencion.cs" />
+    <Compile Include="beOrdenAtencionFiltro.cs" />
+    <Compile Include="beOrdenAtencionListas.cs" />
+    <Compile Include="beOrdenAtencionVista.cs" />
+    <Compile Include="bePacienteVista.cs" />
+    <Compile Include="beParametroSeguridadReglas.cs" />
+    <Compile Include="bePerfil.cs" />
+    <Compile Include="bePerfilListar.cs" />
+    <Compile Include="bePerfilNombre.cs" />
+    <Compile Include="bePeriodo.cs" />
+    <Compile Include="bePeriodoListar.cs" />
+    <Compile Include="bePlanillaDetalleBonificacion.cs" />
+    <Compile Include="bePlanillaDetalleMontoFijo.cs" />
+    <Compile Include="bePlanillaDetalleProduccion.cs" />
+    <Compile Include="bePlanillaDetalleListas.cs" />
+    <Compile Include="bePlanillaMedico.cs" />
+    <Compile Include="bePlanillaMedicoConsolidado.cs" />
+    <Compile Include="bePlanillaMedicoConsolidadoResumen.cs" />
+    <Compile Include="bePlanillaMedicoConsolidadoResumenTipo.cs" />
+    <Compile Include="bePlanillaMedicoDescuento.cs" />
+    <Compile Include="bePlanillaPeriodo.cs" />
+    <Compile Include="bePlanillasListas.cs" />
+    <Compile Include="bePlanillaUnificacion.cs" />
+    <Compile Include="bePlanillaVistaResumen.cs" />
+    <Compile Include="bePrestacionVista.cs" />
+    <Compile Include="beProceso.cs" />
+    <Compile Include="beProcesoAjusteContrato.cs" />
+    <Compile Include="beProcesoAjusteContratoDetalle.cs" />
+    <Compile Include="beProcesoAjusteContratoDetalle2.cs" />
+    <Compile Include="beProcesoAjusteContratoListas.cs" />
+    <Compile Include="beProcesoDescuentoListas.cs" />
+    <Compile Include="beProcesoDescuentoVista.cs" />
+    <Compile Include="beProcesoListar.cs" />
+    <Compile Include="beProcesoMedico.cs" />
+    <Compile Include="beProcesoMedicoDetalle.cs" />
+    <Compile Include="beProcesoMedicoDetalle2.cs" />
+    <Compile Include="beProcesoMedicoHorarioPdf.cs" />
+    <Compile Include="beProcesoMedicoHorarioPdf2.cs" />
+    <Compile Include="beProcesoMedicoHorarioPdf3.cs" />
+    <Compile Include="beProcesoMedicoVista.cs" />
+    <Compile Include="beProcesoOrdenAtencionCSFRPdf.cs" />
+    <Compile Include="beProcesoOrdenAtencionPdf.cs" />
+    <Compile Include="beProcesoPlanilla.cs" />
+    <Compile Include="beProcesoPlanillaVista.cs" />
+    <Compile Include="beProcesoPlanillaVistaListas.cs" />
+    <Compile Include="beProduccionEscalonada.cs" />
+    <Compile Include="beProduccionEscalonadaPorId.cs" />
+    <Compile Include="beProduccionFija.cs" />
+    <Compile Include="beProduccionFijaPorId.cs" />
+    <Compile Include="beProduccionVista.cs" />
+    <Compile Include="beProvisionDetalleVista.cs" />
+    <Compile Include="beProvisionDetalleVistaListas.cs" />
+    <Compile Include="beReplicaOrdenAtencionActualizador.cs" />
+    <Compile Include="beReplicaProcesoListas.cs" />
+    <Compile Include="beReplicaProcesoPeriodo.cs" />
+    <Compile Include="beReplicaProcesoVista.cs" />
+    <Compile Include="beReporte.cs" />
+    <Compile Include="beReporteContratoCabecera.cs" />
+    <Compile Include="beReporteContratoDetalle.cs" />
+    <Compile Include="beReporteContratoListas.cs" />
+    <Compile Include="beReporteContratoVista1.cs" />
+    <Compile Include="beReporteContratoVista2.cs" />
+    <Compile Include="beReporteContratoVista3.cs" />
+    <Compile Include="beReporteContratoVista4.cs" />
+    <Compile Include="beReporteControlHorario.cs" />
+    <Compile Include="beReporteControlMontoFijo.cs" />
+    <Compile Include="beReporteControlProduccion.cs" />
+    <Compile Include="beReporteDetalladoProvicionListas.cs" />
+    <Compile Include="beReporteDetalladoProvisionHorario.cs" />
+    <Compile Include="beReporteDetalladoProvisionHorario2.cs" />
+    <Compile Include="beReporteDetalladoProvisionPeriodo.cs" />
+    <Compile Include="beReporteDetalladoProvisionPeriodo2.cs" />
+    <Compile Include="beReporteDetalladoProvisionProduccion.cs" />
+    <Compile Include="beReporteDetalladoProvisionProduccion2.cs" />
+    <Compile Include="beReporteDetalladoProvisionVista.cs" />
+    <Compile Include="beReporteDetalladoProvisionVista2.cs" />
+    <Compile Include="beReporteLiquidacionListas.cs" />
+    <Compile Include="beReporteLiquidacionListas2.cs" />
+    <Compile Include="beReporteLiquidacionListasResumen.cs" />
+    <Compile Include="beReporteLiquidacionVista1.cs" />
+    <Compile Include="beReporteLiquidacionVista11.cs" />
+    <Compile Include="beReporteLiquidacionVista2.cs" />
+    <Compile Include="beReporteLiquidacionVista3.cs" />
+    <Compile Include="beReporteLiquidacionVista4.cs" />
+    <Compile Include="beReporteLiquidacionVista5.cs" />
+    <Compile Include="beReporteLiquidicacionPeriodo.cs" />
+    <Compile Include="beReportePlanillaObligacionListas.cs" />
+    <Compile Include="beReportePlanillaObligacionVista.cs" />
+    <Compile Include="beReporteProvicionHorarioMedico.cs" />
+    <Compile Include="beReporteProvisionResumen.cs" />
+    <Compile Include="beReporteVista.cs" />
+    <Compile Include="beReporteVista2.cs" />
+    <Compile Include="beResponsableCorreo.cs" />
+    <Compile Include="beResponsableCorreoListar.cs" />
+    <Compile Include="beSucursalCompania.cs" />
+    <Compile Include="beTipoAdmision.cs" />
+    <Compile Include="beTipoDescuento.cs" />
+    <Compile Include="beTipoDescuentoLista.cs" />
+    <Compile Include="beTipoDocumento.cs" />
+    <Compile Include="beTurno.cs" />
+    <Compile Include="beUnidadMedica.cs" />
+    <Compile Include="beUnidadMedicaLista.cs" />
+    <Compile Include="beUsuario.cs" />
+    <Compile Include="beUsuarioCompaniaLogin.cs" />
+    <Compile Include="beUsuarioCompaniaSucursal.cs" />
+    <Compile Include="beUsuarioListar.cs" />
+    <Compile Include="beUsuarioLogin.cs" />
+    <Compile Include="beUsuarioMantenimiento.cs" />
+    <Compile Include="beUsuarioMensaje.cs" />
+    <Compile Include="beUsuarioSucursalCompaniaListas.cs" />
+    <Compile Include="beUsuarioSucursalLogin.cs" />
+    <Compile Include="beVariableCorreo.cs" />
+    <Compile Include="beArchivoDigitalDetalleListas.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\General.Librerias.EntidadesNegocio\General.Librerias.EntidadesNegocio.csproj">
+      <Project>{a2a482a5-c041-4a42-a075-97c3e7519809}</Project>
+      <Name>General.Librerias.EntidadesNegocio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

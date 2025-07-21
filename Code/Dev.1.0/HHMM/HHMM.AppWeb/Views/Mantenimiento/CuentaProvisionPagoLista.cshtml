@@ -1,0 +1,434 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Configuración de Cuentas de Provisión y Pago";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">@ViewBag.Title</div>
+    <div class="frm-cuerpo">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+        <div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+            <div class="form-grupo fila">
+                <div class="tam-4" style="text-align:left">
+                    <span>Sucursal</span>
+                </div>
+                <div class="tam-9">
+                    <input type="text" class="lectura" style="width: 100%" id="txtBusquedaSucursal" readonly />
+                </div>
+                <div class="tam-6" style="text-align:left">
+                    <span>Tipo Servicio</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlBusquedaTipoServicio" style="width: 105%"></select>
+                </div>
+                <div class="tam-5" style="text-align:left">
+                    <span>Tipo Admisión</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlBusquedaTipoAdmision" style="width: 100%"></select>
+                </div>
+                <div class="tam-5" style="text-align:left">
+                    <span>Tipo Persona</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlBusquedaTipoPersona" style="width: 100%">
+                        <option value="">Todos</option>
+                        <option value="N">Natural</option>
+                        <option value="J">Juridica</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-grupo fila">
+                <div class="tam-4" style="text-align:left">
+                    <span>Tipo Asiento</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlBusquedaTipoAsiento" style="width: 105%">
+                        <option value="">Todos</option>
+                        <option value="P">Provisión</option>
+                        <option value="X">Planilla</option>
+                        <option value="I">Ingreso</option>
+                    </select>
+                </div>
+                <div class="tam-6" style="text-align:left">
+                    <span>Cuenta Contable</span>
+                </div>
+                <div class="tam-9">
+                    <input type="text" class="form-texto" style="width: 100%" id="txtBusquedaCuenta" />
+                </div>
+                <div class="tam-4" style="text-align:left">
+                    <span>Tipo de Paciente</span>
+                </div>
+                <div class="tam-9">
+                    <select id="ddlBusquedaTipoPaciente" style="width: 105%"></select>
+                </div>
+                <div class="tam-5">
+                </div>
+                <div class="tam-9">
+                    <span class="boton" id="btnBusqueda">Buscar</span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div style="width:100%;overflow:auto">
+			<div id="divCuentaProvision" class="tabla" style="display:none;width:3500px;overflow:hidden"></div>
+        </div>
+    </div>
+    <div id="PopupCuentaProvision" class="PopUp">
+        <div style="width: 800px;margin-top: 2%;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupCuentaProvision');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupCuentaProvision">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Tipo Asiento</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlTipoAsiento" style="width: 105%" name="limpiar" class="validar" data-secuencia="0" data-validacion="validarCombo|tipo de asiento">
+                                    <option value="">Seleccione</option>
+                                    <option value="P">Provisión</option>
+                                    <option value="X">Planilla</option>
+                                    <option value="I">Ingreso</option>
+                                </select>
+                            </div>
+                            <div class="tam-5">
+                                <span>Sucursal</span>
+                            </div>
+                            <div class="tam-9">
+                                <input type="text" class="lectura" style="width: 98%" id="txtSucursal" readonly />
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Servicio</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlServicio" style="width: 105%" name="limpiar"></select>
+                            </div>
+                            <div class="tam-5">
+                                <span>Moneda</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlMoneda" style="width: 103%" name="limpiar" class="validar" data-secuencia="1" data-validacion="validarCombo|moneda"></select>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Especialidad</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlEspecialidad" name="limpiar" style="width: 105%"></select>
+                            </div>
+
+                            <div class="tam-5">
+                                <span>Clas. Movim</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlClasificacionMovimiento" name="limpiar" style="width: 103%"></select>
+                            </div>
+
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Tipo Admision</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlTipoAdmision" name="limpiar" style="width: 105%"></select>
+                            </div>
+                            <div class="tam-5">
+                                <span>T. Componente</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlComponente" name="limpiar" style="width: 105%">
+                                    <option value="">Ninguno</option>
+                                    <option value="A">Artículo</option>
+                                    <option value="P">Prestación</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Tipo Paciente</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlTipoPaciente" name="limpiar" style="width: 105%"></select>
+                            </div>
+                            <div class="tam-5">
+                                <span>Tipo Persona</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlTipoPersona" name="limpiar" style="width: 105%">
+                                    <option value="">Todos</option>
+                                    <option value="N">Natural</option>
+                                    <option value="J">Juridica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila" id="divOculComp" style="display:none">
+                            <div class="tam-6 cocultar" data-com="P" style="display: none">
+                                <span>Prestación</span>
+                            </div>
+                            <div class="tam-9 cocultar" data-com="P" style="display: none">
+                                <input type="text" id="txtPrestacion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                            </div>
+                            <div class="tam-6 cocultar" data-com="A">
+                                <span>Articulo</span>
+                            </div>
+                            <div class="tam-9 cocultar" data-com="A">
+                                <input type="text" id="txtArticulo" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                            </div>
+                            <div class="tam-15">
+                                <input type="text" id="txtPresDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                            </div>
+                            <div class="tam-1">
+                                <span class="Icons fa-search puntero" id="spnComponente"></span>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-6">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-9">
+                                <input type="text" id="txtEstado" name="limpiar" class="form-texto lectura" value="ACTIVO" style="width: 100%" readonly />
+                            </div>
+                            <span class="historial puntero" style="display:none;text-decoration:underline;color:#00a850" id="spnHistorial" onclick="verHistorial('CuentaProvisionPago')">Historial de Cambios</span>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div style="width:100%;text-align:center;display:none" id="divConfiguracionPago"></div>
+                        </div>
+                        <div class="form-grupo fila" id="divGeneral" style="display:none">
+                            <div class="tam-6">
+                                <span id="spnGeneral">Tipo Admision</span>
+                            </div>
+                            <div class="tam-9">
+                                <select id="ddlGeneral" name="limpiar" style="width: 105%" data-v=""></select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <ul id="ulTabs" class="tabs">
+                                <li class="tab-link current" id="tab1" data-tab="tab-1" onclick="mostrarTabs(this,'ulTabs');">Vinculada</li>
+                                <li class="tab-link" id="tab2" data-tab="tab-2" onclick="mostrarTabs(this,'ulTabs');">No Vinculada</li>
+                            </ul>
+                            <div id="tab-1" class="tab-content current">
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Costo</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableVCosto" name="limpiar" class="form-texto lectura validar" data-secuencia="2" data-validacion="validarTexto|cuenta contable costo" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableVCostoDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="1" id="spnVCostoCuenta"></span>
+                                    </div>
+                                </div>
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Prov.</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableVProv" name="limpiar" class="form-texto lectura validar" data-secuencia="3" data-validacion="validarTexto|cuenta contable proveedor" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableVProvDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="2" id="spnVProvCuenta"></span>
+                                    </div>
+                                </div>
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Cliente</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableVCli" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableVCliDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="3" id="spnvCliCuenta"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="tab-2" class="tab-content">
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Costo</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableNVCosto" name="limpiar" class="form-texto lectura validar" data-secuencia="4" data-validacion="validarTexto|cuenta contable costo" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableNVCostoDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="4" id="spnNVCostoCuenta"></span>
+                                    </div>
+                                </div>
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Prov.</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableNVProv" name="limpiar" class="form-texto lectura validar" data-secuencia="5" data-validacion="validarTexto|cuenta contable proveedor" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableNVProvDescripcion" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="5" id="spnNVProvCuenta"></span>
+                                    </div>
+                                </div>
+                                <div class="form-grupo fila">
+                                    <div class="tam-6">
+                                        <span>Cta. Cont. Cliente</span>
+                                    </div>
+                                    <div class="tam-5">
+                                        <input type="text" id="txtCuentaContableNVCli" name="limpiar" class="form-texto lectura" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-19">
+                                        <input type="text" id="txtCuentaContableNVCliDescripcion" name="limpiar" class="form-texto lectura" value="" style="width: 100%" readonly />
+                                    </div>
+                                    <div class="tam-1">
+                                        <span class="Icons fa-search puntero" data-orden="6" id="spnNVCliCuenta"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupCuentaProvision')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Esta seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupComponente" class="PopUp">
+        <div style="width: 750px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 750px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupComponente');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupComponente">SELECCIONAR COMPONENTE</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrComponente"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupCuenta" class="PopUp">
+        <div style="width: 750px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 750px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupCuenta');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupCuenta">SELECCIONAR CUENTA CONTABLE</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrCuenta"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupArticulo" class="PopUp">
+        <div style="width: 750px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 750px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupArticulo');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupArticulo">SELECCIONAR ARTICULO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrArticulo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+	<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <input type="hidden" id="hdfCom" value="-1" />
+    <input type="hidden" id="hdfCue" value="-1" />
+    <input type="hidden" id="hdfArt" value="-1" />
+    <script src="~/Scripts/CuentaProvisionPagoLista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

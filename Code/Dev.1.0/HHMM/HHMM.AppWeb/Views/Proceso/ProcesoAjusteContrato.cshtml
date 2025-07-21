@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera" ><span id="spnTituloDetalle">&nbsp;Ajuste por Cambio de Contrato - Producción por OA</span><i id="iclose" class="Icons fa-close" style="float:right;color:white;font-size:20px;cursor:pointer;display:none" onclick="redireccionprovision();"></i></div>
+    <div class="frm-cuerpo" id="PantallaContratos">
+        <div>
+            <p><span id="spnMensaje" class="Mensaje" /></p>
+        </div>
+        <div id="divBusquedaDoctor">
+            <div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+                <div class="form-grupo fila">
+                    <div class="tam-6 izquierda">
+                        <span>Medico/Empresa</span>
+                    </div>
+                    <div class="tam-16">
+                        <input type="text" class="lectura" style="width: 101%" id="txtBusquedaMedico" readonly />
+                    </div>
+                    <div class="tam-1">
+                        <span class="Icons fa-search spnDoctor puntero"></span>
+                    </div>
+                    <div class="tam-1">
+                    </div>
+					 <div class="tam-5 izquierda">
+                        <span>Fecha Inicio</span>
+                    </div>
+                    <div class="tam-6">
+                        <input type="text" class="form-texto" style="width: 100%" id="txtBusquedaFechaInicio" />
+                    </div>
+					<div class="tam-8">
+                        <span class="boton" id="btnBusqueda">Buscar</span>&nbsp;<span class="boton" id="btnBusquedaLimpiar">Limpiar</span>
+                    </div>
+                </div>
+				<div class="form-grupo fila">
+					<div class="tam-6 izquierda">
+                        <span>Empresa</span>
+                    </div>
+                    <div class="tam-16">
+                        <input type="text" class="lectura" style="width: 101%" id="txtBusquedaEmpresa" readonly />
+                    </div>
+					<div class="tam-1">
+                        <span class="Icons fa-search spnEmpresa puntero" ></span>
+                    </div>
+					<div class="tam-1"></div>
+					<div class="tam-5 izquierda">
+                        <span>Fecha Fin</span>
+                    </div>
+                    <div class="tam-6">
+                        <input type="text" class="form-texto" style="width: 100%" id="txtBusquedaFechaFin" />
+                    </div>
+					 <div class="tam-8"></div>
+				</div>
+            </div>
+            <br />
+            <div id="divPrincipal" class="tabla" style="display: none"></div>
+        </div>
+        <div id="divDoctor" style="display: none">
+            <div id="divDoctorDetalle" style="text-align: center" class="form-grupo fila">
+                <div class="form-grupo fila">
+					 <div class="tam-7 cocultar">
+                        <span>Código OA</span>
+                    </div>
+                    <div class="tam-13 cocultar" >
+						<input type="text" style="width: 100%" id="txtDetalleCodigoOA" data-i="" name="limpiarDetalle" />
+                    </div>
+                    <div class="tam-7  docultar">
+                        <span>Periodo Prov.</span>
+                    </div>
+                    <div class="tam-6 docultar" >
+						<select style="width: 110%" id="cboPprov" name="limpiarDetalle"></select>
+                    </div>
+					<div class="tam-6 docultar" >
+						<select style="width: 110%" id="cboPprov2" name="limpiarDetalle"></select>
+                    </div>
+					<div class="tam-6">
+                        <span>Médico</span>
+                    </div>
+                    <div class="tam-12">
+                        <input type="text" class="lectura" style="width: 100%" id="txtDetalleMedico" data-i="" name="limpiarDetalle" readonly />
+                    </div>
+                    <div class="tam-1">
+                        <span class="Icons fa-search spnDoctor puntero"></span>
+                    </div>
+					<div class="tam-4"></div>
+                </div>
+                <div class="form-grupo fila">
+					<div class="tam-7" >
+                        <span>Servicio</span>
+                    </div>
+                    <div class="tam-12" style="width:265px">
+						<select style="width: 104%" id="cboServicio" name="limpiarDetalle"></select>
+                    </div>
+                    <div class="tam-6">
+                        <span>Empresa</span>
+                    </div>
+                    <div class="tam-12">
+                        <input type="text" class="lectura" style="width: 100%" id="txtDetalleEmpresa" data-i="" name="limpiarDetalle" readonly />
+                    </div>
+                    <div class="tam-1">
+                        <span class="Icons fa-search spnEmpresa puntero"></span>
+                    </div>
+					<div class="tam-4">
+						<span class="boton" id="btnDetalleBuscar" >Buscar</span>
+					</div>
+                </div>
+                <div class="form-grupo fila">
+					 <div class="tam-7">
+                        <span>F. Atención</span>
+                    </div>
+                    <div class="tam-6">
+                        <input type="text"  style="width: 100%" id="txtDetalleFechaInicio" name="limpiarDetalle"  />
+                    </div>
+                    <div class="tam-6">
+                        <input type="text"  style="width: 100%" id="txtDetalleFechaFin" name="limpiarDetalle"  />
+                    </div>
+					 <div class="tam-6">
+                        <span>Componente</span>
+                    </div>
+                    <div class="tam-12">
+                        <input type="text" class="lectura" style="width: 100%" id="txtDetalleComponente" data-i="" name="limpiarDetalle" readonly />
+                    </div>
+                    <div class="tam-1">
+                        <span id="spnComponente" class="Icons fa-search  puntero"></span>
+                    </div>
+					<div class="tam-4">
+						<span class="boton" id="btnDetalleLimpiar" >Limpiar</span>
+					</div>
+                </div>
+                <div class="form-grupo fila" style="border-top: 1px solid #00a850;padding-top: 5px;">
+					 <div class="tam-6">
+                        <span>Descripción</span>
+                    </div>
+                    <div class="tam-80">
+                        <input type="text" class="validar" data-secuencia="1" data-validacion="validarTexto|Descripción"  style="width: 100%" id="txtDetalleDescripcion"  name="limpiarDetalle"  />
+                    </div>
+                </div>
+				 <div class="form-grupo fila" style="text-align: left;">
+					 <div class="tam-10">
+                        <span>Registros Seleccionados:&nbsp;<span id="spnCantidad"></span></span>
+                    </div>
+                    <div class="tam-1" style="float:right">
+                        <input type="checkbox" id="chkFiltrarTodos"  />
+                    </div>
+					 <div class="tam-8" style="float:right">
+                        <span>Filtrar Seleccionados</span>
+                    </div>
+					 <div class="tam-1" style="float:right">
+						 <a style="text-decoration:underline;color:#00a850;cursor:pointer" id="aExportarExcelDetalle" class="Icons fa-file-excel-o"></a>
+						 </div>
+                </div>
+            </div>
+            <div id="divDetalle" class="tabla" style="clear:both">
+            </div>
+			<div class="form-grupo fila" style="text-align:right;margin-top:10px;">
+				<span class="historial puntero" style="display:none;text-decoration:underline;color:#00a850" id="spnHistorial" onclick="verHistorial('ProcesoAjusteContrato')">Historial de Cambios</span>
+				<div class="tam-12">
+					<span style="text-decoration:underline;color:#00a850;cursor:pointer" id="spnFrmcarga" >Descargar formato de carga</span>
+				</div>
+			</div>
+			<div class="form-grupo fila" style="text-align:center;margin-top:10px;">
+				<div class="tam-4 xocultar">
+					<span class="boton" id="btnDetalleGrabar" >Grabar</span>
+				</div>
+				<div class="tam-4 xocultar">
+					<span class="boton" id="btnDetalleImportar" >Importar</span>
+				</div>
+				<div class="tam-4 xocultar" id="divDetalleCalcular">
+					<span class="boton" id="btnDetalleCalcular" >Calcular</span>
+				</div>
+				<div class="tam-4 xocultar">
+					<span class="boton" id="btnDetalleTerminar" >Terminar</span>
+				</div>
+				<div class="tam-4" >
+					<span class="boton" id="btnDetalleCancelar" >Cancelar</span>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div id="PopupMedico" class="PopUp">
+        <div style="width: 1000px; margin: 3% auto">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');recargarIframe('ifrMedico');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrMedico"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		 <div id="PopupEmpresa" class="PopUp">
+        <div style="width: 800px;margin:3% auto">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrEmpresa"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	 <div id="PopupComponente" class="PopUp">
+        <div style="width: 800px;margin:3% auto">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupComponente');recargarIframe('ifrComponente');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">SELECCIONAR COMPONENTE</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrComponente"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		<div id="PopupCargaDetalle" class="PopUp">
+		<div style="width: 900px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 900px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupCargaDetalle');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">Carga Masiva</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<input id="fupArchivoDet" type="file" />
+							<img id="gifLoad" class="imgGifLoad" src="~/Imagenes/loader.gif" alt="Cargando"  style="display:none"/>
+						</div>
+						<div>
+							<div id="tab-1" class="tab-content current">
+								<ul id="ulTabsXCf" class="tabs">
+									<li id="taby1" class="tab-link current" data-tab="tabcf-1" onclick="mostrarTabs(this,'ulTabsXCf');">Válidas&nbsp;<span id="numRegY1"></span></li>
+									<li id="taby2"  class="tab-link" data-tab="tabcf-2" onclick="mostrarTabs(this,'ulTabsXCf');">Erróneas&nbsp;<span id="numRegY2"></span></li>
+									<div class="tam-5" style="float: right">
+										<span class="boton" id="btnGrabarDetalle" style="display: none">Grabar</span>
+									</div><div class="tam-1" style="float: right">
+									<span style="text-decoration:underline;color:#00a850;cursor:pointer" class="Icons fa-file-excel-o" onclick="exportacionExcelImportacion()"></span>
+										</div>
+								</ul>
+								<div id="tabcf-1" class="tab-content current">
+									<br>
+									<div id="divValidados" class="tabla"></div>
+									<div id='pgValidos' style="text-align: center"></div>
+								</div>
+								<div id="tabcf-2" class="tab-content">
+									<br>
+									<div id="divErrados" class="tabla"></div>
+									<div id='pgErrados' style="text-align: center"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Está seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Confirmar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		<div id="PopupEstadoTerminar" class="PopUp">
+		<div style="width: 400px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstadoTerminar');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEstadoTerminar">CAMBIAR ESTADO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-15">
+								¿ Está seguro de incluir las OAs, cuya diferencia sea diferente de 0.00, en el proceso de provisión ?
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5">
+								<span class="boton" id="btngrabarEstadoTerminar">Grabar</span>
+							</div>
+							<div class="tam-5">
+								<span class="boton" onclick="abrirPopup('PopupEstadoTerminar')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+    <div id="PopupHistorial" class="PopUp">
+        <div style="width: 850px; margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 850px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdfCd" />
+    </div>
+
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <input type="hidden" id="hdfOpcConf" value="-1" />
+	    <input type="hidden" id="hdfMedico" value="-1" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<input type="hidden" id="hdfComponente" value="-1" />
+    <input type="hidden" id="hdfMedicoDet" value="-1" />
+	<input type="hidden" id="hdfSeguridad" value="@ViewBag.seguridad" />
+	<input type="hidden" id="hdfAjusteContrato" value="@ViewBag.AjusteCambio" />
+    <script src="~/Scripts/ProcesoAjusteContrato.js?v=@ViewBag.versionJS"></script>
+    <script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>
+

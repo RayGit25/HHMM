@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>ConsultaHorariosMedico</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/ContratoPorVencer.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">Consulta de Horarios Médicos</div>
+	<div class="frm-cuerpo">
+		<div>
+			<p><span id="spnMensaje" class="Mensaje" /></p>
+		</div>
+		<div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+			<div class="form-grupo fila">
+				<div class="tam-4" style="text-align: left">
+					<span>Médico</span>
+				</div>
+				<div class="tam-8" style="text-align: left">
+					<input id="txtMedico" type="text" class="form-texto limpiar lectura" placeholder="Médico" readonly style="width: 100%" />
+				</div>
+				<div class="tam-1" style="text-align: left">
+					<span class="Icons fa-search" id="spnDoctor"></span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span>Periodo</span>
+				</div>
+				<div class="tam-5" style="text-align: left">
+					<select id="cboPeriodo" style="width: 100px" class="limpiar">
+						<option value="1" selected>Enero</option>
+						<option value="2">Febrero</option>
+						<option value="3">Marzo</option>
+						<option value="4">Abril</option>
+						<option value="5">Mayo</option>
+						<option value="6">Junio</option>
+						<option value="7">Julio</option>
+						<option value="8">Agosto</option>
+						<option value="9">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="tam-4">
+					<input id="txtAnio" type="text" style="width: 80px" class="form-texto" placeholder="Año" />
+				</div>				
+				<div class="tam-6" style="text-align: left">
+					<span>Unidad Médica</span>
+				</div>
+				<div class="tam-6">
+					<select id="cboUnidadMedica" class="limpiar" style="width: 105%"></select>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<input id="btnLimpiar" type="button" class="boton" value="Limpiar" />
+				</div>
+				<div class="tam-4" id="divultimo" style="display:none">
+				</div>
+			</div>
+			<div class="form-grupo fila">
+				<div class="tam-4" style="text-align: left">
+					<span>Empresa</span>
+				</div>
+				<div class="tam-8" style="text-align: left">
+					<input id="txtEmpresa" type="text" class="form-texto lectura limpiar" placeholder="Empresa" readonly style="width: 100%" />
+				</div>
+				<div class="tam-1" style="text-align: left">
+					<span class="Icons fa-search" id="spnEmpresaBusqueda"></span>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<span>Turno</span>
+				</div>
+				<div class="tam-10" style="text-align: left">
+					<select id="cboTurno" style="width: 106%" class="limpiar"></select>
+				</div>
+				<div class="tam-4" style="text-align: left">
+					<input id="btnBuscar" type="button" class="boton" value="Buscar" />
+				</div>
+				<div id="divbtnRegresar" class="tam-4" style="text-align: left;display:none">
+					<input id="btnRegresar" type="button" class="boton" style="display: none" value="Regresar" />
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<a class="boton" id="btnExportar">Exportar a Excel</a>
+				</div>
+				<div class="tam-6" style="text-align: left">
+					<a class="boton" id="btnExportarPDF">Exportar a PDF</a>
+				</div>
+			</div>
+		</div>
+		<div id="divResultado"></div>
+		<br />
+		<div style="float:right">
+			<span>Total de horas asignadas <span id="spnSumatoriaTotal"></span></span>
+		</div>
+	</div>
+	<div id="PopupMedico" class="PopUp">
+		<div style="width: 1000px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');recargarIframe('ifrMedico');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MÉDICO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrMedico"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEmpresa" class="PopUp">
+		<div style="width: 800px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div id="ifrEmpresa"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfFecha" value="@ViewBag.fecha" />
+	<input type="hidden" id="hdfMedico" value="@ViewBag.medicoId" />
+	<input type="hidden" id="hdfSucursal" value="@ViewBag.Sucursal" />
+	<input type="hidden" id="hdfEmpresa" value="-1" />
+	<input type="hidden" id="hdfSeg" value="@ViewBag.idSeg" />
+	<input type="hidden" id="url" value="@Url.Content("~")"/>
+	<script src="~/Scripts/ConsultaHorariosMedico.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

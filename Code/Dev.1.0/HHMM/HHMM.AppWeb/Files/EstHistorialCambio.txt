@@ -1,0 +1,6 @@
+﻿Accion
+Campo
+ValorInicial
+ValorFinal
+NombreCompleto
+FechaHoraCreacion

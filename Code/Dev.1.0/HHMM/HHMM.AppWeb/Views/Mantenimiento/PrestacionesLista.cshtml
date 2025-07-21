@@ -1,0 +1,34 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Modificar Prestaciones";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow-y: auto">
+	<div>
+		<div class="frm-cuerpo" style="padding: 20px 0 10px">
+			<div class="form-grupo fila">
+				<div class="tam-5">
+					<span class="boton" id="btnGrabar">Grabar</span>
+				</div>				
+				<div class="tam-5" style="float:right">
+					<span class="boton" id="btnCargar"><i class="Icons fa-file-excel-o"></i>&nbsp;Importar</span>
+				</div>
+				<a style="float:right;color:blue;font-size:12px" href="~/Files/Formato%20de%20Prestaciones.xlsx"><i class="Icons fa-file-excel-o"></i>&nbsp;Descargar formato de carga</a>
+			</div>
+			<div id="divDetalle" class="tabla"></div>
+			<div id="divPrincipal" class="tabla"></div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfPrestaTC" value="@ViewBag.TC" />
+	<input type="hidden" id="hdfSeguridad" value="@ViewBag.seguridad" />
+	<script src="~/Scripts/PrestacionesLista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+UsuarioId
+Nombre
+CodigoUsuario
+CorreoElectronico

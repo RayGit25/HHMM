@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cuerpo">
+		<div id="divocultar"><span style="color: #8B91A0">Especialidad: <span id="spnEspecialidad"></span></span></div>
+		<br />
+		<br />
+		<ul id="ulTabs" class="tabs">
+			<li class="tab-link current" data-tab="tab-1" onclick="mostrarTabs(this,'ulTabs');" id="ctab1">Producción</li>
+			<li class="tab-link" data-tab="tab-2" onclick="mostrarTabs(this,'ulTabs');" id="ctab2">Horario</li>
+		</ul>
+		<div id="tab-1" class="tab-content current">
+			<div id="divPrincipal" class="tabla" style="width: 3000px"></div>
+		</div>
+		<div id="tab-2" class="tab-content">
+			<div id="divDetalle" class="tabla" style="width: 1000px;margin: 0 auto;"></div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfDatos" value="@ViewBag.Datos"/>
+	<script src="~/Scripts/DetalleErroresLista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

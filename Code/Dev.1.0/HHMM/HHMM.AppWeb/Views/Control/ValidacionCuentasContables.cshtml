@@ -1,0 +1,230 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Validación de Registro de Cuentas Contables de Provisión y Pago";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<style type="text/css">
+		.contenedor-filtros {
+			padding-top: 20px;
+			width: 700px;
+			margin: auto;
+			overflow: auto;
+		}
+
+		.w-100 {
+			width: 100%;
+		}
+
+		.label-contenedor {
+			position: relative;
+		}
+
+			.label-contenedor input[type="radio"] {
+				position: absolute;
+			}
+
+			.label-contenedor span {
+				padding-left: 22px;
+			}
+
+		.ml-10 {
+			margin-left: 10px;
+		}
+
+		.mt-20 {
+			margin-top: 20px;
+		}
+
+		.btn {
+			padding: 6px 12px;
+			font-size: 12px;
+			font-weight: normal;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		}
+
+		.hand {
+			cursor: pointer;
+		}
+
+		.tab-disabled {
+			background: rgb(235, 235, 228) !important;
+			border: 1px solid rgb(235, 235, 228) !important;
+			color: white !important;
+		}
+
+		.contenedor-tabs-disabled {
+			border-bottom: 1px solid rgb(235, 235, 228) !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<!-- Inicio de Filtros -->
+		<div class="contenedor-filtros form-grupo">
+			<div class="w-100" style="overflow:auto;">
+				<div style="width:590px;float:left;">
+					<div class="form-grupo">
+						<label class="control-label tam-6">
+							<span>Validar respecto a:</span>
+						</label>
+						<div class="tam-21">
+							<label class="tam-8 label-contenedor hand">
+								<input id="rdnMaestroSistema" type="radio" class="rdnValidar hand" name="rdnValidar" value="1" checked />
+								<span>Maestro del Sistema</span>
+							</label>
+							<label class="tam-10 label-contenedor hand">
+								<input id="rdnProvisionActual" type="radio" class="rdnValidar hand" name="rdnValidar" value="2" />
+								<span>Proceso de Provisión</span>
+							</label>
+						</div>
+					</div>
+					<div class="form-grupo">
+						<label class="control-label tam-6">
+							<span>Sucursal</span>
+						</label>
+						<div class="tam-21">
+							<select id="cbo_VCC_Sucursal" class="ml-10 tam-19"><option value="">Todos</option></select>
+						</div>
+					</div>
+					<div class="form-grupo">
+						<label class="control-label tam-6">
+							<span>Tipo de Admisión</span>
+						</label>
+						<div class="tam-21">
+							<select id="cbo_VCC_TipoAdmision" class="ml-10 tam-19"><option value="">Todos</option></select>
+						</div>
+					</div>
+					<div class="form-grupo">
+						<label class="control-label tam-6">
+							<span>Tipo de Cuenta</span>
+						</label>
+						<div class="tam-21">
+							<label class="tam-8 label-contenedor hand">
+								<input id="rdnCuentaProvision" type="radio" class="rdnTipoCuenta hand" name="rdnTipoCuenta" value="1" checked />
+								<span>Cuenta de Provisión</span>
+							</label>
+							<label class="tam-10 label-contenedor hand">
+								<input id="rdnCuentaPago" type="radio" class="rdnTipoCuenta hand" name="rdnTipoCuenta" value="2" />
+								<span>Cuenta de Pago</span>
+							</label>
+						</div>
+					</div>
+					<div class="form-grupo">
+						<label class="control-label tam-6">
+							<span>Mes</span>
+						</label>
+						<div class="tam-10">
+							<select id="cbo_VCC_Mes" class="ml-10 tam-8" style="background-color:rgb(235, 235, 228);" disabled>
+								<option value="0">Seleccione</option>
+								<option value="1">Enero</option>
+								<option value="2">Febrero</option>
+								<option value="3">Marzo</option>
+								<option value="4">Abril</option>
+								<option value="5">Mayo</option>
+								<option value="6">Junio</option>
+								<option value="7">Julio</option>
+								<option value="8">Agosto</option>
+								<option value="9">Setiembre</option>
+								<option value="10">Octubre</option>
+								<option value="11">Noviembre</option>
+								<option value="12">Diciembre</option>
+							</select>
+						</div>
+						<label class="tam-2">
+							<span>Año</span>
+						</label>
+						<div class="tam-5">
+							<input id="txt_VCC_Anio" type="text" class="tam-4 form-texto" style="width:93%;" disabled/>
+						</div>
+					</div>
+				</div>
+				<div style="width:110px;float:left;">
+					<div class="form-grupo">
+						<div class="tam-4">
+							<button id="btn_VCC_Buscar" class="btn w-100" style="background: rgb(0, 168, 80);color: white;font-size: 14px;">Validar</button>
+						</div>
+					</div>
+					<div class="form-grupo">
+						<div class="tam-4">
+							<button id="btn_VCC_Limpiar" class="btn w-100" style="background: lightcoral;color: white;font-size: 14px;">Limpiar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Fin de Filtros -->
+		<!-- Inicio de Tabs -->
+		<div id="div_VCC_ContenedorTabs" class="form-grupo mt-20" style="position:relative;">
+			<div style='display:inline-block;cursor:pointer;position:absolute;top:8px;right:25px;'>
+				<a class='Icons fa-file-excel-o' id='btnExportar' style="font-size:22px;"></a>
+			</div>
+			<div class="w-100" style="overflow:auto;">
+				<ul id="ul_VCC_Tabs" class="tabs contenedor-tabs-disabled">
+					<li id="li_VCC_1" class="tab-link current tab-disabled" data-tab="tabx-1" onclick="fnMostrarTabs(this,'ul_VCC_Tabs');">Producción</li>
+					<li id="li_VCC_2" class="tab-link tab-disabled" data-tab="tabx-2" onclick="fnMostrarTabs(this,'ul_VCC_Tabs');">Monto Fijo</li>
+					<li id="li_VCC_3" class="tab-link tab-disabled" data-tab="tabx-3" onclick="fnMostrarTabs(this,'ul_VCC_Tabs');">Horario</li>
+					<li id="li_VCC_4" class="tab-link tab-disabled" data-tab="tabx-4" onclick="fnMostrarTabs(this,'ul_VCC_Tabs');">Turno</li>
+				</ul>
+				<div id="tabx-1" class="tab-content current">
+					<div class="form-grupo fila" style="overflow:auto;">
+						<div id="div_VCC_Produccion" class="tabla" style="width:3200px;"></div>
+					</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="div_VCC_PaginacionProduccion"></div>
+					</div>
+				</div>
+				<div id="tabx-2" class="tab-content">
+					<div class="form-grupo fila" style="overflow:auto;">
+						<div id="div_VCC_MontoFijo" class="tabla" style="width:1600px;"></div>
+					</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="div_VCC_PaginacionMontoFijo"></div>
+					</div>
+				</div>
+				<div id="tabx-3" class="tab-content">
+					<div class="form-grupo fila" style="overflow:auto;">
+						<div id="div_VCC_Horario" class="tabla" style="width:1600px;"></div>
+					</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="div_VCC_PaginacionHorario"></div>
+					</div>
+				</div>
+				<div id="tabx-4" class="tab-content">
+					<div class="form-grupo fila" style="overflow:auto;">
+						<div id="div_VCC_Turno" class="tabla" style="width:1600px;"></div>
+					</div>
+					<div class="form-grupo fila" style="text-align: center">
+						<div id="div_VCC_PaginacionTurno"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Fin de Tabs -->
+	</div>
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+	<script src="~/Scripts/ValidacionCuentasContables.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

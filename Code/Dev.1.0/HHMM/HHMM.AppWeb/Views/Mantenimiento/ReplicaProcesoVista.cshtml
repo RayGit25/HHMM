@@ -1,0 +1,282 @@
+﻿@{Layout = null;}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Replica Proceso</title>
+	<link href="~/Styles/HHMM.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="divCabecera" class="frm-cabecera"></div>
+    <br />
+    <div class="frm-cuerpo">
+        <br />
+        <div id="divBusqueda" style="text-align: center" class="form-grupo fila">
+            <div class="form-grupo fila">
+                <div class="tam-2" style="text-align:left">
+                    <span>Año</span>
+                </div>
+                <div class="tam-4">
+                    <input id="txtAnio" type="text" class="form-texto" style="width:100%;" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57;">
+                </div>
+                <div class="tam-2" style="text-align:left">
+                    <span>Mes</span>
+                </div>
+                <div class="tam-5">
+                    <select id="cboMes" class="form-texto" style="width:100%;"></select>
+                </div>
+
+                <div class="tam-3" style="text-align:left">
+                    <span>Estado</span>
+                </div>
+                <div class="tam-6">
+                    <select id="cboEstado" style="width:105%">
+                        <option value="A">ACTIVO</option>
+                        <option value="I">INACTIVO</option>
+                    </select>
+                </div>
+                <div class="tam-4" style="text-align:left">
+                    <span class="boton" id="btnBuscar">Buscar</span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="divPrincipal" class="tabla" style="display:none"></div>
+    </div>
+    <div id="PopupPeriodo" class="PopUp">
+        <div style="width: 650px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 650px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupPeriodo');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupPeriodo"></h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Descripción:</span>
+                            </div>
+                            <div class="tam-15">
+                                <input type="text" name="limpiar" id="txtDescripcion" class="form-texto validar" data-secuencia="0" data-validacion="validarTexto|descripción" style="width: 100%" maxlength="80">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Periodo:</span>
+                            </div>
+                            <div class="tam-10">
+                                <select id="cboPeriodo" name="limpiar" style="width: 105%" class="form-texto validar" data-secuencia="1" data-validacion="validarCombo|periodo"></select>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-8">
+                                <span>Estado</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtEstado" class="form-texto lectura" value="ACTIVO" style="width: 100%" maxlength="5" readonly>
+                            </div>
+                            <span class="historial puntero" style="display: none; text-decoration: underline; color: #00a850" id="spnHistorial" onclick="verHistorial('Turno')">Historial de Cambios</span>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabar">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupPeriodo')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupInterface" class="PopUp">
+        <div style="width: 830px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 830px; position: fixed; display: block"><span class="cerrarPopUp desabiPop" onclick="abrirPopup('PopupInterface');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Interface de Información</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-4">
+                                <span>Periodo:</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtIPeriodo" name="limpiarPop" class="form-texto lectura desabiPop" readonly style="width: 70%" maxlength="80" />
+                            </div>
+                            <div class="tam-5">
+                                <span>Médico:</span>
+                            </div>
+                            <div class="tam-12">
+                                <input type="text" id="txtIMedico" name="limpiarPop" class="form-texto desabiPop" style="width: 100%" />
+                            </div>
+                            <div class="tam-1">
+                                <span class="Icons fa-search desabiPop" id="spnDoctor"></span>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-4">
+                                <span>Sucursal:</span>
+                            </div>
+                            <div class="tam-10">
+                                <select id="cboISucursal" name="limpiarPop" style="width: 105%" class="desabiPop"></select>
+                            </div>
+                            <div class="tam-5">
+                                <span>Especialidad:</span>
+                            </div>
+                            <div class="tam-12">
+                                <select id="cboIEspecialidad" name="limpiarPop" style="width: 105%" class="desabiPop"></select>
+                            </div>
+                            <div class="tam-1">
+                            </div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-4">
+                                <span>Código OA:</span>
+                            </div>
+                            <div class="tam-10">
+                                <input type="text" id="txtIOA" name="limpiarPop" class="form-texto desabiPop" style="width: 100%" />
+                            </div>
+                            <div class="tam-5">
+                            </div>
+
+                        </div>
+                        <div class="form-grupo fila" style="border-bottom:1px solid #00a850;display:none">
+                            <div class="tam-10">
+                                <span>INTERFASE DE MAESTRO:</span>
+                            </div>
+                        </div>
+                        <div class="form-grupo fila" style="border-bottom:1px solid #00a850;padding-bottom: 10px;display:none">
+                            <div class="tam-4">
+                                <span>Entidad:</span>
+                            </div>
+                            <div class="tam-10">
+                                <select id="cboEntidad" name="limpiarPop" class="form-texto" style="width: 100%"></select>
+                            </div>
+                            <div class="tam-5">
+                            </div>
+                            <div class="tam-12" style="text-align: right">
+                                <span class="boton desabiPop" id="btnIProcesar">Procesar</span>&nbsp;
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila" style="text-align:center">
+                            <div class="tam-6" style="text-align: center">
+                                <span class="boton desabiPop" id="btnIBuscar">Procesar</span>&nbsp;
+                            </div>
+                            <div class="tam-6" style="text-align: center">
+                                <span class="boton desabiPop" onclick="abrirPopup('PopupInterface');">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEstado" class="PopUp">
+        <div style="width: 400px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-10">
+                                ¿Esta seguro de cambiar el estado?
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila centrado">
+                            <div class="tam-5">
+                                <span class="boton" id="btngrabarEstado">Grabar</span>
+                            </div>
+                            <div class="tam-5">
+                                <span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupMedico" class="PopUp">
+        <div style="width: 1000px; margin: 3% auto">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrMedico"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupReplicaProcesoMensaje" class="PopUp">
+        <div style="width: 600px">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 600px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupReplicaProcesoMensaje');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">RESUMEN DE EJECUCIÓN</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="tam-15">
+                                <span>Cantidad de Ordenes de atención leidos</span>
+                            </div>
+                            <div class="tam-3">:&nbsp;&nbsp;<span class="spnReplicaResumen"></span></div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-15">
+                                <span>Cantidad de Ordenes de atención insertados</span>
+                            </div>
+                            <div class="tam-3">:&nbsp;&nbsp;<span class="spnReplicaResumen"></span></div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila">
+                            <div class="tam-15">
+                                <span>Cantidad de Expedientes leidos</span>
+                            </div>
+                            <div class="tam-3">:&nbsp;&nbsp;<span class="spnReplicaResumen"></span></div>
+                        </div>
+                        <div class="form-grupo fila">
+                            <div class="tam-15">
+                                <span>Cantidad de Expedientes insertados</span>
+                            </div>
+                            <div class="tam-3">:&nbsp;&nbsp;<span class="spnReplicaResumen"></span></div>
+                        </div>
+                        <br />
+                        <div class="form-grupo fila">
+                            <div class="tam-15">
+                                <span>Ejecución de validación exitosa</span>
+                            </div>
+                            <div class="tam-3">:&nbsp;&nbsp;<span class="spnReplicaResumen"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+    <input type="hidden" id="hdfOpc" value="-1" />
+    <input type="hidden" id="hdfReplicaProcesoId" value="-1" />
+    <input type="hidden" id="hdfMedico" value="0" />
+    <input type="hidden" id="hdfReplicaProcesoActivador" value="@ViewBag.ReplicaProcesoActivador" />
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <script src="~/Scripts/ReplicaProcesoListar.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+Descripcion
+FechaInicio
+FechaFin
+Valor1
+Periodo
+AlcancePrestacion
+TiempoPagoId
+TurnoId
+HoraInicio
+HoraFin
+ConceptoMontoFijoId
+TipoRegistro
+AnioProduccionMF
+MesProduccionMF
+EstadoRegistro

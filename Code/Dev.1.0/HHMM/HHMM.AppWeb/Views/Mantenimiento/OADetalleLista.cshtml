@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Detalle OA";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow-y:hidden">
+    <div>
+        <div class="frm-cuerpo" style="padding:10px 0;overflow-x:auto">
+            <div id="divOA" class="tabla"></div>
+        </div>
+    </div>
+	<input type="hidden" id="hdfDatos" value="@ViewBag.Datos" />
+    <script src="~/Scripts/ConsultaOALista.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

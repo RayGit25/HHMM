@@ -1,0 +1,496 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Reporte de Cuenta Corriente Médico Contable";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    @*<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />*@
+    <link href="~/Styles/ReporteCuentaCorrienteMedico.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+    <div class="frm-cabecera">Reporte Cuenta Corriente Médico (Contable)</div>
+    <div class="frm-cuerpo">
+        <div id="reporteSelecion" style="border-bottom: none; border-top: none; margin-top: 25px; padding-bottom: 15px; padding-top: 15px; " class="form-grupo fila">
+            <div class="row form-group">
+
+                <div class="col-19">
+                    <div class="row form-group">
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="cboPeriodo,txtPeriodo" /> Periodo al
+                            </label>
+
+                        </div>
+                        <div class="col-3">
+                            <select id="cboPeriodo" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" id="txtPeriodo" disabled class="form_control js-frmFiltro validar" data-secuencia="1" data-validacion="validarTexto|Anio" maxlength="4"   onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+                        </div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="cboPeriodoInicio,txtPeriodoInicio,cboPeriodoFin,txtPeriodoFin" /> Rango periodos
+                            </label>
+
+                        </div>
+                        <div class="col-3">
+                            <select id="cboPeriodoInicio" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" disabled id="txtPeriodoInicio" class="form_control js-frmFiltro validar" data-secuencia="2" data-validacion="validarTexto|Anio" maxlength="4"   onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+                        </div>
+                        <div class="col-3">
+                            <select id="cboPeriodoFin" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" disabled id="txtPeriodoFin" class="form_control js-frmFiltro validar" data-secuencia="3" data-validacion="validarTexto|Anio" maxlength="4"   onkeypress="return event.charCode >= 48 && event.charCode <= 57;" />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="ddlSucursal" /> Sucursal
+                            </label>
+         
+                        </div>
+                        <div class="col-5">
+                            <select id="ddlSucursal" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="txtEmpresa" /> Médico/Empresa
+                            </label>
+                       
+                        </div>
+                        <div class="col-10" style="position:relative">
+                            <input id="txtEmpresa" type="text" class="form-texto validar lectura form_control inp-search js-frmFiltro" readonly />
+                            <span class="Icons fa-search puntero" id="spnEmpresa" style="position:absolute;top:0;right:8px;width:25px;line-height: 2;background: #00a850;color: white;text-align:center;pointer-events:none"></span>
+                            <span class="Icons fa-trash-o puntero" id="spnEmpresaBorrar" style="position:absolute;top:0;right:33px;width:25px;line-height: 2;color: black;text-align:center"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="cboTipoAdmision" /> Tipo Admisión
+                            </label>
+                 
+                        </div>
+                        <div class="col-5">
+                            <select id="cboTipoAdmision" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="cboTipoRegistro" /> Tipo Registro
+                            </label>
+                       
+                        </div>
+                        <div class="col-3">
+                            <select id="cboTipoRegistro" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+                        <div class="col-3">
+                            <label>
+                                <input type="checkbox" class="js-check" data-t="cboEstadoPlanilla" /> Estado Planilla
+                            </label>
+               
+                        </div>
+                        <div class="col-4">
+                            <select id="cboEstadoPlanilla" disabled class="form_control js-frmFiltro"></select>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-2">
+                    <div class="col-24" style="margin-top:16px">
+                        <span class="boton" id="btnBuscar" style="width:100%">Buscar</span>
+                    </div>
+                    <div class="col-24" style="margin-top:16px">
+                        <span class="boton" id="btnLimpiar" style="width:100%">Limpiar</span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <span class="Icons fa-gears puntero" id="spnConfigurar" style="position:absolute;top:0;right:33px;width:25px;line-height: 2;color: black;text-align:center;font-size:30px"></span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <ul id="ulTabsD" class="tabs">
+            <li class="tab-link current" id="DTab1" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsD');">Sucursal</li>
+            <li class="tab-link " id="DTab2" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsD');">Empresa</li>
+            <li class="tab-link " id="DTab3" data-tab="tabx-3" onclick="mostrarTabs(this,'ulTabsD');">Tipo Admisión</li>
+            <li class="tab-link " id="DTab4" data-tab="tabx-4" onclick="mostrarTabs(this,'ulTabsD');">Tipo Registro</li>
+            <li class="tab-link " id="DTab5" data-tab="tabx-5" onclick="mostrarTabs(this,'ulTabsD');">Estado Planilla</li>
+        </ul>
+        <div id="tabx-1" class="tab-content current">
+            <div class="form-grupo fila">
+                <div id="tablaTab1" ></div>
+            </div>
+        </div>
+        <div id="tabx-2" class="tab-content">
+            <div class="form-grupo fila">
+                <div id="tablaTab2"></div>
+            </div>
+        </div>
+        <div id="tabx-3" class="tab-content">
+
+            <div class="form-grupo fila">
+                <div id="tablaTab3"></div>
+            </div>
+        </div>
+        <div id="tabx-4" class="tab-content">
+            <div class="form-grupo fila">
+                <div id="tablaTab4"></div>
+            </div>
+        </div>
+        <div id="tabx-5" class="tab-content">
+            <div class="form-grupo fila">
+                <div id="tablaTab5"></div>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="PopupMedico" class="PopUp">
+        <div style="width: 1000px; margin: 3% auto">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedico');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupMedico">SELECCIONAR MEDICO</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrMedico"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupEmpresa" class="PopUp">
+        <div style="width: 800px; margin: 3% auto">
+            <div class="">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span style="width:45px" class="cerrarPopUp" onclick="abrirPopup('PopupEmpresa');recargarIframe('ifrEmpresa');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" id="TituloPopupEmpresa">SELECCIONAR EMPRESA</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrEmpresa"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopupConfiguracion" class="PopUp">
+        <div style="width: 900px">
+            <div class="">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 900px; position: fixed; display: block"><span class="cerrarPopUp" style="width:45px" onclick="abrirPopup('PopupConfiguracion');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Configuración de orden y agrupación</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+                    <div class="frm-cuerpo-det">
+                        <div class="form-grupo fila">
+                            <div class="col-24">
+
+                                <div class="row form-group">
+                                    <div class="col-4"></div>
+                                    <div class="col-8" style="margin-top:16px">
+                                        <span class="boton" id="btnConfigurarColumnas" style="width:100%;display:block">Configuración de columnas</span>
+                                    </div>
+                                    <div class="col-8" style="margin-top:16px">
+                                        <span class="boton" id="btnAgruparEstados" style="width:100%;background-color:gray;display:block">Agrupación de estados</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divConfiguraCampos">
+                            <ul id="ulTabsConfiguracion" class="tabs">
+                                <li class="tab-link current" id="DTabC1" data-tab="tabc-1" onclick="mostrarTabs(this,'ulTabsConfiguracion');">Sucursal</li>
+                                <li class="tab-link " id="DTabC2" data-tab="tabc-2" onclick="mostrarTabs(this,'ulTabsConfiguracion');">Médico/Empresa</li>
+                                <li class="tab-link " id="DTabC3" data-tab="tabc-3" onclick="mostrarTabs(this,'ulTabsConfiguracion');">Tipo Admisión</li>
+                                <li class="tab-link " id="DTabC4" data-tab="tabc-4" onclick="mostrarTabs(this,'ulTabsConfiguracion');">Tipo Registro</li>
+                                <li class="tab-link " id="DTabC5" data-tab="tabc-5" onclick="mostrarTabs(this,'ulTabsConfiguracion');">Estado Planilla</li>
+                            </ul>
+                            <div id="tabc-1" class="tab-content current">
+                                <div class="row form-group">
+                                    <div class="col-24">
+                                        Personalice el orden de las columnas y las agrupaciones que desea por cada pestaña.
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <table class="tabla tabla-general">
+                                            <tbody id="tbTap1"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-12" style="text-align:center;margin-top:80px">
+                                        <div class="row form-group">
+                                            <div class="col-24">
+                                                <div style="width:60%;margin:auto">
+                                                    Leyenda
+                                                    <div style="border:1px solid;padding:5px">
+                                                        <div><input type="checkbox" checked disabled /> Agrupar/Totalizar</div>
+                                                        <div><span class="Icons fa-arrows-v"></span> Cambiar posición</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24"  style="margin-top:16px">
+                                                <span class="boton" data-tabla="tbTap1" id="btnGrabarConfiguracion" style="width:100%">Grabar</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" id="btnCerrarConfiguracion" style="width:100%">Cerrar</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabc-2" class="tab-content current">
+                                <div class="row form-group">
+                                    <div class="col-24">
+                                        Personalice el orden de las columnas y las agrupaciones que desea por cada pestaña.
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <table class="tabla tabla-general">
+                                            <tbody id="tbTap2"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-12" style="text-align:center;margin-top:80px">
+                                        <div class="row form-group">
+                                            <div class="col-24">
+                                                <div style="width:60%;margin:auto">
+                                                    Leyenda
+                                                    <div style="border:1px solid;padding:5px">
+                                                        <div><input type="checkbox" checked disabled /> Agrupar/Totalizar</div>
+                                                        <div><span class="Icons fa-arrows-v"></span> Cambiar posición</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" data-tabla="tbTap2" id="btnGrabarConfiguracion2" style="width:100%">Grabar</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" id="btnCerrarConfiguracion2" style="width:100%">Cerrar</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabc-3" class="tab-content current">
+                                <div class="row form-group">
+                                    <div class="col-24">
+                                        Personalice el orden de las columnas y las agrupaciones que desea por cada pestaña.
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <table class="tabla tabla-general">
+                                            <tbody id="tbTap3"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-12" style="text-align:center;margin-top:80px">
+                                        <div class="row form-group">
+                                            <div class="col-24">
+                                                <div style="width:60%;margin:auto">
+                                                    Leyenda
+                                                    <div style="border:1px solid;padding:5px">
+                                                        <div><input type="checkbox" checked disabled /> Agrupar/Totalizar</div>
+                                                        <div><span class="Icons fa-arrows-v"></span> Cambiar posición</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" data-tabla="tbTap3" id="btnGrabarConfiguracion3" style="width:100%">Grabar</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" id="btnCerrarConfiguracion3" style="width:100%">Cerrar</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabc-4" class="tab-content current">
+                                <div class="row form-group">
+                                    <div class="col-24">
+                                        Personalice el orden de las columnas y las agrupaciones que desea por cada pestaña.
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <table class="tabla tabla-general">
+                                            <tbody id="tbTap4"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-12" style="text-align:center;margin-top:80px">
+                                        <div class="row form-group">
+                                            <div class="col-24">
+                                                <div style="width:60%;margin:auto">
+                                                    Leyenda
+                                                    <div style="border:1px solid;padding:5px">
+                                                        <div><input type="checkbox" checked disabled /> Agrupar/Totalizar</div>
+                                                        <div><span class="Icons fa-arrows-v"></span> Cambiar posición</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" data-tabla="tbTap4" id="btnGrabarConfiguracion4" style="width:100%">Grabar</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" id="btnCerrarConfiguracion4" style="width:100%">Cerrar</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabc-5" class="tab-content current">
+                                <div class="row form-group">
+                                    <div class="col-24">
+                                        Personalice el orden de las columnas y las agrupaciones que desea por cada pestaña.
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <table class="tabla tabla-general">
+                                            <tbody id="tbTap5"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-12" style="text-align:center;margin-top:80px">
+                                        <div class="row form-group">
+                                            <div class="col-24">
+                                                <div style="width:60%;margin:auto">
+                                                    Leyenda
+                                                    <div style="border:1px solid;padding:5px">
+                                                        <div><input type="checkbox" checked disabled /> Agrupar/Totalizar</div>
+                                                        <div><span class="Icons fa-arrows-v"></span> Cambiar posición</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" data-tabla="tbTap5" id="btnGrabarConfiguracion5" style="width:100%">Grabar</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-24" style="margin-top:16px">
+                                                <span class="boton" id="btnCerrarConfiguracion5" style="width:100%">Cerrar</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="divConfiguraEtiqueta" class="hide">
+                            <div class="row form-group">
+                                <div class="col-24" style="text-align:center">
+                                    Personalice los estados de la planilla tal como lo quiere analizar en el reporte de cuenta corriente
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-8"></div>
+                                <div class="col-10">
+                                    <table class="tabla">
+                                        <tr>
+                                            <td style="width:50%">Estados de planilla</td>
+                                            <td>Etiqueta de agrupación</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pendiente</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Difundir</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Confirmar</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enviar obligación</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pendiente de pago</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pagado</td>
+                                            <td><input type="text" class="form_control js-estado" /> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-9"></div>
+                                <div class="col-3">
+                                    <span class="boton" id="btnGrabarAgrupacion" style="width:100%;display:block">Grabar</span>
+                                </div>
+                                <div class="col-3">
+                                    <span class="boton" id="btnCerrarAgrupacion" style="width:100%;display:block">Cerrar</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+    <input type="hidden" id="hdfMedico" value="0" />
+    <input type="hidden" id="hdfEmpresa" value="-1" />
+    <input type="hidden" id="hdfOpcion" value="-1" />
+    <div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+    <script src="~/Scripts/CuentaCorrienteMedicoContable.js?v=@ViewBag.versionJS"></script>
+    @*<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>*@
+</body>
+</html>

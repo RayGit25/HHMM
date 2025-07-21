@@ -1,0 +1,12 @@
+﻿PeriodoId
+SucursalId
+Periodo
+Descripcion
+FechaInicio
+FechaFin
+FechaCierre
+EstadoRegistro
+Anio
+Mes
+EstadoProvision
+EstadoProvisionFec

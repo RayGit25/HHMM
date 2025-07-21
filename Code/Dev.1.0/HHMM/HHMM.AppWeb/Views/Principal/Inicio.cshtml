@@ -1,0 +1,129 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Honorarios Médicos</title>
+    <link rel="shortcut icon" type='image/x-icon' href="~/Imagenes/favicon_sanna.png" />
+    <link href="~/Styles/Principal.css?v=@ViewBag.versionJS" rel="stylesheet" />
+    <link href="~/Styles/Loading.css" rel="stylesheet" />
+    <style>
+        .loading {
+            width: 100%;
+            height: 100%;
+            background-color: whitesmoke;
+            opacity: 0.8;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            z-index: 10000;
+            margin: 0;
+            padding: 0;
+            transition: opacity 0.3s ease-in-out;
+            -webkit-transition: opacity 0.3s ease-in-out;
+        }
+
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="_loading" class="loading hide">
+        <div id="_circles" class="circles">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+        <div id="Espera_Texto" class="loading-text">Cierre en Proceso, espere un momento...</div>
+    </div>
+    <header class="pcl-cabecera">
+        <span class="logo">
+            <span class="logo-lg">
+                <span onclick="location.reload()" style="cursor: pointer">
+                    <img src="~/Imagenes/logo.png" style="width: 60%; margin-top: 2px;" />
+                </span>
+            </span>
+        </span>
+        <nav class="barra-nav">
+            <span id="btnToggle" class="toggle">
+                <span class="Icons fa-navicon"></span>
+            </span>
+            <span style="font-weight: bold;font-size: 18px;color: white;padding: 12px 17px;height: 100%;display: inline-block;">@ViewBag.TituloAplicativo</span>
+            <div class="nav-usuario">
+                <ul class="usuario">
+                    <li class="usuario-info">
+                        <a id="btnUsuDet" class="usuario-nombre" href="#">
+                            <div>
+                                <span>@ViewBag.UsuarioNombre</span><br />
+                                <span id="spnSucursal" style="line-height: 2;"></span>
+                            </div>
+                        </a>
+                        <ul id="usuDet" class="usuario-detalle desactivo">
+                            <li class="usu-det-nombre">
+
+                                <div style="text-align: center">
+                                    @ViewBag.UsuarioPerfil
+                                </div>
+                            </li>
+                            <li class="usu-det-opc">
+                                <div class="izq" style="display: none">
+                                    <a id="btnCamCon" href="../Seguridad/CambioContrasena" target="ifrPrincipal" class="btn-usu Icons fa-cog" style="cursor: pointer" title="Editar Usuario"></a>
+                                </div>
+                                <div class="izq" style="width: 50%; height: 100%;">
+                                    <select id="ddlPrincipalSucursal" style="height:100%;width:100%;" data-perfil="@ViewBag.vistaPerfil"></select>
+                                </div>
+                                <div class="der">
+                                    <a id="btnSalir" href="../../" class="btn-usu Icons fa-sign-out" title="Salir"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="pcl-menu activo">
+        <div id="divMenu">
+        </div>
+    </aside>
+    <iframe id="ifrPrincipal" name="ifrPrincipal" src="" class="pcl-cuerpo" frameborder="0"></iframe>
+
+    <div id="alerta">
+        <div class="alerta move-right" style="z-index: 999">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+
+    <div id="PopupValidarParametro" class="PopUp" style="z-index:822">
+        <div style="width: 900px;margin: 10% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 900px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopupParametro('PopupValidarParametro');"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px">Interface de información</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="mensajeValidacionParametro" style="padding:20px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdfCd" />
+    </div>
+
+
+    <script src="~/Scripts/Principal.js?v=@ViewBag.versionJS"></script>
+    <input type="hidden" id="isuc" value="@ViewBag.idSucursal" />
+    <input type="hidden" id="iss" value="@ViewBag.idSesion" />
+    <input type="hidden" id="hanio" value="@ViewBag.Anio" />
+    <input type="hidden" id="hmes" value="@ViewBag.Mes" />
+    <input type="hidden" id="hmsg" value="@ViewBag.Mensaje" />
+    <input type="hidden" id="hvs" value="@ViewBag.versionAPI" />
+    <input type="hidden" id="lstSuc" value="@ViewBag.listaSucursal" />
+    <input type="hidden" id="isAdmin" value="@ViewBag.esAdministrador" />
+    <input type="hidden" id="Ref" value="@Url.Content("~")" style="display:none" />
+</body>
+</html>

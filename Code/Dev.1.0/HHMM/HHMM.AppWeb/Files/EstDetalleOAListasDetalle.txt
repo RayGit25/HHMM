@@ -1,0 +1,12 @@
+Fecha
+HoraInicio
+HoraFin
+HorasProgramadas
+Dia
+IndicadorFeriado
+ValorContratado
+Importe
+Bonificacion
+Total
+Especialidad
+TipoAtencion

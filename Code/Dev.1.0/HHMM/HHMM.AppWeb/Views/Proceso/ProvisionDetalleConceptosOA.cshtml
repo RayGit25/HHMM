@@ -1,0 +1,92 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Detalle de Conceptos OA";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body style="overflow:hidden">
+	<div>
+		<div class="frm-cuerpo">
+			<div class="form-grupo fila centrado">
+				<div class="form-grupo fila">
+					<div class="tam-5" style="text-align: left">
+						<span>Periodo</span>
+					</div>
+					<div class="tam-5">
+						<input type="text" class="lectura" style="width: 100%" id="txtPeriodoOAInicio" readonly />
+
+					</div>
+					<div class="tam-5" style="text-align: left">
+						<span>Tipo Admisión</span>
+					</div>
+					<div class="tam-5">
+						<input type="text" class="lectura" style="width: 100%" id="txtPeriodoOAFin" readonly />
+					</div>
+					<div class="tam-3" style="text-align: left">
+						<span>Médico</span>
+					</div>
+					<div class="tam-14">
+						<input type="text" class="lectura" style="width: 100%" id="txtMedicoOA" readonly />
+					</div>
+					<div class="tam-4" style="text-align: left; display: none">
+						<span>Monto</span>
+					</div>
+					<div class="tam-5" style="text-align: left; display: none">
+						<input type="text" class="lectura" style="width: 100%" id="txtMontoOA" readonly />
+					</div>
+					<div class="tam-5" style="text-align: left; display: none">
+						<span>Estado</span>
+					</div>
+					<div class="tam-6" style="text-align: left; display: none">
+						<input type="text" class="lectura" style="width: 100%" id="txtEstadoOA" readonly />
+					</div>
+					<div class="tam-7" style="float: right; padding: 3px 0">
+						<a class="boton" id="btnExcelDetalleError" style="margin: 2px 0">Exportar a Excel</a>
+					</div>
+				</div>
+				<div class="form-grupo fila">
+
+					<div class="tam-4" style="text-align: left; display: none">
+						<span>F. Creación</span>
+					</div>
+					<div class="tam-5" style="text-align: left; display: none">
+						<input type="text" class="lectura" style="width: 100%" id="txtFCReacionOA" readonly />
+					</div>
+					<div class="tam-5" style="text-align: left; display: none">
+						<span>F. Autorizado</span>
+					</div>
+					<div class="tam-6" style="text-align: left; display: none">
+						<input type="text" class="lectura" style="width: 100%" id="txtFAutorizadoOA" readonly />
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="fila">
+			<ul id="ulTabs" class="tabs">
+				<li class="tab-link current" data-tab="tab-1" onclick="mostrarTabs(this,'ulTabs');" id="ctab1">Producción</li>
+				<li class="tab-link" data-tab="tab-2" onclick="mostrarTabs(this,'ulTabs');" id="ctab2">Horario</li>
+				<li class="tab-link" data-tab="tab-3" onclick="mostrarTabs(this,'ulTabs');" id="ctab3">Monto Fijo</li>
+			</ul>
+			<div id="tab-1" class="tab-content current" style="overflow:auto">
+				<div id="divPrincipal" class="tabla" style="width: 4500px"></div>
+			</div>
+			<div id="tab-2" class="tab-content" style="overflow:auto">
+				<div id="divDetalle" class="tabla" style="width: 1250px; margin: 0 auto;"></div>
+			</div>
+			<div id="tab-3" class="tab-content" style="overflow:auto">
+				<div id="divMontoFijo" class="tabla" style="width: 1250px; margin: 0 auto;"></div>
+			</div>
+				</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfDatos" value="@ViewBag.Datos" />
+	<script src="~/Scripts/ProvisionDetalleConceptoOA.js?v=@ViewBag.versionJS"></script>
+</body>
+</html>

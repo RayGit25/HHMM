@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OlvidoContrasena</title>
+    <link href="~/Styles/Login.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body class="logueo">
+	<div class="contenido-logueo">
+		<div class="panel-cabecera">¿Olvidó su Contraseña?</div>
+		<div class="panel-cuerpo">
+			<div>
+				<span id="spnMensaje" class="Mensaje"></span>
+			</div>
+			<div class="form-grupo azul">
+				<span>Ingresar su correo electrónico para recibir un mensaje con las instrucciones para generar una nueva clave.</span>
+			</div>
+			<div class="form-grupo">
+				<input id="txtCorreo" type="text" class="form-texto" maxlength="100" placeholder="Correo" />
+				<span class="Icons icon-envelope form-control-icono"></span>
+			</div>
+			<div class="form-grupo" style="height: 80px">
+				<img id="imgCaptcha" src="#" alt="" width="200" height="80" />
+				<a id="aActualizarCaptcha" class="boton Icons icon-refresh btnCaptcha"></a>
+			</div>
+			<div class="form-grupo">
+				<input id="txtCodigo" type="text" style="width: 190px" class="form-texto" maxlength="5" placeholder="Codigo Captcha" />
+			</div>
+			<div class="form-grupo centrado" style="text-align: center;">
+				<input id="btnRestablecerClave" type="button" value="Restablecer" class="boton btn-centrado" />
+				<input id="btnCerrar" type="button" value="Cerrar" class="boton btn-centrado" />
+			</div>
+		</div>
+	</div>
+    <script src="~/Scripts/md5.js?v=@ViewBag.versionJS" async="async"></script>
+    <script src="~/Scripts/OlvidoContrasena.js?v=@ViewBag.versionJS" async="async"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Configuración de Horarios";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" http-equiv="Content-Type" charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/DatePickerX.css?v=@ViewBag.versionJS" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title<a style="float:right;color:white;font-size:16px" download id="spnFormatoExc"><i class="Icons fa-file-excel-o"></i>&nbsp;Descargar formato de carga</a></div>
+	<div class="frm-cuerpo">
+		<div style="margin: 3px auto 2px;height:14px">
+			<p style="margin: 0px"><span id="spnMensaje" class="Mensaje"></span></p>
+		</div>
+		<div class="form-grupo fila" style="display: table">
+			<div class="tam-25" style="display: table-cell;max-width:550px;overflow-x:auto">
+                <div class="form-grupo fila derecha">
+					<div class="tam-8">
+						<a href="#" class="boton" id="btnExportarMedicos">Exportar Médicos</a>
+						</div>
+                    <div class="tam-19">Filtro por Horarios&nbsp;
+                        <select id="ddlSinHorario">
+                            <option value="-1">Todos</option>
+                            <option value="1">Sin Horario</option>
+                            <option value="0">Con Horario</option>
+                        </select>&nbsp;&nbsp;
+                <input type="checkbox" id="chkSedes" />Activar Todas las Sedes
+                        </div>
+                    </div>
+				<div class="form-grupo fila">
+					<div id="divMedico" class="tabla" style="width:850px;"></div>
+				</div>
+				<div class="form-grupo fila">
+				</div>
+			</div>
+			<div class="tam-60" style="display: table-cell; vertical-align: top">
+				@*<div class="fila centrado">
+					<span onclick="abrirPopup('PopupCarga')" style="cursor: pointer"><i class="Icons fa-upload"></i></span>
+				</div>*@
+				<div class="form-grupo fila centrado">
+					<div class="tam-8">Periodo&nbsp;
+						<select id="cboPeriodo"></select>
+					</div>
+					<div class="tam-8">Mes&nbsp;
+						<select id="cboMes"></select>
+					</div>
+                </div>
+				<div class="form-grupo fila">
+					<div id="divHorario" class="tabla"></div>
+				</div>
+				<div class="form-grupo fila centrado" id="divPrincipal">
+                   <div class="form-grupo fila" style="margin-bottom: 5px;">
+                        <div style="display:inline-block;margin:0 0 2px 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Tipo Registro</span>
+						</div>
+						<div class="tam-9">
+							<select id="ddlTipoRegistro" class="lectura" style="width: 105%" name="limpiar" readonly disabled>
+								<option value="R">Regular</option>
+								<option value="E">Excepción</option>
+                                <option value="I">Inasistencia</option>
+							</select>
+						</div>
+                            </div>
+                        <div style="display:inline-block;margin:2px 0 0 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Turno</span>
+						</div>
+						<div class="tam-9">
+							<select id="ddlTurno" class="lectura validar" data-secuencia="0" data-validacion="validarCombo|turno" style="width: 105%" name="limpiar" readonly disabled></select>
+						</div>
+                            </div>
+					</div>
+					<div class="form-grupo fila" style="margin-bottom: 5px;">
+                        <div style="display:inline-block;margin:2px 0">
+						<div class="tam-5" style="text-align:left">
+							<span style="padding-left:6px;">Fec. Inicio - Fin</span>
+						</div>
+						<div class="tam-4" style="padding-left: 15px">
+							<input type="text" class="lectura validar" data-secuencia="1" data-validacion="validarFecha|fecha inicio" style="width: 90%; pointer-events: none" id="txtFechaInicio" name="limpiar" readonly />
+						</div>
+							<div class="tam-4" >
+							<input type="text" class="lectura validar" data-secuencia="3" data-validacion="validarFecha|fecha fin" style="width: 90%; pointer-events: none" id="txtFechaFin" name="limpiar" readonly />
+						</div>
+						</div>
+
+                        <div style="display:inline-block;margin:2px 0 0 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Hora Inicio-Fin</span>
+						</div>
+						<div class="tam-4" style="padding-left: 7px">
+							<input type="text" class="lectura validar" data-secuencia="2" data-validacion="validarHora|hora inicio" style="width: 90%" id="txtHoraInicio" placeholder="HH:mm" maxlength="5" name="limpiar" readonly />
+						</div>
+						<div class="tam-4">
+							<input type="text" class="lectura validar" data-secuencia="4" data-validacion="validarHora|hora fin" style="width: 90%" id="txtHoraFin" placeholder="HH:mm" maxlength="5" name="limpiar" readonly />
+						</div>
+                       </div>
+					</div>
+					<div class="form-grupo fila" style="margin-bottom: 5px;">
+                        <div style="display:inline-block;margin:0 0 2px 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Consultorio</span>
+						</div>
+						<div class="tam-9">
+							<select id="ddlConsultorio" class="lectura" style="width: 105%" name="limpiar" readonly disabled></select>
+						</div>
+                            </div>
+                        <div style="display:inline-block;margin:2px 0 0 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Especialidad</span>
+						</div>
+						<div class="tam-9">
+                            <select id="ddlEspecialidad" class="lectura" style="width: 105%" name="limpiar" readonly disabled></select>
+							
+						</div>
+                            </div>
+					</div>
+					<div class="form-grupo fila">
+                        <div style="display:inline-block;margin:0 0 2px 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Tipo Atención</span>
+						</div>
+						<div class="tam-9">
+							<select id="ddlAtencion" class="lectura" style="width: 105%" name="limpiar" readonly disabled></select>
+						</div>
+                            </div>
+                        <div style="display:inline-block;margin:2px 0 0 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Unidad Médica</span>
+						</div>
+						<div class="tam-9">
+							<select id="ddlUnidadMed" class="lectura validar" data-secuencia="5" data-validacion="validarCombo|Unidad Médica" style="width: 105%" name="limpiar" readonly disabled></select>
+						</div>
+						
+					</div>
+                    </div>
+					<div class="form-grupo fila">
+					   <div style="display:inline-block;margin:0 0 2px 0">
+						<div class="tam-5" style="text-align:left">
+							<span>Estado</span>
+						</div>
+						<div class="tam-9">
+							<input type="text" class="lectura" style="width: 100%" id="txtEstado" name="limpiar" value="ACTIVO" readonly />
+						</div>
+					</div>
+					<div style="display:inline-block;margin:2px 0 0 0">
+					  <div class="tam-15" style="padding-left:12px">
+                        <span class="historial puntero" style="display:none;text-decoration:underline;color:#00a850;" id="spnHistorial" onclick="verHistorial('MedicoHorario')">Historial de Cambios</span>
+                      </div>
+					</div>
+					</div>
+                    <div class="form-grupo fila" id="divChecksDia">
+                         <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Lunes</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Martes</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Miércoles</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Jueves</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Viernes</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Sábado</span>
+                                </div>
+                                <div class="tam-4" style="padding:0px 5px;">
+                                    <input type="checkbox" name="rdnDia" style="padding: 2px 0" /><span>Domingo</span>
+                                </div>
+                        </div>
+					<br />
+					<div class="form-grupo fila centrado" id="divBotones" style="display: none">
+						<div class="tam-5">
+							<span class="boton" id="btngrabar">Grabar</span>
+						</div>
+						<div class="tam-5">
+							<span class="boton" id="btncancelar">Cancelar</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupEstado" class="PopUp">
+		<div style="width: 400px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 400px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupEstado');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupEstado">CAMBIAR ESTADO</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<div class="tam-10">
+								¿Esta seguro de cambiar el estado?
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5">
+								<span class="boton" id="btngrabarEstado">Grabar</span>
+							</div>
+							<div class="tam-5">
+								<span class="boton" onclick="abrirPopup('PopupEstado')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="PopupCarga" class="PopUp">
+		<div style="width: 900px; margin: 3% auto">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 900px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupCarga');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px">Carga Masiva</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila centrado">
+							<input id="fupArchivo" type="file" />
+							<img id="gifLoad" class="imgGifLoad" src="~/Imagenes/loader.gif" alt="Cargando"  style="display:none"/>
+						</div>
+						@*<div class="form-grupo fila" style="text-align: right">
+							<div class="tam-5">
+								<span class="boton" id="btnProcesar">Procesar</span>
+							</div>
+						</div>*@
+						<div>
+							<div id="tab-1" class="tab-content current">
+								<ul id="ulTabsX" class="tabs">
+									<li id="tab1"class="tab-link current" data-tab="tabx-1" onclick="mostrarTabs(this,'ulTabsX');">Válidas&nbsp;<span id="numReg1"></span></li>
+									<li id="tab2" class="tab-link" data-tab="tabx-2" onclick="mostrarTabs(this,'ulTabsX');">Erróneas&nbsp;<span id="numReg2"></span></li>
+									<div class="tam-5" style="float: right">
+										<span class="boton" id="btnGrabarCarga" style="display: none">Grabar</span>
+									</div>
+								</ul>
+								<div id="tabx-1" class="tab-content current">
+									<br>
+									<div id="divValidados" class="tabla"></div>
+									<div id='pgValidos' style="text-align: center"></div>
+								</div>
+								<div id="tabx-2" class="tab-content">
+									<br>
+									<div id="divErrados" class="tabla"></div>
+									<div id='pgErrados' style="text-align: center"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfMed" value="-1" />
+	<input type="hidden" id="hdfSucMed" value="-1" />
+	<input type="hidden" id="hdfNomMed" value="" />
+	<input type="hidden" id="hdfOpc" value="-1" />
+	<input type="hidden" id="hdfFiD" value="-1" />
+	
+	<div id="alerta">
+		<div class="alerta move-right">
+			<span id="spnAlerta" style="display: block"></span>
+		</div>
+	</div>
+
+	<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<input type="hidden" id="hdfSeguridad" value="@ViewBag.seguridad" />
+	<input type="hidden" id="hdfSeg" value="@ViewBag.idSeguridad" />
+	<script src="~/Scripts/HorarioMedicoLista.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/DatePickerX.js?v=@ViewBag.versionJS" async></script>
+</body>
+</html>

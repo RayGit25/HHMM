@@ -1,0 +1,192 @@
+﻿@{
+	Layout = null;
+	ViewBag.Title = "Mantenimiento de Médico/Empresa";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/Styles/HHMM.css?v=@ViewBag.versionJS" rel="stylesheet" />
+	<link href="~/Styles/Tags.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="frm-cabecera">@ViewBag.Title</div>
+	<div class="frm-cuerpo">
+		<br />
+		<br />
+		<div class="form-grupo fila" style="overflow: auto">
+			<div id="divPrincipal" class="tabla" style="width: 3100px; overflow: hidden"></div>
+		</div>
+	</div>
+	<div id="PopupMedicoEmpresa" class="PopUp">
+		<div style="width: 800px">
+			<div class="row">
+				<div class="PopupCabecera bg-amarillo center black">
+					<div class="divCerrarPopUp" style="width: 800px; position: fixed; display: block"><span class="cerrarPopUp" onclick="abrirPopup('PopupMedicoEmpresa');"><i class="Icons fa-close"></i></span></div>
+					<h5 style="margin: 10px" id="TituloPopupTurnoBonificacion">MANTENIMIENTO MÉDICO/EMPRESA</h5>
+				</div>
+				<div class="PopupCuerpo bg-white" style="padding: 15px 20px" id="divContenido">
+					<div class="frm-cuerpo-det">
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Código</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 100%" id="txtPCodigo" readonly />
+							</div>
+							<div class="tam-6">
+								<span>Tipo Persona</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 100%" id="txtPTipoPersona" readonly />
+							</div>
+
+							<div class="tam-9" style="display:none">
+								<select id="ddlPSucursal" style="width: 105%" name="limpiar"></select>
+							</div>
+
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Médico</span>
+							</div>
+							<div class="tam-25">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 105.5%" id="txtPMedico" readonly />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+						<div class="tam-6">
+								<span>Empresa</span>
+							</div>
+							<div class="tam-25">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 105.5%" id="txtPEmpresa" readonly />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+
+							<div class="tam-6">
+								<span>Especialidad</span>
+							</div>
+							<div class="tam-25">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 105.5%" id="txtPEspecialidad" readonly />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Num. Documento</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 100%" id="txtPNumDoc" readonly />
+							</div>
+							<div class="tam-6">
+								<span>Documento Fiscal</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 100%" id="txtPDocFiscal" readonly />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Tipo Médico</span>
+							</div>
+							<div class="tam-9">
+								<select id="ddlPTipoMedico" class="validar" style="width: 105%" name="limpiar" data-secuencia="0" data-validacion="validarCombo|Tipo Médico"></select>
+							</div>
+							<div class="tam-6">
+								<span>Tipo Impuesto</span>
+							</div>
+							<div class="tam-9">
+								<select id="ddlPTipoImpuesto" class="validar" style="width: 105%" name="limpiar" data-secuencia="1" data-validacion="validarCombo|Tipo Impuesto"></select>
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Correo Electrónico</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto validar" name="limpiar" style="width: 100%" id="txtPCorreoElectronico" data-secuencia="2" data-validacion="validarEmail|Correo Electrónico" />
+							</div>
+							<div class="tam-6">
+								<span>Correo Alterno</span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto validar" name="limpiar" style="width: 100%" id="txtPCorreoAlterno" data-obligatorio="true" data-secuencia="3" data-validacion="validarEmail|Correo Electrónico" />
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span id="spnPEstado"></span>
+							</div>
+							<div class="tam-9">
+								<input type="text" class="form-texto lectura" name="limpiar" style="width: 100%" id="txtPEstado" readonly />
+							</div>
+							<div class="tam-6">
+								<span>Estado Web</span>
+							</div>
+							<div class="tam-9">
+								<select class="form-texto validar" name="limpiar" style="width: 105%" id="cboPEstadoWeb" data-secuencia="4" data-validacion="validarCombo|Estado Web">
+									<option value="A">ACTIVO</option>
+									<option value="I">INACTIVO</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6">
+								<span>Sucursal</span>
+							</div>
+							<div class="tam-25" style="width:539px">
+								<div id="divSucursal" style="width:100%;box-sizing:border-box">
+
+								</div>
+							</div>
+						</div>
+						<div class="form-grupo fila">
+							<div class="tam-6"></div>
+							<div class="tam-25" style="text-align:right;width:530px">
+								<span class="historial puntero" style="display:block;text-decoration:underline;color:#00a850" id="spnHistorial" onclick="verHistorial('MedicoEmpresa')">Historial de Cambios</span>
+							</div>
+						</div>
+						<br />
+						<div class="form-grupo fila centrado">
+							<div class="tam-5 desControl">
+								<span class="boton" id="btngrabarMedico">Grabar</span>
+							</div>
+							<div class="tam-5">
+								<span class="boton desControlCancelar" onclick="abrirPopup('PopupMedicoEmpresa')">Cancelar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="hdfOpcion" value="-1" />
+	<div id="alerta">
+        <div class="alerta move-right">
+            <span id="spnAlerta" style="display: block"></span>
+        </div>
+    </div>
+	
+		<div id="PopupHistorial" class="PopUp">
+        <div style="width: 1000px;margin: 3% auto;">
+            <div class="row">
+                <div class="PopupCabecera bg-amarillo center black">
+                    <div class="divCerrarPopUp" style="width: 1000px; position: fixed; display: block"><span class="cerrarPopUp" onclick="mostrarPopupH('PopupHistorial',1);"><i class="Icons fa-close"></i></span></div>
+                    <h5 style="margin: 10px" >Historial de Cambio</h5>
+                </div>
+                <div class="PopupCuerpo bg-white" style="padding: 15px 10px">
+                    <div class="frm-cuerpo-det">
+                        <div id="ifrHistorial"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="hdfCd" />
+    </div>
+
+	<div id='tipError' class='tip' style='display: none; position: absolute' data-elemento=""></div>
+	<script src="~/Scripts/MantenimientoMedicoEmpresa.js?v=@ViewBag.versionJS"></script>
+	<script src="~/Scripts/MultiSelect.js" async="async"></script>
+</body>
+</html>

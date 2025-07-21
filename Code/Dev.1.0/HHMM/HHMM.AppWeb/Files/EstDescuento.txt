@@ -1,0 +1,10 @@
+MedicoContratoDetalleId
+TipoDescuentoId
+DescuentoId
+Monto
+IndicadorDocumentoPago
+TipoMonto
+FechaInicio
+FechaFin
+Descripcion
+EstadoRegistro
