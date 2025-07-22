@@ -8,6 +8,7 @@ using HHMM.Librerias.EntidadesNegocio;
 using HHMM.Librerias.ReglasNegocio;
 using General.Librerias.CodigoUsuario;
 using General.Librerias.EntidadesNegocio;
+using System.Web.Hosting;
 using HHMM.AppWeb.Filter;
 using System.Text;
 using Fleck;
@@ -1349,7 +1350,7 @@ namespace HHMM.AppWeb.Controllers
                 int exito = -1;
 
                 exito = obrProvision.RevertirAsientoProvisionCSFR(su, id, obeUsuarioLogin.UsuarioId, null, null);
-                
+
                 if (exito > -1)
                 {
                     rpta = ListarProvisionPorId(id);
@@ -2065,8 +2066,16 @@ namespace HHMM.AppWeb.Controllers
                         miTabla = dst.Tables[i];
                         ucCustomSerializer.CabeceraDeTabla(data, ref miTabla);
                     }
-                    string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = carpeta + nombre;
+                    //string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
+                    //sArchivoXlsx = carpeta + nombre;
+
+                    string nombreArchivoSeguro = Path.GetInvalidFileNameChars()
+    .Aggregate(nombre, (current, c) => current.Replace(c.ToString(), "_"));
+
+                    // 4. Configuración de rutas seguras
+                    string carpeta = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Files");
+                    string rutaCompleta = Path.Combine(carpeta, nombreArchivoSeguro);
+
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
