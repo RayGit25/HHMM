@@ -2085,6 +2085,11 @@ namespace HHMM.AppWeb.Controllers
                     string carpeta = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Files");
                     sArchivoXlsx = Path.Combine(carpeta, nombreArchivoSeguro);
 
+                    if (!sArchivoXlsx.StartsWith(carpeta + Path.DirectorySeparatorChar))
+                    {
+                        return File(new byte[0], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                    }
+
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
