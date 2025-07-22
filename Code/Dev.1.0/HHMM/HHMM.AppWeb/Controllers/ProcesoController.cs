@@ -2027,8 +2027,17 @@ namespace HHMM.AppWeb.Controllers
                             }
                         }
                     }
-                    string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = carpeta + nombre;
+                    //string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
+                    //sArchivoXlsx = carpeta + nombre;
+
+                    string nombreArchivoSeguro = Path.GetInvalidFileNameChars()
+.Aggregate(nombre, (current, c) => current.Replace(c.ToString(), "_"));
+
+                    // 4. Configuración de rutas seguras
+                    string carpeta = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Files");
+                    sArchivoXlsx = Path.Combine(carpeta, nombreArchivoSeguro);
+
+
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
@@ -2074,7 +2083,7 @@ namespace HHMM.AppWeb.Controllers
 
                     // 4. Configuración de rutas seguras
                     string carpeta = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Files");
-                    string rutaCompleta = Path.Combine(carpeta, nombreArchivoSeguro);
+                    sArchivoXlsx = Path.Combine(carpeta, nombreArchivoSeguro);
 
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
