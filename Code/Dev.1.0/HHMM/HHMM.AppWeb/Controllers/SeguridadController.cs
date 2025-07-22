@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
+using Microsoft.Security.Application;
 using General.Librerias.CodigoUsuario;
 using General.Librerias.EntidadesNegocio;
 using HHMM.Librerias.EntidadesNegocio;
@@ -351,8 +352,14 @@ namespace HHMM.AppWeb.Controllers
             DirectoryEntry entry = new DirectoryEntry(root, domainAndUsername, password);
 
             object obj = entry.NativeObject;
-            DirectorySearcher search = new DirectorySearcher(entry);
-            search.Filter = "(SAMAccountName=" + sanitizedUser + ")";
+            //DirectorySearcher search = new DirectorySearcher(entry);
+            //search.Filter = "(SAMAccountName=" + sanitizedUser + ")";
+
+            string safeUserName = Encoder.LdapFilterEncode(userName);
+            DirectorySearcher search = new DirectorySearcher(entry, "username=" + safeUserName);
+
+
+
             search.PropertiesToLoad.Add("cn");
             search.PropertiesToLoad.Add("sAMAccountName");
             search.PropertiesToLoad.Add("givenName");
