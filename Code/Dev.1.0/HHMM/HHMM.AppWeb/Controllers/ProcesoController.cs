@@ -2033,6 +2033,10 @@ namespace HHMM.AppWeb.Controllers
                     string nombreArchivoSeguro = Path.GetInvalidFileNameChars()
 .Aggregate(nombre, (current, c) => current.Replace(c.ToString(), "_"));
 
+                    if (nombreArchivoSeguro.Contains("..") || nombreArchivoSeguro.Contains("/") || nombreArchivoSeguro.Contains("\\"))
+                    {
+                        return File(new byte[0], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                    }
                     // 4. Configuración de rutas seguras
                     string carpeta = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Files");
                     sArchivoXlsx = Path.Combine(carpeta, nombreArchivoSeguro);
